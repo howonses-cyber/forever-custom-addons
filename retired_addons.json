@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "retired": [
+    {
+      "id": "glassy-drag-resize",
+      "title": "Glassy Drag Resize",
+      "version": "1.2.4",
+      "folders": [
+        "GlassyDragResize"
+      ],
+      "archive": "GlassyDragResize_Forever_v1.2.4_GlassyNumericLayoutSync.zip",
+      "sha256": "1983e2fa2e971958986c059190b545c800bcf66d542ca07b0a394bb142f8f619",
+      "policy": "preserve-installed",
+      "reason": "Owner-approved retirement after switching to Chattynator; never automatically delete local files."
+    }
+  ]
+}

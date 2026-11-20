@@ -6,6 +6,7 @@ on:
     paths:
       - 'addons/*.zip'
       - 'scripts/build_catalog.py'
+      - 'retired_addons.json'
       - '.github/workflows/publish-addons.yml'
   workflow_dispatch:
 

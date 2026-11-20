@@ -147,6 +147,61 @@ def slug(folder: str) -> str:
     return text
 
 
+
+def approved_retirements(repo_root: Path, original: dict) -> list[dict]:
+    """Only deliberately registered old IDs may leave the public active list.
+
+    A retired entry is metadata, NOT an uninstall instruction. The owner keeps
+    a recovery ZIP privately in Library /Addon/_SourceImports.
+    """
+    registry_path = repo_root / 'retired_addons.json'
+    earlier = original.get('retired', [])
+    if not registry_path.is_file():
+        if earlier:
+            fail('Retirement records were removed from the repository')
+        return []
+    data = json.loads(registry_path.read_text('utf-8'))
+    if data.get('schema') != 1 or not isinstance(data.get('retired'), list):
+        fail('Invalid retired_addons.json schema')
+    active_before = {p['id']: p for p in original['apps']}
+    retired_before = {p['id']: p for p in earlier}
+    if len(retired_before) != len(earlier):
+        fail('Duplicate historic retirement entries')
+    approved, seen = [], set()
+    for item in data['retired']:
+        rid = item.get('id', '')
+        if not isinstance(rid, str) or not SAFE_NAME.fullmatch(rid) or rid.lower() in seen:
+            fail(f'Invalid or duplicate retirement ID: {rid!r}')
+        seen.add(rid.lower())
+        if item.get('policy') != 'preserve-installed':
+            fail(f'Retirement must preserve every existing installation: {rid}')
+        folders = item.get('folders')
+        if not isinstance(folders, list) or not folders or any(
+            not isinstance(p, str) or not SAFE_NAME.fullmatch(p) or p.lower().startswith('blizzard_') for p in folders
+        ):
+            fail(f'Unsafe retired folder identity: {rid}')
+        if not isinstance(item.get('sha256'), str) or not re.fullmatch('[a-fA-F0-9]{64}', item['sha256']):
+            fail(f'Invalid last published archive SHA-256: {rid}')
+        if not isinstance(item.get('archive'), str) or not SAFE_ARCHIVE.fullmatch(item['archive']):
+            fail(f'Invalid retired ZIP name: {rid}')
+        if not isinstance(item.get('version'), str) or not VERSION.fullmatch(item['version']):
+            fail(f'Invalid retired version: {rid}')
+        if not isinstance(item.get('title'), str) or not item['title'].strip():
+            fail(f'Missing retired addon title: {rid}')
+        previous = active_before.get(rid) or retired_before.get(rid)
+        if previous is None:
+            fail(f'Cannot retire an addon that was never published: {rid}')
+        for field in ('id', 'version', 'folders', 'archive', 'sha256'):
+            if previous.get(field) != item.get(field):
+                fail(f'Retirement fingerprint mismatch ({field}): {rid}')
+        if rid in retired_before and retired_before[rid].get('policy') != 'preserve-installed':
+            fail(f'Prior retirement policy changed: {rid}')
+        approved.append(item)
+    if set(retired_before) - {r['id'] for r in approved}:
+        fail('Existing retired addon records cannot disappear')
+    return sorted(approved, key=lambda r: r['id'])
+
+
 def build(repo_root: Path, repo: str, out: Path, revision: int, tag: str, now: str) -> dict:
     if not SAFE_REPO.fullmatch(repo) or not repo or '..' in repo:
         fail('Expected public GitHub OWNER/REPO')
@@ -162,6 +217,9 @@ def build(repo_root: Path, repo: str, out: Path, revision: int, tag: str, now: s
     if any(a['kind'] != 'custom' for a in original['apps']):
         fail('Only GPT-made custom addons may be published')
     previous = original['apps']
+    retired = approved_retirements(repo_root, original)
+    retired_ids = {r['id'] for r in retired}
+    retired_folders = {f.lower() for r in retired for f in r['folders']}
     files = sorted((repo_root / 'addons').glob('*.zip'))
     if not files:
         fail('No addon ZIP files available')
@@ -169,6 +227,8 @@ def build(repo_root: Path, repo: str, out: Path, revision: int, tag: str, now: s
     ids, folder_set, archive_set = set(), set(), set()
     apps = []
     for item in inspections:
+        if any(f.lower() in retired_folders for f in item['folders']):
+            fail(f'Retired managed folder must not reappear in active addons: {item["archive"]}')
         overlap = [p for p in previous if set(p['folders']) & set(item['folders'])]
         if len(overlap) > 1:
             fail(f"Archive overlaps multiple managed addons: {item['archive']}")
@@ -212,10 +272,12 @@ def build(repo_root: Path, repo: str, out: Path, revision: int, tag: str, now: s
         }
         apps.append(app)
     missing = sorted({p['id'] for p in previous} - {a['id'] for a in apps})
-    if missing:
-        fail('Deletion is not an automatic update. Restore missing ZIPs or perform separately reviewed retirement: ' + ', '.join(missing))
+    unexpected = sorted(set(missing) - retired_ids)
+    if unexpected:
+        fail('Deletion is not an automatic update. Restore missing ZIPs or perform separately reviewed retirement: ' + ', '.join(unexpected))
     manifest = {'schema': 1, 'revision': revision, 'channel': 'stable-custom-online', 'publishedAt': now,
-                'publisher': 'ForeverAddonManager', 'apps': sorted(apps, key=lambda a: a['id']), 'profile': None}
+                'publisher': 'ForeverAddonManager', 'apps': sorted(apps, key=lambda a: a['id']),
+                'retired': retired, 'profile': None}
     if out.exists():
         if any(out.iterdir()):
             fail(f"Refusing to replace a nonempty output folder: {out}")
