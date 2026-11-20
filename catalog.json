@@ -1,35 +1,52 @@
 {
   "schema": 1,
-  "revision": 4,
-  "channel": "stable-offline-custom6-manual-official-v2.4",
-  "publishedAt": "2026-11-20T09:04:51Z",
+  "revision": 100001,
+  "channel": "stable-custom-online",
+  "publishedAt": "2026-11-20T09:45:55Z",
   "publisher": "ForeverAddonManager",
   "apps": [
     {
-      "id": "forever-region-finder",
-      "title": "Forever Region Finder",
+      "id": "ellesmere-npc-titles",
+      "title": "Ellesmere NPC Titles",
       "kind": "custom",
-      "version": "2.5.2",
+      "version": "1.1.0",
       "folders": [
-        "ForeverRegionFinder"
+        "EllesmereNPCTitles"
       ],
-      "archive": "ForeverRegionFinder_v2.5.2.zip",
-      "sha256": "1cb8441a6e18d09ec9637d1a71b94b2d7efa78f94485dd2c6093c2627e4c3432",
-      "size": 26418,
-      "url": "",
-      "dependencies": [],
+      "archive": "EllesmereNPCTitles_Forever_v1.1.0_Gold.zip",
+      "sha256": "399bd76d29f79c7513e0487f9f8c5589a2b7ddc8fd37d6b94c2bfb246e4e462c",
+      "size": 5952,
+      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100001-run44713454479-try1/EllesmereNPCTitles_Forever_v1.1.0_Gold.zip",
+      "dependencies": [
+        "EllesmereUINameplates"
+      ],
+      "optionalDependencies": [],
       "installPolicy": "managed",
-      "treeSha256": "5a59e5e751f886269a38be64cd4297173780d5ec9a952982a63690bdcd49b9be",
-      "fileCount": 10,
+      "treeSha256": "562368bda19dbaebc98271a92673a8fd48f45e03cce4f4346336339b56d944f1",
+      "fileCount": 3,
       "versionFolders": [
-        "ForeverRegionFinder"
+        "EllesmereNPCTitles"
+      ]
+    },
+    {
+      "id": "eui-instance-friendly-auto",
+      "title": "EUI Instance Friendly Auto",
+      "kind": "custom",
+      "version": "1.2-rebuilt",
+      "folders": [
+        "EUI_InstanceFriendlyAuto"
       ],
-      "optionalDependencies": [
-        "QuestieDB",
-        "NorgannonDB",
-        "ShortestPathForever",
-        "TomTom",
-        "ForeverDB"
+      "archive": "EUI_InstanceFriendlyAuto_ClassColors_v1.2_REBUILT.zip",
+      "sha256": "2859f6d0192f8384a841490e3a54d0d8cb5999a997cdd77830ae3d4b1a793b06",
+      "size": 4143,
+      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100001-run44713454479-try1/EUI_InstanceFriendlyAuto_ClassColors_v1.2_REBUILT.zip",
+      "dependencies": [],
+      "optionalDependencies": [],
+      "installPolicy": "managed",
+      "treeSha256": "92c9a7237aef505296b4b9913bf2b39bab2ecf3d24e471ca498a68efa90dec08",
+      "fileCount": 3,
+      "versionFolders": [
+        "EUI_InstanceFriendlyAuto"
       ]
     },
     {
@@ -43,16 +60,43 @@
       "archive": "ForeverDungeonNavigator_Leader_v1.0.2_EUI_Button_FIXED.zip",
       "sha256": "ec1446600e40a35d58d34e57a26000476d6a13e89c2da2f7719ff49d5c124a4d",
       "size": 24870,
-      "url": "",
+      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100001-run44713454479-try1/ForeverDungeonNavigator_Leader_v1.0.2_EUI_Button_FIXED.zip",
       "dependencies": [],
+      "optionalDependencies": [
+        "ForeverDungeonRoutes"
+      ],
       "installPolicy": "managed",
       "treeSha256": "c68772f127eb9d8d5de9da73aae6354c617a359f9f042cd470002b7035f715d1",
       "fileCount": 9,
       "versionFolders": [
         "ForeverDungeonNavigator"
+      ]
+    },
+    {
+      "id": "forever-region-finder",
+      "title": "Forever Region Finder",
+      "kind": "custom",
+      "version": "2.5.2",
+      "folders": [
+        "ForeverRegionFinder"
       ],
+      "archive": "ForeverRegionFinder_v2.5.2.zip",
+      "sha256": "1cb8441a6e18d09ec9637d1a71b94b2d7efa78f94485dd2c6093c2627e4c3432",
+      "size": 26418,
+      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100001-run44713454479-try1/ForeverRegionFinder_v2.5.2.zip",
+      "dependencies": [],
       "optionalDependencies": [
-        "ForeverDungeonRoutes"
+        "QuestieDB",
+        "NorgannonDB",
+        "ShortestPathForever",
+        "TomTom",
+        "ForeverDB"
+      ],
+      "installPolicy": "managed",
+      "treeSha256": "5a59e5e751f886269a38be64cd4297173780d5ec9a952982a63690bdcd49b9be",
+      "fileCount": 10,
+      "versionFolders": [
+        "ForeverRegionFinder"
       ]
     },
     {
@@ -66,59 +110,15 @@
       "archive": "ForeverWatchRadar_Forever_v1.6.1_EllesmereFlyout.zip",
       "sha256": "d2bfb4e6bc23c4e54dcc0ad3b1a5d36d166676b73c91da325a2780184a4073df",
       "size": 30912,
-      "url": "",
+      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100001-run44713454479-try1/ForeverWatchRadar_Forever_v1.6.1_EllesmereFlyout.zip",
       "dependencies": [],
+      "optionalDependencies": [],
       "installPolicy": "managed",
       "treeSha256": "0060f61b1edd52ef1d05c3b6cdddf7093030c06c1efacfd637eeab77c5d1e985",
       "fileCount": 7,
       "versionFolders": [
         "ForeverWatchRadar"
-      ],
-      "optionalDependencies": []
-    },
-    {
-      "id": "ellesmere-npc-titles",
-      "title": "Ellesmere NPC Titles",
-      "kind": "custom",
-      "version": "1.1.0",
-      "folders": [
-        "EllesmereNPCTitles"
-      ],
-      "archive": "EllesmereNPCTitles_Forever_v1.1.0_Gold.zip",
-      "sha256": "399bd76d29f79c7513e0487f9f8c5589a2b7ddc8fd37d6b94c2bfb246e4e462c",
-      "size": 5952,
-      "url": "",
-      "dependencies": [
-        "EllesmereUINameplates"
-      ],
-      "installPolicy": "managed",
-      "treeSha256": "562368bda19dbaebc98271a92673a8fd48f45e03cce4f4346336339b56d944f1",
-      "fileCount": 3,
-      "versionFolders": [
-        "EllesmereNPCTitles"
-      ],
-      "optionalDependencies": []
-    },
-    {
-      "id": "eui-instance-friendly-auto",
-      "title": "EUI Instance Friendly Auto",
-      "kind": "custom",
-      "version": "1.2-rebuilt",
-      "folders": [
-        "EUI_InstanceFriendlyAuto"
-      ],
-      "archive": "EUI_InstanceFriendlyAuto_ClassColors_v1.2_REBUILT.zip",
-      "sha256": "2859f6d0192f8384a841490e3a54d0d8cb5999a997cdd77830ae3d4b1a793b06",
-      "size": 4143,
-      "url": "",
-      "dependencies": [],
-      "installPolicy": "managed",
-      "treeSha256": "92c9a7237aef505296b4b9913bf2b39bab2ecf3d24e471ca498a68efa90dec08",
-      "fileCount": 3,
-      "versionFolders": [
-        "EUI_InstanceFriendlyAuto"
-      ],
-      "optionalDependencies": []
+      ]
     },
     {
       "id": "glassy-drag-resize",
@@ -131,17 +131,17 @@
       "archive": "GlassyDragResize_Forever_v1.1.0.zip",
       "sha256": "59f7a3f3f3369ad1ac7386c2db41f18c662d7c933843a73d545a0df04eb6c6f2",
       "size": 5476,
-      "url": "",
+      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100001-run44713454479-try1/GlassyDragResize_Forever_v1.1.0.zip",
       "dependencies": [
         "Glassy"
       ],
+      "optionalDependencies": [],
       "installPolicy": "managed",
       "treeSha256": "039357de59c1ea4eff8e3afc04ab87a75da844e13189feff960e53b532ad6c85",
       "fileCount": 3,
       "versionFolders": [
         "GlassyDragResize"
-      ],
-      "optionalDependencies": []
+      ]
     }
   ],
   "profile": null
