@@ -1,0 +1,74 @@
+name: Publish GPT custom addons
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'addons/*.zip'
+      - 'scripts/build_catalog.py'
+      - '.github/workflows/publish-addons.yml'
+  workflow_dispatch:
+
+# Only the repository owner can push to main/dispatch; never run this with untrusted PR content.
+permissions:
+  contents: write
+
+concurrency:
+  group: forever-addon-release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    name: Verify, release, and promote custom addon catalog
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out public distribution repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Ensure public anonymous downloads
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          visibility="$(gh repo view "$GH_REPO" --json visibility --jq .visibility)"
+          test "$visibility" = PUBLIC || { echo 'Public GitHub repository is required.' >&2; exit 1; }
+      - name: Validate every ZIP and generate a release
+        env:
+          REPO: ${{ github.repository }}
+          RUN_NUMBER: ${{ github.run_number }}
+        run: |
+          set -euo pipefail
+          python3 scripts/build_catalog.py --root . --repo "$REPO" \
+            --revision "$((100000 + RUN_NUMBER))" --tag auto --out dist
+          python3 -m json.tool dist/catalog.json >/dev/null
+          test "$(find dist -maxdepth 1 -type f -name '*.zip' | wc -l)" -ge 1
+      - name: Create draft, verify uploaded assets, publish latest
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          tag="$(python3 -c 'import json;print(json.load(open("dist/release_info.json"))["tag"])')"
+          gh release create "$tag" dist/catalog.json dist/*.zip \
+            --repo "$GH_REPO" --draft --latest=false \
+            --title "Forever Custom Addons $tag" \
+            --notes 'Owner-published GPT-made custom addons only. No official addons and no WTF data.'
+          mkdir -p verify
+          gh release download "$tag" --repo "$GH_REPO" --pattern 'catalog.json' --dir verify
+          cmp dist/catalog.json verify/catalog.json
+          gh release edit "$tag" --repo "$GH_REPO" --draft=false --latest
+          curl --fail --location --retry 3 --retry-delay 2 --max-time 120 \
+            "https://github.com/$GH_REPO/releases/latest/download/catalog.json" \
+            -o verify/catalog_public.json
+          cmp dist/catalog.json verify/catalog_public.json
+      - name: Record new baseline for subsequent versions
+        run: |
+          set -euo pipefail
+          cp dist/catalog.json catalog.json
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add catalog.json
+          git commit -m 'chore: record published custom addon catalog [skip ci]'
+          git push origin HEAD:main
