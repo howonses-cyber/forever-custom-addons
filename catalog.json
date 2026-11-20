@@ -1,8 +1,8 @@
 {
   "schema": 1,
-  "revision": 100006,
+  "revision": 100007,
   "channel": "stable-custom-online",
-  "publishedAt": "2026-11-20T11:22:36Z",
+  "publishedAt": "2026-11-20T12:17:01Z",
   "publisher": "ForeverAddonManager",
   "apps": [
     {
@@ -16,7 +16,7 @@
       "archive": "EllesmereNPCTitles_Forever_v1.1.0_Gold.zip",
       "sha256": "399bd76d29f79c7513e0487f9f8c5589a2b7ddc8fd37d6b94c2bfb246e4e462c",
       "size": 5952,
-      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100006-run44727068166-try1/EllesmereNPCTitles_Forever_v1.1.0_Gold.zip",
+      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100007-run44734468765-try1/EllesmereNPCTitles_Forever_v1.1.0_Gold.zip",
       "dependencies": [
         "EllesmereUINameplates"
       ],
@@ -39,7 +39,7 @@
       "archive": "EUI_InstanceFriendlyAuto_ClassColors_v1.2_REBUILT.zip",
       "sha256": "2859f6d0192f8384a841490e3a54d0d8cb5999a997cdd77830ae3d4b1a793b06",
       "size": 4143,
-      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100006-run44727068166-try1/EUI_InstanceFriendlyAuto_ClassColors_v1.2_REBUILT.zip",
+      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100007-run44734468765-try1/EUI_InstanceFriendlyAuto_ClassColors_v1.2_REBUILT.zip",
       "dependencies": [],
       "optionalDependencies": [],
       "installPolicy": "managed",
@@ -60,7 +60,7 @@
       "archive": "ForeverDungeonNavigator_Leader_v1.0.2_EUI_Button_FIXED.zip",
       "sha256": "ec1446600e40a35d58d34e57a26000476d6a13e89c2da2f7719ff49d5c124a4d",
       "size": 24870,
-      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100006-run44727068166-try1/ForeverDungeonNavigator_Leader_v1.0.2_EUI_Button_FIXED.zip",
+      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100007-run44734468765-try1/ForeverDungeonNavigator_Leader_v1.0.2_EUI_Button_FIXED.zip",
       "dependencies": [],
       "optionalDependencies": [
         "ForeverDungeonRoutes"
@@ -83,7 +83,7 @@
       "archive": "ForeverRegionFinder_v2.5.2.zip",
       "sha256": "1cb8441a6e18d09ec9637d1a71b94b2d7efa78f94485dd2c6093c2627e4c3432",
       "size": 26418,
-      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100006-run44727068166-try1/ForeverRegionFinder_v2.5.2.zip",
+      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100007-run44734468765-try1/ForeverRegionFinder_v2.5.2.zip",
       "dependencies": [],
       "optionalDependencies": [
         "QuestieDB",
@@ -103,18 +103,18 @@
       "id": "forever-watch-radar",
       "title": "Forever Watch Radar",
       "kind": "custom",
-      "version": "1.6.1",
+      "version": "1.6.2",
       "folders": [
         "ForeverWatchRadar"
       ],
-      "archive": "ForeverWatchRadar_Forever_v1.6.1_EllesmereFlyout.zip",
-      "sha256": "d2bfb4e6bc23c4e54dcc0ad3b1a5d36d166676b73c91da325a2780184a4073df",
-      "size": 30912,
-      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100006-run44727068166-try1/ForeverWatchRadar_Forever_v1.6.1_EllesmereFlyout.zip",
+      "archive": "ForeverWatchRadar_Forever_v1.6.2_QuietFriendAlerts.zip",
+      "sha256": "7936fcfac3ce61eba5b382178866f2a145a8ddce72255323b30293be658e1569",
+      "size": 31858,
+      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100007-run44734468765-try1/ForeverWatchRadar_Forever_v1.6.2_QuietFriendAlerts.zip",
       "dependencies": [],
       "optionalDependencies": [],
       "installPolicy": "managed",
-      "treeSha256": "0060f61b1edd52ef1d05c3b6cdddf7093030c06c1efacfd637eeab77c5d1e985",
+      "treeSha256": "48bd576451dc510905437b44940916d39bbbf8ecffa05ef1ae6f8e1899c558b1",
       "fileCount": 7,
       "versionFolders": [
         "ForeverWatchRadar"
@@ -131,7 +131,7 @@
       "archive": "GlassyDragResize_Forever_v1.2.4_GlassyNumericLayoutSync.zip",
       "sha256": "1983e2fa2e971958986c059190b545c800bcf66d542ca07b0a394bb142f8f619",
       "size": 11458,
-      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100006-run44727068166-try1/GlassyDragResize_Forever_v1.2.4_GlassyNumericLayoutSync.zip",
+      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100007-run44734468765-try1/GlassyDragResize_Forever_v1.2.4_GlassyNumericLayoutSync.zip",
       "dependencies": [
         "Glassy"
       ],
