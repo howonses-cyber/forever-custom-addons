@@ -1,8 +1,8 @@
 {
   "schema": 1,
-  "revision": 100007,
+  "revision": 100008,
   "channel": "stable-custom-online",
-  "publishedAt": "2026-11-20T12:17:01Z",
+  "publishedAt": "2026-11-20T13:16:42Z",
   "publisher": "ForeverAddonManager",
   "apps": [
     {
@@ -16,7 +16,7 @@
       "archive": "EllesmereNPCTitles_Forever_v1.1.0_Gold.zip",
       "sha256": "399bd76d29f79c7513e0487f9f8c5589a2b7ddc8fd37d6b94c2bfb246e4e462c",
       "size": 5952,
-      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100007-run44734468765-try1/EllesmereNPCTitles_Forever_v1.1.0_Gold.zip",
+      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100008-run44742891040-try1/EllesmereNPCTitles_Forever_v1.1.0_Gold.zip",
       "dependencies": [
         "EllesmereUINameplates"
       ],
@@ -39,7 +39,7 @@
       "archive": "EUI_InstanceFriendlyAuto_ClassColors_v1.2_REBUILT.zip",
       "sha256": "2859f6d0192f8384a841490e3a54d0d8cb5999a997cdd77830ae3d4b1a793b06",
       "size": 4143,
-      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100007-run44734468765-try1/EUI_InstanceFriendlyAuto_ClassColors_v1.2_REBUILT.zip",
+      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100008-run44742891040-try1/EUI_InstanceFriendlyAuto_ClassColors_v1.2_REBUILT.zip",
       "dependencies": [],
       "optionalDependencies": [],
       "installPolicy": "managed",
@@ -60,7 +60,7 @@
       "archive": "ForeverDungeonNavigator_Leader_v1.0.2_EUI_Button_FIXED.zip",
       "sha256": "ec1446600e40a35d58d34e57a26000476d6a13e89c2da2f7719ff49d5c124a4d",
       "size": 24870,
-      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100007-run44734468765-try1/ForeverDungeonNavigator_Leader_v1.0.2_EUI_Button_FIXED.zip",
+      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100008-run44742891040-try1/ForeverDungeonNavigator_Leader_v1.0.2_EUI_Button_FIXED.zip",
       "dependencies": [],
       "optionalDependencies": [
         "ForeverDungeonRoutes"
@@ -83,7 +83,7 @@
       "archive": "ForeverRegionFinder_v2.5.2.zip",
       "sha256": "1cb8441a6e18d09ec9637d1a71b94b2d7efa78f94485dd2c6093c2627e4c3432",
       "size": 26418,
-      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100007-run44734468765-try1/ForeverRegionFinder_v2.5.2.zip",
+      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100008-run44742891040-try1/ForeverRegionFinder_v2.5.2.zip",
       "dependencies": [],
       "optionalDependencies": [
         "QuestieDB",
@@ -110,7 +110,7 @@
       "archive": "ForeverWatchRadar_Forever_v1.6.2_QuietFriendAlerts.zip",
       "sha256": "7936fcfac3ce61eba5b382178866f2a145a8ddce72255323b30293be658e1569",
       "size": 31858,
-      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100007-run44734468765-try1/ForeverWatchRadar_Forever_v1.6.2_QuietFriendAlerts.zip",
+      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100008-run44742891040-try1/ForeverWatchRadar_Forever_v1.6.2_QuietFriendAlerts.zip",
       "dependencies": [],
       "optionalDependencies": [],
       "installPolicy": "managed",
@@ -119,29 +119,20 @@
       "versionFolders": [
         "ForeverWatchRadar"
       ]
-    },
+    }
+  ],
+  "retired": [
     {
       "id": "glassy-drag-resize",
       "title": "Glassy Drag Resize",
-      "kind": "custom",
       "version": "1.2.4",
       "folders": [
         "GlassyDragResize"
       ],
       "archive": "GlassyDragResize_Forever_v1.2.4_GlassyNumericLayoutSync.zip",
       "sha256": "1983e2fa2e971958986c059190b545c800bcf66d542ca07b0a394bb142f8f619",
-      "size": 11458,
-      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100007-run44734468765-try1/GlassyDragResize_Forever_v1.2.4_GlassyNumericLayoutSync.zip",
-      "dependencies": [
-        "Glassy"
-      ],
-      "optionalDependencies": [],
-      "installPolicy": "managed",
-      "treeSha256": "0cc530f0d72f02647da61788a453c5397e5cd120b92046d6c3d78e1bc6bdb138",
-      "fileCount": 3,
-      "versionFolders": [
-        "GlassyDragResize"
-      ]
+      "policy": "preserve-installed",
+      "reason": "Owner-approved retirement after switching to Chattynator; never automatically delete local files."
     }
   ],
   "profile": null
