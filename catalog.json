@@ -1,8 +1,8 @@
 {
   "schema": 1,
-  "revision": 100008,
+  "revision": 100009,
   "channel": "stable-custom-online",
-  "publishedAt": "2026-11-20T13:16:42Z",
+  "publishedAt": "2026-11-22T04:09:22Z",
   "publisher": "ForeverAddonManager",
   "apps": [
     {
@@ -16,7 +16,7 @@
       "archive": "EllesmereNPCTitles_Forever_v1.1.0_Gold.zip",
       "sha256": "399bd76d29f79c7513e0487f9f8c5589a2b7ddc8fd37d6b94c2bfb246e4e462c",
       "size": 5952,
-      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100008-run44742891040-try1/EllesmereNPCTitles_Forever_v1.1.0_Gold.zip",
+      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100009-run44983777580-try1/EllesmereNPCTitles_Forever_v1.1.0_Gold.zip",
       "dependencies": [
         "EllesmereUINameplates"
       ],
@@ -39,7 +39,7 @@
       "archive": "EUI_InstanceFriendlyAuto_ClassColors_v1.2_REBUILT.zip",
       "sha256": "2859f6d0192f8384a841490e3a54d0d8cb5999a997cdd77830ae3d4b1a793b06",
       "size": 4143,
-      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100008-run44742891040-try1/EUI_InstanceFriendlyAuto_ClassColors_v1.2_REBUILT.zip",
+      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100009-run44983777580-try1/EUI_InstanceFriendlyAuto_ClassColors_v1.2_REBUILT.zip",
       "dependencies": [],
       "optionalDependencies": [],
       "installPolicy": "managed",
@@ -53,21 +53,21 @@
       "id": "forever-dungeon-navigator",
       "title": "Forever Dungeon Navigator",
       "kind": "custom",
-      "version": "1.0.2-beta",
+      "version": "1.1.0",
       "folders": [
         "ForeverDungeonNavigator"
       ],
-      "archive": "ForeverDungeonNavigator_Leader_v1.0.2_EUI_Button_FIXED.zip",
-      "sha256": "ec1446600e40a35d58d34e57a26000476d6a13e89c2da2f7719ff49d5c124a4d",
-      "size": 24870,
-      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100008-run44742891040-try1/ForeverDungeonNavigator_Leader_v1.0.2_EUI_Button_FIXED.zip",
+      "archive": "ForeverDungeonNavigator_Forever_v1.1.0_BossClick_RouteFocus.zip",
+      "sha256": "41fffa767b376e3487c1ace6031b4119206cebaa78fb7867c4fbb69bfeb730f6",
+      "size": 29850,
+      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100009-run44983777580-try1/ForeverDungeonNavigator_Forever_v1.1.0_BossClick_RouteFocus.zip",
       "dependencies": [],
       "optionalDependencies": [
         "ForeverDungeonRoutes"
       ],
       "installPolicy": "managed",
-      "treeSha256": "c68772f127eb9d8d5de9da73aae6354c617a359f9f042cd470002b7035f715d1",
-      "fileCount": 9,
+      "treeSha256": "c2db253cd2d02cd8c335ac8d70815e5c144dfbcab1bf7f5a905486ab7d48b245",
+      "fileCount": 10,
       "versionFolders": [
         "ForeverDungeonNavigator"
       ]
@@ -83,7 +83,7 @@
       "archive": "ForeverRegionFinder_v2.5.2.zip",
       "sha256": "1cb8441a6e18d09ec9637d1a71b94b2d7efa78f94485dd2c6093c2627e4c3432",
       "size": 26418,
-      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100008-run44742891040-try1/ForeverRegionFinder_v2.5.2.zip",
+      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100009-run44983777580-try1/ForeverRegionFinder_v2.5.2.zip",
       "dependencies": [],
       "optionalDependencies": [
         "QuestieDB",
@@ -110,7 +110,7 @@
       "archive": "ForeverWatchRadar_Forever_v1.6.2_QuietFriendAlerts.zip",
       "sha256": "7936fcfac3ce61eba5b382178866f2a145a8ddce72255323b30293be658e1569",
       "size": 31858,
-      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100008-run44742891040-try1/ForeverWatchRadar_Forever_v1.6.2_QuietFriendAlerts.zip",
+      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100009-run44983777580-try1/ForeverWatchRadar_Forever_v1.6.2_QuietFriendAlerts.zip",
       "dependencies": [],
       "optionalDependencies": [],
       "installPolicy": "managed",
