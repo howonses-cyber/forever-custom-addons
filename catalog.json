@@ -1,8 +1,8 @@
 {
   "schema": 1,
-  "revision": 100013,
+  "revision": 100014,
   "channel": "stable-custom-online",
-  "publishedAt": "2026-11-23T12:59:12Z",
+  "publishedAt": "2026-11-23T15:00:06Z",
   "publisher": "ForeverAddonManager",
   "apps": [
     {
@@ -16,7 +16,7 @@
       "archive": "EllesmereNPCTitles_Forever_v1.1.0_Gold.zip",
       "sha256": "399bd76d29f79c7513e0487f9f8c5589a2b7ddc8fd37d6b94c2bfb246e4e462c",
       "size": 5952,
-      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100013-run45179433595-try1/EllesmereNPCTitles_Forever_v1.1.0_Gold.zip",
+      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100014-run45200249444-try1/EllesmereNPCTitles_Forever_v1.1.0_Gold.zip",
       "dependencies": [
         "EllesmereUINameplates"
       ],
@@ -39,7 +39,7 @@
       "archive": "EUI_InstanceFriendlyAuto_ClassColors_v1.2_REBUILT.zip",
       "sha256": "2859f6d0192f8384a841490e3a54d0d8cb5999a997cdd77830ae3d4b1a793b06",
       "size": 4143,
-      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100013-run45179433595-try1/EUI_InstanceFriendlyAuto_ClassColors_v1.2_REBUILT.zip",
+      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100014-run45200249444-try1/EUI_InstanceFriendlyAuto_ClassColors_v1.2_REBUILT.zip",
       "dependencies": [],
       "optionalDependencies": [],
       "installPolicy": "managed",
@@ -60,7 +60,7 @@
       "archive": "ForeverDungeonNavigator_Forever_v1.1.0_BossClick_RouteFocus.zip",
       "sha256": "41fffa767b376e3487c1ace6031b4119206cebaa78fb7867c4fbb69bfeb730f6",
       "size": 29850,
-      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100013-run45179433595-try1/ForeverDungeonNavigator_Forever_v1.1.0_BossClick_RouteFocus.zip",
+      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100014-run45200249444-try1/ForeverDungeonNavigator_Forever_v1.1.0_BossClick_RouteFocus.zip",
       "dependencies": [],
       "optionalDependencies": [
         "ForeverDungeonRoutes"
@@ -76,14 +76,14 @@
       "id": "forever-dungeon-quest-guide",
       "title": "포에버 던전 퀘스트 가이드",
       "kind": "custom",
-      "version": "1.2.0",
+      "version": "1.3.0",
       "folders": [
         "ForeverDungeonQuestGuide"
       ],
-      "archive": "ForeverDungeonQuestGuide_Forever_v1.2.0_TurnInRoute_StatusSync.zip",
-      "sha256": "557cc7e745c019fe0b2f0d180c2e8f5fce883ef601519dada3f6e1ea6677707f",
-      "size": 41624,
-      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100013-run45179433595-try1/ForeverDungeonQuestGuide_Forever_v1.2.0_TurnInRoute_StatusSync.zip",
+      "archive": "ForeverDungeonQuestGuide_Forever_v1.3.0_GlobalMultiQuest_InWorldHUD.zip",
+      "sha256": "6bd4f9f9fee7cc78c15f8f493151c69caea3bdd6cee63b3f6125775c4d5b455c",
+      "size": 48479,
+      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100014-run45200249444-try1/ForeverDungeonQuestGuide_Forever_v1.3.0_GlobalMultiQuest_InWorldHUD.zip",
       "dependencies": [],
       "optionalDependencies": [
         "QuestieDB",
@@ -94,8 +94,8 @@
         "ForeverRegionFinder"
       ],
       "installPolicy": "managed",
-      "treeSha256": "754a2d7c0d11aec3aed0c160469679fd6ed8b8bc3266f682c834c43305080b8a",
-      "fileCount": 16,
+      "treeSha256": "a36b0b91ece15a56a3be5aaa1364d67cf9743d7dd5276dbcf23eabec835a05f6",
+      "fileCount": 18,
       "versionFolders": [
         "ForeverDungeonQuestGuide"
       ]
@@ -111,7 +111,7 @@
       "archive": "ForeverNameplateDistance_Forever_v1.0.0.zip",
       "sha256": "f284d73fae030723a7c3fc553f7cf9e1588784f883fd05ade0cc38281f3b92f8",
       "size": 5076,
-      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100013-run45179433595-try1/ForeverNameplateDistance_Forever_v1.0.0.zip",
+      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100014-run45200249444-try1/ForeverNameplateDistance_Forever_v1.0.0.zip",
       "dependencies": [],
       "optionalDependencies": [
         "EllesmereUINameplates"
@@ -134,7 +134,7 @@
       "archive": "ForeverRegionFinder_v2.5.2.zip",
       "sha256": "1cb8441a6e18d09ec9637d1a71b94b2d7efa78f94485dd2c6093c2627e4c3432",
       "size": 26418,
-      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100013-run45179433595-try1/ForeverRegionFinder_v2.5.2.zip",
+      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100014-run45200249444-try1/ForeverRegionFinder_v2.5.2.zip",
       "dependencies": [],
       "optionalDependencies": [
         "QuestieDB",
@@ -161,7 +161,7 @@
       "archive": "ForeverWatchRadar_Forever_v1.6.2_QuietFriendAlerts.zip",
       "sha256": "7936fcfac3ce61eba5b382178866f2a145a8ddce72255323b30293be658e1569",
       "size": 31858,
-      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100013-run45179433595-try1/ForeverWatchRadar_Forever_v1.6.2_QuietFriendAlerts.zip",
+      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100014-run45200249444-try1/ForeverWatchRadar_Forever_v1.6.2_QuietFriendAlerts.zip",
       "dependencies": [],
       "optionalDependencies": [],
       "installPolicy": "managed",
