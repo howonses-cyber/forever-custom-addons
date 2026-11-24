@@ -125,7 +125,9 @@ def parse_ranking(html: str, url: str, expected_label: str) -> dict:
                             'text':p.get_text(' ', strip=True)[:145]})
             p=p.parent
         diagnostics={'headings':[h.get_text(' ',strip=True)[:110] for h in main.find_all(['h2','h3','h4'])[:12]],
-                     'itemLikeLinks':len(candidates),'ancestors':parents,'htmlSha256':hashlib.sha256(html.encode('utf-8')).hexdigest()}
+                     'itemLikeLinks':len(candidates),'ancestors':parents,
+                     'sections':[{'id':a.get('id'),'dataSlot':a.get('data-slot'), 'class':a.get('class',[])[:3], 'text':a.get_text(' ',strip=True)[:90]} for a in main.find_all('section')[:18]],
+                     'htmlSha256':hashlib.sha256(html.encode('utf-8')).hexdigest()}
     return {'url':url,'title':title,'slots':result,'slotCount':len(result),
             'diagnostics':diagnostics,'bodySha256':hashlib.sha256(html.encode('utf-8')).hexdigest()}
 
@@ -356,7 +358,8 @@ def monitor(repo: Path, snapshots: dict | None, allow_publish: bool) -> dict:
             results.append({'spec':spec_key,'state':'parsed',
                             'slots':[p['slotCount'] for p in parsed],
                             'agreed':len(accepted),'needsReview':len(review),
-                            'sourceDigests':[p['bodySha256'] for p in parsed]})
+                            'sourceDigests':[p['bodySha256'] for p in parsed],
+                            'diagnostics':[p['diagnostics'] for p in parsed]})
             for item in accepted:
                 key=(spec_key,item['slot'])
                 if key in proposals:
