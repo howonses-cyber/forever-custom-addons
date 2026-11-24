@@ -142,6 +142,8 @@ def _parse_foreverwow(main, url):
     result={}
     for section in main.find_all('section'):
         raw=(section.get('id') or section.get('data-slot') or '').strip().lower().replace('-', ' ')
+        if raw.startswith('slot '):
+            raw=raw[5:]
         slot=SLOT_MAP.get(raw)
         if not slot or slot in result:
             continue
