@@ -1,0 +1,9 @@
+{
+  "schema": 1,
+  "state": "not-run",
+  "lastCheckedUtc": null,
+  "approvedChanges": 0,
+  "pendingChanges": 0,
+  "results": [],
+  "explanation": "This source monitor has not yet run on GitHub Actions. No automatic BiS revision has been validated."
+}

@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "policy": "Independent, readable public pre-raid sources; two-site exact slot/item agreement required. All item sources/availability remain provisional.",
+  "minimumSlotsPerSource": 5,
+  "profiles": [
+    {"class": "SHAMAN", "spec": "enhancement", "label": "Enhancement Shaman", "sources": ["https://foreverwow.gg/shaman/enhancement/pre-raid/", "https://theforeverera.com/en/bis/shaman/enhancement/pre-raid/"]},
+    {"class": "WARRIOR", "spec": "arms", "label": "Arms Warrior", "sources": ["https://foreverwow.gg/warrior/arms/pre-raid/", "https://theforeverera.com/en/bis/warrior/arms/pre-raid/"]},
+    {"class": "WARRIOR", "spec": "protection", "label": "Protection Warrior", "sources": ["https://foreverwow.gg/warrior/protection/pre-raid/", "https://theforeverera.com/en/bis/warrior/protection/pre-raid/"]},
+    {"class": "HUNTER", "spec": "marksmanship", "label": "Marksmanship Hunter", "sources": ["https://foreverwow.gg/hunter/marksmanship/pre-raid/", "https://theforeverera.com/en/bis/hunter/marksmanship/pre-raid/"]},
+    {"class": "ROGUE", "spec": "combat", "label": "Combat Rogue", "sources": ["https://foreverwow.gg/rogue/combat/pre-raid/", "https://theforeverera.com/en/bis/rogue/combat/pre-raid/"]},
+    {"class": "PRIEST", "spec": "shadow", "label": "Shadow Priest", "sources": ["https://foreverwow.gg/priest/shadow/pre-raid/", "https://theforeverera.com/en/bis/priest/shadow/pre-raid/"]},
+    {"class": "MAGE", "spec": "frost", "label": "Frost Mage", "sources": ["https://foreverwow.gg/mage/frost/pre-raid/", "https://theforeverera.com/en/bis/mage/frost/pre-raid/"]}
+  ]
+}
