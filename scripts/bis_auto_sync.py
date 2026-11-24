@@ -125,57 +125,53 @@ def parse_ranking(html: str, url: str, expected_label: str) -> dict:
                             'text':p.get_text(' ', strip=True)[:145]})
             p=p.parent
         diagnostics={'headings':[h.get_text(' ',strip=True)[:110] for h in main.find_all(['h2','h3','h4'])[:12]],
-                     'itemLikeLinks':len(candidates),'ancestors':parents,
-                     'previousStrings': [str(t).strip()[:100] for t in (anchor.previous_elements if anchor else []) if isinstance(t,str) and str(t).strip()][0:25],
-                     'htmlSha256':hashlib.sha256(html.encode('utf-8')).hexdigest()}
+                     'itemLikeLinks':len(candidates),'ancestors':parents,'htmlSha256':hashlib.sha256(html.encode('utf-8')).hexdigest()}
     return {'url':url,'title':title,'slots':result,'slotCount':len(result),
             'diagnostics':diagnostics,'bodySha256':hashlib.sha256(html.encode('utf-8')).hexdigest()}
 
 
 def _parse_foreverwow(main, url):
-    """Foreverwow has styled ranking cards under non-heading slot labels."""
+    """Extract explicit top cards inside named slot <section> elements only.
+
+    ForeverWoW's visual slot headers are not h3s. Its ranking cards are
+    ordered lists under sections with stable fragment IDs. Never infer slot
+    from navigation link order or a global first item.
+    """
     result={}
-    for a in main.find_all('a'):
-        item_id=id_for_link(a)
-        if not item_id or not a.get_text(' ',strip=True):
+    for section in main.find_all('section'):
+        raw=(section.get('id') or section.get('data-slot') or '').strip().lower().replace('-', ' ')
+        slot=SLOT_MAP.get(raw)
+        if not slot or slot in result:
             continue
-        name=a.get_text(' ',strip=True).strip()
-        if not NAME_RE.match(name):
+        ranked_list=section.find('ol')
+        if not ranked_list:
             continue
-        # Identify a small row, not the whole slot's table. The top rank must be explicit.
-        p=a.parent
-        row=None
-        for _ in range(5):
-            if not p or p is main:break
-            t=p.get_text(' ',strip=True)
-            if len(t)<500 and GOOD_SOURCE.search(t) and (re.search(r'\bBiS\b',t) or re.search(r'^1\.',t)):
-                row=p;break
-            p=p.parent
-        if row is None:continue
-        txt=row.get_text(' ',strip=True)
-        # Find nearest preceding slot title, either a <h3> or a styled card title.
-        slot=None
-        for preceding in a.previous_elements:
-            if getattr(preceding,'name',None):
-                if preceding.name not in ('h2','h3','h4','div','span','p','strong'):
-                    continue
-                text=preceding.get_text(' ',strip=True)
-                if len(text)>110:continue
-            else:
-                text=str(preceding).strip()
-            if len(text)<3 or len(text)>110:continue
-            if not re.search(r'\bbest\b',text,re.I):continue
-            slot=get_slot(text)
-            if slot:break
-        if not slot or slot in result:continue
+        first=ranked_list.find('li',recursive=False)
+        if not first:
+            continue
+        summary=first.find('summary') or first
+        txt=summary.get_text(' ',strip=True)
+        if not (re.search(r'\bBiS\b',txt) or re.search(r'^1\.',txt)):
+            continue
+        item=None
+        for a in summary.find_all('a'):
+            ident=id_for_link(a)
+            name=a.get_text(' ',strip=True).strip()
+            if ident and NAME_RE.match(name):
+                item=(ident,name)
+                break
+        if not item:
+            continue
         if BAD_CONTEXT.search(txt):
-            result[slot]={'blocked':True,'id':item_id,'name':name,'slot':slot,
+            result[slot]={'blocked':True,'id':item[0],'name':item[1],'slot':slot,
                           'reason':'source-flagged locked/unconfirmed/faction/raid'}
             continue
-        m=GOOD_SOURCE.search(txt)
-        if not m:continue
-        source=txt[m.start():m.start()+130]
-        result[slot]={'id':item_id,'name':name,'slot':slot,'source':source,'url':url}
+        source_match=GOOD_SOURCE.search(txt)
+        if not source_match:
+            continue
+        source=txt[source_match.start():source_match.start()+130]
+        source=re.split(r'\s+\d{1,3}%',source,maxsplit=1)[0].strip()
+        result[slot]={'id':item[0],'name':item[1],'slot':slot,'source':source,'url':url}
     return result
 
 
@@ -360,8 +356,7 @@ def monitor(repo: Path, snapshots: dict | None, allow_publish: bool) -> dict:
             results.append({'spec':spec_key,'state':'parsed',
                             'slots':[p['slotCount'] for p in parsed],
                             'agreed':len(accepted),'needsReview':len(review),
-                            'sourceDigests':[p['bodySha256'] for p in parsed],
-                            'diagnostics':[p['diagnostics'] for p in parsed]})
+                            'sourceDigests':[p['bodySha256'] for p in parsed]})
             for item in accepted:
                 key=(spec_key,item['slot'])
                 if key in proposals:
