@@ -1,8 +1,8 @@
 {
   "schema": 1,
-  "revision": 100020,
+  "revision": 100021,
   "channel": "stable-custom-online",
-  "publishedAt": "2026-11-24T04:15:30Z",
+  "publishedAt": "2026-11-24T05:03:24Z",
   "publisher": "ForeverAddonManager",
   "apps": [
     {
@@ -16,7 +16,7 @@
       "archive": "EllesmereNPCTitles_Forever_v1.1.0_Gold.zip",
       "sha256": "399bd76d29f79c7513e0487f9f8c5589a2b7ddc8fd37d6b94c2bfb246e4e462c",
       "size": 5952,
-      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100020-run45325105813-try1/EllesmereNPCTitles_Forever_v1.1.0_Gold.zip",
+      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100021-run45330576673-try1/EllesmereNPCTitles_Forever_v1.1.0_Gold.zip",
       "dependencies": [
         "EllesmereUINameplates"
       ],
@@ -39,7 +39,7 @@
       "archive": "EUI_InstanceFriendlyAuto_ClassColors_v1.2_REBUILT.zip",
       "sha256": "2859f6d0192f8384a841490e3a54d0d8cb5999a997cdd77830ae3d4b1a793b06",
       "size": 4143,
-      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100020-run45325105813-try1/EUI_InstanceFriendlyAuto_ClassColors_v1.2_REBUILT.zip",
+      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100021-run45330576673-try1/EUI_InstanceFriendlyAuto_ClassColors_v1.2_REBUILT.zip",
       "dependencies": [],
       "optionalDependencies": [],
       "installPolicy": "managed",
@@ -53,14 +53,14 @@
       "id": "forever-bi-saudit",
       "title": "포에버 특성별 BiS · 장비 비교",
       "kind": "custom",
-      "version": "0.5.0",
+      "version": "0.6.0",
       "folders": [
         "ForeverBiSAudit"
       ],
-      "archive": "ForeverBiSAudit_Forever_v0.5.0_PawnStyle_CompactSpecPercent.zip",
-      "sha256": "070bf4d2398d4e9973dba33cd8bfc27910773b53581e8bcf5a797802734b2aff",
-      "size": 40062,
-      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100020-run45325105813-try1/ForeverBiSAudit_Forever_v0.5.0_PawnStyle_CompactSpecPercent.zip",
+      "archive": "ForeverBiSAudit_Forever_v0.6.0_PawnForever_VerifiedScales.zip",
+      "sha256": "867d4599e4b9b378790b90a070f07ac1ed4c86cb83abd0d39395199c4e88de36",
+      "size": 40790,
+      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100021-run45330576673-try1/ForeverBiSAudit_Forever_v0.6.0_PawnForever_VerifiedScales.zip",
       "dependencies": [],
       "optionalDependencies": [
         "EllesmereUI",
@@ -70,7 +70,7 @@
         "Pawn"
       ],
       "installPolicy": "managed",
-      "treeSha256": "d17fb271b186481dc4b0fa5dcefbfa66e1e28ede0e57ddb52119f31442321449",
+      "treeSha256": "fe3913d727844fa3f4e2c92542d32cd21d98b9a4aa4ce469d798b234b98ef28e",
       "fileCount": 15,
       "versionFolders": [
         "ForeverBiSAudit"
@@ -87,7 +87,7 @@
       "archive": "ForeverDungeonNavigator_Forever_v1.1.0_BossClick_RouteFocus.zip",
       "sha256": "41fffa767b376e3487c1ace6031b4119206cebaa78fb7867c4fbb69bfeb730f6",
       "size": 29850,
-      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100020-run45325105813-try1/ForeverDungeonNavigator_Forever_v1.1.0_BossClick_RouteFocus.zip",
+      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100021-run45330576673-try1/ForeverDungeonNavigator_Forever_v1.1.0_BossClick_RouteFocus.zip",
       "dependencies": [],
       "optionalDependencies": [
         "ForeverDungeonRoutes"
@@ -110,7 +110,7 @@
       "archive": "ForeverDungeonQuestGuide_Forever_v1.4.0_WrittenDirections_OpacityResizeHUD.zip",
       "sha256": "726a3abfc73399b4c3b1cd911b3f5f77dbe2e564956c130f785b673eeaa78d6e",
       "size": 54396,
-      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100020-run45325105813-try1/ForeverDungeonQuestGuide_Forever_v1.4.0_WrittenDirections_OpacityResizeHUD.zip",
+      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100021-run45330576673-try1/ForeverDungeonQuestGuide_Forever_v1.4.0_WrittenDirections_OpacityResizeHUD.zip",
       "dependencies": [],
       "optionalDependencies": [
         "QuestieDB",
@@ -138,7 +138,7 @@
       "archive": "ForeverNameplateDistance_Forever_v1.0.0.zip",
       "sha256": "f284d73fae030723a7c3fc553f7cf9e1588784f883fd05ade0cc38281f3b92f8",
       "size": 5076,
-      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100020-run45325105813-try1/ForeverNameplateDistance_Forever_v1.0.0.zip",
+      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100021-run45330576673-try1/ForeverNameplateDistance_Forever_v1.0.0.zip",
       "dependencies": [],
       "optionalDependencies": [
         "EllesmereUINameplates"
@@ -161,7 +161,7 @@
       "archive": "ForeverRegionFinder_v2.5.2.zip",
       "sha256": "1cb8441a6e18d09ec9637d1a71b94b2d7efa78f94485dd2c6093c2627e4c3432",
       "size": 26418,
-      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100020-run45325105813-try1/ForeverRegionFinder_v2.5.2.zip",
+      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100021-run45330576673-try1/ForeverRegionFinder_v2.5.2.zip",
       "dependencies": [],
       "optionalDependencies": [
         "QuestieDB",
@@ -188,7 +188,7 @@
       "archive": "ForeverWatchRadar_Forever_v1.6.2_QuietFriendAlerts.zip",
       "sha256": "7936fcfac3ce61eba5b382178866f2a145a8ddce72255323b30293be658e1569",
       "size": 31858,
-      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100020-run45325105813-try1/ForeverWatchRadar_Forever_v1.6.2_QuietFriendAlerts.zip",
+      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100021-run45330576673-try1/ForeverWatchRadar_Forever_v1.6.2_QuietFriendAlerts.zip",
       "dependencies": [],
       "optionalDependencies": [],
       "installPolicy": "managed",
