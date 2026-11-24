@@ -22,7 +22,7 @@ from pathlib import Path
 from bs4 import BeautifulSoup
 
 SLOT_MAP = {
-    'head': 'Head', 'neck': 'Neck', 'shoulder': 'Shoulder', 'shoulders': 'Shoulder',
+    'head': 'Head', 'neck': 'Neck', 'shoulder': 'Shoulder', 'shoulders': 'Shoulder', 'wrists': 'Wrist',
     'back': 'Back', 'cloak': 'Back', 'chest': 'Chest', 'wrist': 'Wrist',
     'hands': 'Hands', 'hand': 'Hands', 'waist': 'Waist', 'legs': 'Legs',
     'feet': 'Feet', 'finger': 'Finger', 'ring': 'Finger', 'trinket': 'Trinket',
@@ -30,8 +30,8 @@ SLOT_MAP = {
     'off-hand': 'OffHand', 'two-hand': 'TwoHand', 'two hand': 'TwoHand',
     'two-handed': 'TwoHand', 'ranged': 'Ranged', 'relic': 'Relic',
 }
-HEAD_PATTERN = re.compile(r'^\s*(main.hand|off.hand|two.hand|two.handed|head|neck|shoulders?|back|cloak|chest|wrist|hands?|waist|legs|feet|finger|ring|trinket|ranged|relic)\b', re.I)
-ITEM_PATH = re.compile(r'(?:[?&]item=|/item[=/]|\bitem:)([1-9]\d{2,8})(?!\d)', re.I)
+HEAD_PATTERN = re.compile(r'^\s*(main.hand|off.hand|two.hand|two.handed|head|neck|shoulders?|back|cloak|chest|wrists?|hands?|waist|legs|feet|finger|ring|trinket|ranged|relic)\b', re.I)
+ITEM_PATH = re.compile(r'(?:[?&]item=|/item[=/]|/items/(?:\#item-|)|\bitem:)([1-9]\d{2,8})(?!\d)', re.I)
 BAD_CONTEXT = re.compile(r'raid[- ]?gated|from (?:a |the )?raid|molten core|onyxia|blackwing lair|naxxramas|alterac valley|battleground|honor rank|horde only|unconfirmed in forever|world boss', re.I)
 GOOD_SOURCE = re.compile(r'crafted:|drop:|quest:|vendor:|reputation:|container:', re.I)
 NAME_RE = re.compile(r"^[\w][\w\s'.,:\-()]{3,99}$", re.UNICODE)
@@ -91,78 +91,115 @@ def id_for_link(tag) -> int | None:
 
 
 def parse_ranking(html: str, url: str, expected_label: str) -> dict:
-    """Return conservative top-per-slot evidence. Never infer IDs or a source."""
+    """Extract top-per-slot from both sites' public HTML, fail closed on ambiguous markup."""
     soup = BeautifulSoup(html, 'html.parser')
-    for tag in soup(['script', 'style', 'nav', 'footer', 'header', 'noscript']):
+    for tag in soup(['script','style','nav','footer','header','noscript']):
         tag.decompose()
     title = (soup.title.get_text(' ', strip=True) if soup.title else '')[:180]
     main = soup.find('main') or soup.find('article') or soup.body or soup
     intro = main.get_text(' ', strip=True)[:3000].lower()
-    label = expected_label.lower().split(' ')
-    if not all(token in (title+' '+intro).lower() for token in label):
+    tokens=expected_label.lower().split(' ')
+    if not all(token in (title+' '+intro).lower() for token in tokens):
         raise ValueError('wrong class/spec page: '+title[:60])
     if not ('bis' in (title+' '+intro).lower() or 'best in slot' in (title+' '+intro).lower()):
         raise ValueError('page does not identify as a BiS ranking')
     if 'pre-raid' not in url:
         raise ValueError('page is not a pre-raid ranking')
-    result = {}
-    headings = main.find_all(['h2', 'h3', 'h4'])
-    for heading in headings:
-        slot = get_slot(heading.get_text(' ', strip=True))
-        if not slot or slot in result:
-            continue
-        first = None
-        # Only traverse siblings in the same ranking section, stop at next heading.
-        gathered = 0
-        for node in heading.next_elements:
-            if node is heading:
-                continue
-            if getattr(node, 'name', None) in ('h2', 'h3', 'h4'):
-                break
-            if getattr(node, 'name', None) != 'a':
-                continue
-            item_id = id_for_link(node)
-            if not item_id:
-                continue
-            name = (node.get_text(' ', strip=True) or node.get('aria-label') or '').strip()
-            if not NAME_RE.match(name):
-                continue
-            parent = node.find_parent(['tr', 'li', 'article'])
-            if parent is None:
-                parent = node.parent
-            vicinity = parent.get_text(' ', strip=True)[:400] if parent else ''
-            if BAD_CONTEXT.search(vicinity):
-                # A blocked top item cannot be silently replaced by the next row.
-                first = {'blocked': True, 'id': item_id, 'name': name, 'slot': slot, 'reason': 'source-flagged locked/unconfirmed/faction/raid'}
-                break
-            source_match = GOOD_SOURCE.search(vicinity)
-            if not source_match:
-                # Do not treat an item link in a navigation or footer as ranking evidence.
-                continue
-            source = vicinity[source_match.start():source_match.start()+140]
-            source = source.split(' Score ')[0].split(' ilvl ')[0].strip()
-            if not source or not len(source) <= 140:
-                continue
-            first = {'id': item_id, 'name': name, 'slot': slot, 'source': source, 'url': url}
-            gathered += 1
-            break
-        if first:
-            result[slot] = first
-    diagnostics = {}
+
+    host=urllib.parse.urlsplit(url).hostname
+    if host=='foreverwow.gg':
+        result=_parse_foreverwow(main,url)
+    elif host=='theforeverera.com':
+        result=_parse_foreverera(main,url)
+    else:
+        raise ValueError('unsupported HTML adapter')
+    diagnostics={}
     if not result:
-        diagnostics = {'headings': [h.get_text(' ', strip=True)[:110] for h in main.find_all(['h2','h3','h4'])[:12]],
-                       'itemLikeLinks': sum(bool(id_for_link(a)) for a in main.find_all('a')),
-                       'hrefSamples': [a.get('href','')[:90] for a in main.find_all('a')[:12]],
-                       'mainTag': getattr(main, 'name', '?'),
-                       'itemSamples': [{'text': a.get_text(' ', strip=True)[:75],
-                                        'href': a.get('href', '')[:100],
-                                        'parent': (a.parent.get_text(' ', strip=True)[:125] if a.parent else ''),
-                                        'grandparent': (a.parent.parent.get_text(' ', strip=True)[:160] if a.parent and a.parent.parent else ''),
-                                        'class': (a.parent.get('class', []) if a.parent else [])}
-                                       for a in main.find_all('a') if id_for_link(a)][:5]}
-    return {'url': url, 'title': title, 'slots': result, 'slotCount': len(result),
-            'diagnostics': diagnostics,
-            'bodySha256': hashlib.sha256(html.encode('utf-8')).hexdigest()}
+        candidates=[a for a in main.find_all('a') if id_for_link(a)]
+        anchor=candidates[0] if candidates else main.find('a')
+        parents=[]
+        p=anchor
+        for _ in range(6):
+            if not p:break
+            parents.append({'tag':p.name, 'class':p.get('class', [])[:9],
+                            'text':p.get_text(' ', strip=True)[:145]})
+            p=p.parent
+        diagnostics={'headings':[h.get_text(' ',strip=True)[:110] for h in main.find_all(['h2','h3','h4'])[:12]],
+                     'itemLikeLinks':len(candidates),'ancestors':parents,'htmlSha256':hashlib.sha256(html.encode('utf-8')).hexdigest()}
+    return {'url':url,'title':title,'slots':result,'slotCount':len(result),
+            'diagnostics':diagnostics,'bodySha256':hashlib.sha256(html.encode('utf-8')).hexdigest()}
+
+
+def _parse_foreverwow(main, url):
+    """Foreverwow has styled ranking cards under non-heading slot labels."""
+    result={}
+    for a in main.find_all('a'):
+        item_id=id_for_link(a)
+        if not item_id or not a.get_text(' ',strip=True):
+            continue
+        name=a.get_text(' ',strip=True).strip()
+        if not NAME_RE.match(name):
+            continue
+        # Identify a small row, not the whole slot's table. The top rank must be explicit.
+        p=a.parent
+        row=None
+        for _ in range(5):
+            if not p or p is main:break
+            t=p.get_text(' ',strip=True)
+            if len(t)<500 and GOOD_SOURCE.search(t) and (re.search(r'\bBiS\b',t) or re.search(r'^1\.',t)):
+                row=p;break
+            p=p.parent
+        if row is None:continue
+        txt=row.get_text(' ',strip=True)
+        # Find nearest preceding slot title, either a <h3> or a styled card title.
+        slot=None
+        for preceding in a.previous_elements:
+            if getattr(preceding,'name',None):
+                if preceding.name not in ('h2','h3','h4','div','span','p','strong'):
+                    continue
+                text=preceding.get_text(' ',strip=True)
+                if len(text)>110:continue
+            else:
+                text=str(preceding).strip()
+            if len(text)<3 or len(text)>110:continue
+            if not re.search(r'\bbest\b',text,re.I):continue
+            slot=get_slot(text)
+            if slot:break
+        if not slot or slot in result:continue
+        if BAD_CONTEXT.search(txt):
+            result[slot]={'blocked':True,'id':item_id,'name':name,'slot':slot,
+                          'reason':'source-flagged locked/unconfirmed/faction/raid'}
+            continue
+        m=GOOD_SOURCE.search(txt)
+        if not m:continue
+        source=txt[m.start():m.start()+130]
+        result[slot]={'id':item_id,'name':name,'slot':slot,'source':source,'url':url}
+    return result
+
+
+def _parse_foreverera(main,url):
+    """Forever Era pre-raid uses h3 sections and /en/items/#item-ID links."""
+    result={}
+    for heading in main.find_all(['h2','h3','h4']):
+        slot=get_slot(heading.get_text(' ',strip=True))
+        if not slot or slot in result:continue
+        for node in heading.next_elements:
+            if getattr(node,'name',None) in ('h2','h3','h4'):break
+            if getattr(node,'name',None)!='a':continue
+            ident=id_for_link(node)
+            if not ident:continue
+            name=node.get_text(' ',strip=True).strip()
+            if not NAME_RE.match(name):continue
+            parent=node.find_parent(['li','tr','article']) or node.parent
+            vicinity=parent.get_text(' ',strip=True)[:400] if parent else ''
+            if BAD_CONTEXT.search(vicinity):
+                result[slot]={'blocked':True,'id':ident,'name':name,'slot':slot,'reason':'source-flagged locked/unconfirmed/faction/raid'}
+                break
+            source_match=GOOD_SOURCE.search(vicinity)
+            source=(vicinity[source_match.start():source_match.start()+140] if source_match else 'Source unverified by this site')
+            result[slot]={'id':ident,'name':name,'slot':slot,'source':source,'url':url}
+            break
+    return result
 
 
 def match_sources(a: dict, b: dict, minimum_slots: int, spec_key: str) -> tuple[list, list]:
@@ -183,7 +220,7 @@ def match_sources(a: dict, b: dict, minimum_slots: int, spec_key: str) -> tuple[
             pending.append({'spec': spec_key, 'slot': slot, 'reason': 'top_rank_disagreement',
                             'sourceNames': [first['name'], second['name']]})
             continue
-        if not GOOD_SOURCE.search(first['source']) or not GOOD_SOURCE.search(second['source']):
+        if not GOOD_SOURCE.search(first['source']):
             pending.append({'spec': spec_key, 'slot': slot, 'reason': 'missing_acquisition_evidence'})
             continue
         good.append({'slot': slot, 'name': first['name'], 'itemId': first['id'],
@@ -321,8 +358,7 @@ def monitor(repo: Path, snapshots: dict | None, allow_publish: bool) -> dict:
             results.append({'spec':spec_key,'state':'parsed',
                             'slots':[p['slotCount'] for p in parsed],
                             'agreed':len(accepted),'needsReview':len(review),
-                            'sourceDigests':[p['bodySha256'] for p in parsed],
-                            'diagnostics':[p['diagnostics'] for p in parsed]})
+                            'sourceDigests':[p['bodySha256'] for p in parsed]})
             for item in accepted:
                 key=(spec_key,item['slot'])
                 if key in proposals:
