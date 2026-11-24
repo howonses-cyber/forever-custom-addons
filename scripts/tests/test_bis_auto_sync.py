@@ -9,13 +9,16 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import bis_auto_sync as sync
 
 
-def source_html(label='Enhancement Shaman', first='Black Dragonscale Helm', item_id=12345, status='Crafted: Leatherworking'):
+def source_html(label='Enhancement Shaman', first='Black Dragonscale Helm', item_id=12345, status='Crafted: Leatherworking', host='foreverwow.gg'):
     slots=['Head','Neck','Shoulder','Back','Chest','Legs']
     rows=[]
     for i,slot in enumerate(slots):
         n=first if i==0 else 'Sample Item '+slot
         ident=item_id if i==0 else item_id + i
-        rows.append(f'<h3>{slot} - best {slot} for {label}</h3><table><tr><td>1.</td><td><a href="/forever/item={ident}">{n}</a></td><td>{status}</td></tr></table>')
+        if host=='foreverwow.gg':
+            rows.append(f'<section id="{slot.lower()}"><ol><li><details><summary>BiS <a href="https://www.wowhead.com/forever/item={ident}">{n}</a> {status} 100%</summary></details></li></ol></section>')
+        else:
+            rows.append(f'<h3>{slot} - best {slot} for {label}</h3><table><tr><td>1.</td><td><a href="/en/items/#item-{ident}">{n}</a></td><td>{status}</td></tr></table>')
     return '<html><head><title>'+label+' Pre-raid BiS Gear</title></head><body><main><h1>'+label+' Pre-raid BiS</h1>\n'+''.join(rows)+'</main></body></html>'
 
 
@@ -28,7 +31,7 @@ class ParserTests(unittest.TestCase):
 
     def test_requires_two_matching_sources(self):
         a=sync.parse_ranking(source_html(),'https://foreverwow.gg/shaman/enhancement/pre-raid/','Enhancement Shaman')
-        b=sync.parse_ranking(source_html(),'https://theforeverera.com/en/bis/shaman/enhancement/pre-raid/','Enhancement Shaman')
+        b=sync.parse_ranking(source_html(host='theforeverera.com'),'https://theforeverera.com/en/bis/shaman/enhancement/pre-raid/','Enhancement Shaman')
         accepted,pending=sync.match_sources(a,b,5,'SHAMAN:enhancement')
         self.assertEqual(len(accepted),6)
         self.assertFalse(pending)
@@ -39,7 +42,7 @@ class ParserTests(unittest.TestCase):
 
     def test_source_coverage_refuses_update(self):
         a=sync.parse_ranking(source_html(),'https://foreverwow.gg/shaman/enhancement/pre-raid/','Enhancement Shaman')
-        b=sync.parse_ranking(source_html(),'https://theforeverera.com/en/bis/shaman/enhancement/pre-raid/','Enhancement Shaman')
+        b=sync.parse_ranking(source_html(host='theforeverera.com'),'https://theforeverera.com/en/bis/shaman/enhancement/pre-raid/','Enhancement Shaman')
         b['slots']={'Head':b['slots']['Head']};b['slotCount']=1
         accepted,pending=sync.match_sources(a,b,5,'SHAMAN:enhancement')
         self.assertEqual(accepted,[])
@@ -97,7 +100,7 @@ class ParserTests(unittest.TestCase):
             (root/'bis-sync/approved.json').write_text(json.dumps(state))
             urls=src['profiles'][0]['sources']
             fixture=source_html(item_id=60001)
-            report=sync.monitor(root,{urls[0]:fixture,urls[1]:fixture},True)
+            report=sync.monitor(root,{urls[0]:fixture,urls[1]:source_html(item_id=60001,host='theforeverera.com')},True)
             self.assertEqual(report['state'],'published')
             self.assertEqual(report['approvedChanges'],6)
             self.assertEqual(len(list((root/'addons').glob('ForeverBiSAudit*.zip'))),1)
@@ -110,7 +113,7 @@ class ParserTests(unittest.TestCase):
                 self.assertIn('upsert("SHAMAN","enhancement","Head"',contents)
                 self.assertIn('status="unknown"',contents)
             # A second unchanged daily observation must NOT produce another ZIP version.
-            report2=sync.monitor(root,{urls[0]:fixture,urls[1]:fixture},True)
+            report2=sync.monitor(root,{urls[0]:fixture,urls[1]:source_html(item_id=60001,host='theforeverera.com')},True)
             self.assertEqual(report2['approvedChanges'],0)
             state2=json.loads((root/'bis-sync/approved.json').read_text('utf-8'))
             self.assertEqual(state2['packageVersion'],'0.2.1')
@@ -130,8 +133,8 @@ class ParserTests(unittest.TestCase):
             state=json.loads((repository/'bis-sync/approved.json').read_text('utf-8'))
             (root/'bis-sync/approved.json').write_text(json.dumps(state))
             urls=src['profiles'][0]['sources']
-            fixture=source_html(first='The Unstoppable Force',item_id=19323,status='Vendor: Gaelden').replace('<h3>Head - best Head', '<h3>Two-Hand - best Two-Hand')
-            report=sync.monitor(root,{urls[0]:fixture,urls[1]:fixture},False)
+            fixture=source_html(first='The Unstoppable Force',item_id=19323,status='Vendor: Gaelden').replace('<section id="head">', '<section id="two-hand">')
+            report=sync.monitor(root,{urls[0]:fixture,urls[1]:source_html(first='The Unstoppable Force',item_id=19323,status='Vendor: Gaelden',host='theforeverera.com').replace('<h3>Head - best Head', '<h3>Two-Hand - best Two-Hand')},False)
             self.assertTrue(any(x['reason']=='owner_phase_lock' for x in report['pending']))
             self.assertEqual(report['approvedChanges'],0)
             self.assertTrue(any(x['slot']=='TwoHand' for x in report['pending']))
