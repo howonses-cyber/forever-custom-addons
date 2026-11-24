@@ -148,7 +148,14 @@ def parse_ranking(html: str, url: str, expected_label: str) -> dict:
             break
         if first:
             result[slot] = first
+    diagnostics = {}
+    if not result:
+        diagnostics = {'headings': [h.get_text(' ', strip=True)[:110] for h in main.find_all(['h2','h3','h4'])[:12]],
+                       'itemLikeLinks': sum(bool(id_for_link(a)) for a in main.find_all('a')),
+                       'hrefSamples': [a.get('href','')[:90] for a in main.find_all('a')[:12]],
+                       'mainTag': getattr(main, 'name', '?')}
     return {'url': url, 'title': title, 'slots': result, 'slotCount': len(result),
+            'diagnostics': diagnostics,
             'bodySha256': hashlib.sha256(html.encode('utf-8')).hexdigest()}
 
 
@@ -308,7 +315,8 @@ def monitor(repo: Path, snapshots: dict | None, allow_publish: bool) -> dict:
             results.append({'spec':spec_key,'state':'parsed',
                             'slots':[p['slotCount'] for p in parsed],
                             'agreed':len(accepted),'needsReview':len(review),
-                            'sourceDigests':[p['bodySha256'] for p in parsed]})
+                            'sourceDigests':[p['bodySha256'] for p in parsed],
+                            'diagnostics':[p['diagnostics'] for p in parsed]})
             for item in accepted:
                 key=(spec_key,item['slot'])
                 if key in proposals:
