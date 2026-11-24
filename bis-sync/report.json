@@ -1,9 +1,851 @@
 {
+  "approvedChanges": 9,
+  "lastCheckedUtc": "2026-11-24T22:23:58Z",
+  "note": "Automated cross-source ranking consensus is provisional, not confirmed server availability; client installs remain button-only.",
+  "package": "ForeverBiSAudit_Forever_v0.2.1_AutoData.zip",
+  "pending": [
+    {
+      "reason": "top_rank_disagreement",
+      "slot": "Back",
+      "sourceNames": [
+        "Arcanoweave Cloak",
+        "Earthweave Cloak"
+      ],
+      "spec": "SHAMAN:enhancement"
+    },
+    {
+      "reason": "top_rank_disagreement",
+      "slot": "Chest",
+      "sourceNames": [
+        "Timbermaw Tunic",
+        "Chain of The Five Thunders"
+      ],
+      "spec": "SHAMAN:enhancement"
+    },
+    {
+      "reason": "restricted_or_unconfirmed_source",
+      "slot": "Finger",
+      "spec": "SHAMAN:enhancement"
+    },
+    {
+      "reason": "top_rank_disagreement",
+      "slot": "Hands",
+      "sourceNames": [
+        "Devilsaur Gauntlets",
+        "Trueaim Gauntlets"
+      ],
+      "spec": "SHAMAN:enhancement"
+    },
+    {
+      "reason": "top_rank_disagreement",
+      "slot": "Head",
+      "sourceNames": [
+        "Black Dragonscale Helm",
+        "Face of The Five Thunders"
+      ],
+      "spec": "SHAMAN:enhancement"
+    },
+    {
+      "reason": "restricted_or_unconfirmed_source",
+      "slot": "Legs",
+      "spec": "SHAMAN:enhancement"
+    },
+    {
+      "reason": "restricted_or_unconfirmed_source",
+      "slot": "MainHand",
+      "spec": "SHAMAN:enhancement"
+    },
+    {
+      "reason": "restricted_or_unconfirmed_source",
+      "slot": "Neck",
+      "spec": "SHAMAN:enhancement"
+    },
+    {
+      "reason": "restricted_or_unconfirmed_source",
+      "slot": "OffHand",
+      "spec": "SHAMAN:enhancement"
+    },
+    {
+      "reason": "not_in_both_sources",
+      "slot": "Shoulder",
+      "spec": "SHAMAN:enhancement"
+    },
+    {
+      "reason": "top_rank_disagreement",
+      "slot": "Trinket",
+      "sourceNames": [
+        "Earthstrike",
+        "Counterattack Lodestone"
+      ],
+      "spec": "SHAMAN:enhancement"
+    },
+    {
+      "reason": "not_in_both_sources",
+      "slot": "TwoHand",
+      "spec": "SHAMAN:enhancement"
+    },
+    {
+      "reason": "top_rank_disagreement",
+      "slot": "Waist",
+      "sourceNames": [
+        "Belt of the Archmage",
+        "Girdle of The Five Thunders"
+      ],
+      "spec": "SHAMAN:enhancement"
+    },
+    {
+      "reason": "top_rank_disagreement",
+      "slot": "Wrist",
+      "sourceNames": [
+        "Rockfury Bracers",
+        "Marksman Bands"
+      ],
+      "spec": "SHAMAN:enhancement"
+    },
+    {
+      "reason": "top_rank_disagreement",
+      "slot": "Back",
+      "sourceNames": [
+        "Howler's Furs",
+        "Earthweave Cloak"
+      ],
+      "spec": "WARRIOR:arms"
+    },
+    {
+      "reason": "top_rank_disagreement",
+      "slot": "Chest",
+      "sourceNames": [
+        "Timbermaw Tunic",
+        "Breastplate of Heroism"
+      ],
+      "spec": "WARRIOR:arms"
+    },
+    {
+      "reason": "top_rank_disagreement",
+      "slot": "Finger",
+      "sourceNames": [
+        "Don Julio's Band",
+        "Band of Earthen Might"
+      ],
+      "spec": "WARRIOR:arms"
+    },
+    {
+      "reason": "top_rank_disagreement",
+      "slot": "Hands",
+      "sourceNames": [
+        "Theramore Gauntlets",
+        "Trueaim Gauntlets"
+      ],
+      "spec": "WARRIOR:arms"
+    },
+    {
+      "reason": "top_rank_disagreement",
+      "slot": "Head",
+      "sourceNames": [
+        "Lionheart Helm",
+        "Helm of the Executioner"
+      ],
+      "spec": "WARRIOR:arms"
+    },
+    {
+      "reason": "top_rank_disagreement",
+      "slot": "Legs",
+      "sourceNames": [
+        "Titanic Leggings",
+        "Handcrafted Mastersmith Leggings"
+      ],
+      "spec": "WARRIOR:arms"
+    },
+    {
+      "reason": "not_in_both_sources",
+      "slot": "MainHand",
+      "spec": "WARRIOR:arms"
+    },
+    {
+      "reason": "top_rank_disagreement",
+      "slot": "Neck",
+      "sourceNames": [
+        "Medallion of the Dawn",
+        "Beads of Ogre Might"
+      ],
+      "spec": "WARRIOR:arms"
+    },
+    {
+      "reason": "top_rank_disagreement",
+      "slot": "Ranged",
+      "sourceNames": [
+        "The Purifier",
+        "Satyr's Bow"
+      ],
+      "spec": "WARRIOR:arms"
+    },
+    {
+      "reason": "top_rank_disagreement",
+      "slot": "Shoulder",
+      "sourceNames": [
+        "Highlander's Plate Spaulders",
+        "Truestrike Shoulders"
+      ],
+      "spec": "WARRIOR:arms"
+    },
+    {
+      "reason": "top_rank_disagreement",
+      "slot": "Trinket",
+      "sourceNames": [
+        "Earthstrike",
+        "Counterattack Lodestone"
+      ],
+      "spec": "WARRIOR:arms"
+    },
+    {
+      "reason": "not_in_both_sources",
+      "slot": "TwoHand",
+      "spec": "WARRIOR:arms"
+    },
+    {
+      "reason": "top_rank_disagreement",
+      "slot": "Waist",
+      "sourceNames": [
+        "Highlander's Plate Girdle",
+        "Brigam Girdle"
+      ],
+      "spec": "WARRIOR:arms"
+    },
+    {
+      "reason": "top_rank_disagreement",
+      "slot": "Wrist",
+      "sourceNames": [
+        "Deeprock Bracers",
+        "Battleborn Armbraces"
+      ],
+      "spec": "WARRIOR:arms"
+    },
+    {
+      "reason": "top_rank_disagreement",
+      "slot": "Back",
+      "sourceNames": [
+        "Shifting Cloak",
+        "Redoubt Cloak"
+      ],
+      "spec": "WARRIOR:protection"
+    },
+    {
+      "reason": "not_in_both_sources",
+      "slot": "Chest",
+      "spec": "WARRIOR:protection"
+    },
+    {
+      "reason": "not_in_both_sources",
+      "slot": "Feet",
+      "spec": "WARRIOR:protection"
+    },
+    {
+      "reason": "top_rank_disagreement",
+      "slot": "Finger",
+      "sourceNames": [
+        "Warden's Signet of Vigilance",
+        "Band of Resolution"
+      ],
+      "spec": "WARRIOR:protection"
+    },
+    {
+      "reason": "top_rank_disagreement",
+      "slot": "Hands",
+      "sourceNames": [
+        "Heavy Thorium Gauntlets",
+        "Handguards of Heroism"
+      ],
+      "spec": "WARRIOR:protection"
+    },
+    {
+      "reason": "not_in_both_sources",
+      "slot": "Head",
+      "spec": "WARRIOR:protection"
+    },
+    {
+      "reason": "top_rank_disagreement",
+      "slot": "Legs",
+      "sourceNames": [
+        "Sentinel's Plate Legguards",
+        "Warmaster Legguards"
+      ],
+      "spec": "WARRIOR:protection"
+    },
+    {
+      "reason": "restricted_or_unconfirmed_source",
+      "slot": "MainHand",
+      "spec": "WARRIOR:protection"
+    },
+    {
+      "reason": "restricted_or_unconfirmed_source",
+      "slot": "Neck",
+      "spec": "WARRIOR:protection"
+    },
+    {
+      "reason": "top_rank_disagreement",
+      "slot": "OffHand",
+      "sourceNames": [
+        "Evergreen Shield",
+        "Lord Blackwood's Buckler"
+      ],
+      "spec": "WARRIOR:protection"
+    },
+    {
+      "reason": "top_rank_disagreement",
+      "slot": "Ranged",
+      "sourceNames": [
+        "Ankle Slicers",
+        "Carapace Spine Crossbow"
+      ],
+      "spec": "WARRIOR:protection"
+    },
+    {
+      "reason": "top_rank_disagreement",
+      "slot": "Shoulder",
+      "sourceNames": [
+        "Highlander's Plate Spaulders",
+        "Spaulders of Valor"
+      ],
+      "spec": "WARRIOR:protection"
+    },
+    {
+      "reason": "restricted_or_unconfirmed_source",
+      "slot": "Trinket",
+      "spec": "WARRIOR:protection"
+    },
+    {
+      "reason": "not_in_both_sources",
+      "slot": "Waist",
+      "spec": "WARRIOR:protection"
+    },
+    {
+      "reason": "top_rank_disagreement",
+      "slot": "Wrist",
+      "sourceNames": [
+        "Berserker Bracers",
+        "Wristguards of Heroism"
+      ],
+      "spec": "WARRIOR:protection"
+    },
+    {
+      "reason": "top_rank_disagreement",
+      "slot": "Chest",
+      "sourceNames": [
+        "Dawn Armor",
+        "Beastmaster's Tunic"
+      ],
+      "spec": "HUNTER:marksmanship"
+    },
+    {
+      "reason": "restricted_or_unconfirmed_source",
+      "slot": "Feet",
+      "spec": "HUNTER:marksmanship"
+    },
+    {
+      "reason": "restricted_or_unconfirmed_source",
+      "slot": "Finger",
+      "spec": "HUNTER:marksmanship"
+    },
+    {
+      "reason": "restricted_or_unconfirmed_source",
+      "slot": "Hands",
+      "spec": "HUNTER:marksmanship"
+    },
+    {
+      "reason": "top_rank_disagreement",
+      "slot": "Head",
+      "sourceNames": [
+        "Black Dragonscale Helm",
+        "Beastmaster's Cap"
+      ],
+      "spec": "HUNTER:marksmanship"
+    },
+    {
+      "reason": "restricted_or_unconfirmed_source",
+      "slot": "Legs",
+      "spec": "HUNTER:marksmanship"
+    },
+    {
+      "reason": "restricted_or_unconfirmed_source",
+      "slot": "MainHand",
+      "spec": "HUNTER:marksmanship"
+    },
+    {
+      "reason": "top_rank_disagreement",
+      "slot": "Neck",
+      "sourceNames": [
+        "Amulet of the Darkmoon",
+        "Beads of Ogre Might"
+      ],
+      "spec": "HUNTER:marksmanship"
+    },
+    {
+      "reason": "restricted_or_unconfirmed_source",
+      "slot": "OffHand",
+      "spec": "HUNTER:marksmanship"
+    },
+    {
+      "reason": "top_rank_disagreement",
+      "slot": "Ranged",
+      "sourceNames": [
+        "Rhok'delar, Longbow of the Ancient Keepers",
+        "Stoneshatter"
+      ],
+      "spec": "HUNTER:marksmanship"
+    },
+    {
+      "reason": "top_rank_disagreement",
+      "slot": "Shoulder",
+      "sourceNames": [
+        "Theramore Pauldrons",
+        "Truestrike Shoulders"
+      ],
+      "spec": "HUNTER:marksmanship"
+    },
+    {
+      "reason": "restricted_or_unconfirmed_source",
+      "slot": "Trinket",
+      "spec": "HUNTER:marksmanship"
+    },
+    {
+      "reason": "not_in_both_sources",
+      "slot": "TwoHand",
+      "spec": "HUNTER:marksmanship"
+    },
+    {
+      "reason": "top_rank_disagreement",
+      "slot": "Waist",
+      "sourceNames": [
+        "Ranger's Belt",
+        "Marksman's Girdle"
+      ],
+      "spec": "HUNTER:marksmanship"
+    },
+    {
+      "reason": "restricted_or_unconfirmed_source",
+      "slot": "Wrist",
+      "spec": "HUNTER:marksmanship"
+    },
+    {
+      "reason": "top_rank_disagreement",
+      "slot": "Back",
+      "sourceNames": [
+        "Howler's Furs",
+        "Earthweave Cloak"
+      ],
+      "spec": "ROGUE:combat"
+    },
+    {
+      "reason": "top_rank_disagreement",
+      "slot": "Chest",
+      "sourceNames": [
+        "Dawn Armor",
+        "Darkmantle Tunic"
+      ],
+      "spec": "ROGUE:combat"
+    },
+    {
+      "reason": "not_in_both_sources",
+      "slot": "Feet",
+      "spec": "ROGUE:combat"
+    },
+    {
+      "reason": "top_rank_disagreement",
+      "slot": "Finger",
+      "sourceNames": [
+        "Warden's Signet of Ferocity",
+        "Band of Earthen Might"
+      ],
+      "spec": "ROGUE:combat"
+    },
+    {
+      "reason": "top_rank_disagreement",
+      "slot": "Hands",
+      "sourceNames": [
+        "Devilsaur Gauntlets",
+        "Darkmantle Gloves"
+      ],
+      "spec": "ROGUE:combat"
+    },
+    {
+      "reason": "top_rank_disagreement",
+      "slot": "Legs",
+      "sourceNames": [
+        "Devilsaur Leggings",
+        "Plaguehound Leggings"
+      ],
+      "spec": "ROGUE:combat"
+    },
+    {
+      "reason": "restricted_or_unconfirmed_source",
+      "slot": "MainHand",
+      "spec": "ROGUE:combat"
+    },
+    {
+      "reason": "restricted_or_unconfirmed_source",
+      "slot": "OffHand",
+      "spec": "ROGUE:combat"
+    },
+    {
+      "reason": "restricted_or_unconfirmed_source",
+      "slot": "Ranged",
+      "spec": "ROGUE:combat"
+    },
+    {
+      "reason": "top_rank_disagreement",
+      "slot": "Shoulder",
+      "sourceNames": [
+        "Theramore Pauldrons",
+        "Truestrike Shoulders"
+      ],
+      "spec": "ROGUE:combat"
+    },
+    {
+      "reason": "top_rank_disagreement",
+      "slot": "Trinket",
+      "sourceNames": [
+        "Earthstrike",
+        "Smolderweb's Eye"
+      ],
+      "spec": "ROGUE:combat"
+    },
+    {
+      "reason": "top_rank_disagreement",
+      "slot": "Waist",
+      "sourceNames": [
+        "Assassin's Waistguard",
+        "Might of the Timbermaw"
+      ],
+      "spec": "ROGUE:combat"
+    },
+    {
+      "reason": "top_rank_disagreement",
+      "slot": "Wrist",
+      "sourceNames": [
+        "Forest Stalker's Bracers",
+        "Bracers of the Eclipse"
+      ],
+      "spec": "ROGUE:combat"
+    },
+    {
+      "reason": "top_rank_disagreement",
+      "slot": "Back",
+      "sourceNames": [
+        "Fel Cape",
+        "Shroud of the Exile"
+      ],
+      "spec": "PRIEST:shadow"
+    },
+    {
+      "reason": "restricted_or_unconfirmed_source",
+      "slot": "Chest",
+      "spec": "PRIEST:shadow"
+    },
+    {
+      "reason": "not_in_both_sources",
+      "slot": "Feet",
+      "spec": "PRIEST:shadow"
+    },
+    {
+      "reason": "top_rank_disagreement",
+      "slot": "Finger",
+      "sourceNames": [
+        "Warden's Signet of Brilliance",
+        "Rune Band of Wizardry"
+      ],
+      "spec": "PRIEST:shadow"
+    },
+    {
+      "reason": "restricted_or_unconfirmed_source",
+      "slot": "Hands",
+      "spec": "PRIEST:shadow"
+    },
+    {
+      "reason": "not_in_both_sources",
+      "slot": "Head",
+      "spec": "PRIEST:shadow"
+    },
+    {
+      "reason": "restricted_or_unconfirmed_source",
+      "slot": "Legs",
+      "spec": "PRIEST:shadow"
+    },
+    {
+      "reason": "restricted_or_unconfirmed_source",
+      "slot": "MainHand",
+      "spec": "PRIEST:shadow"
+    },
+    {
+      "reason": "top_rank_disagreement",
+      "slot": "Neck",
+      "sourceNames": [
+        "Orb of the Darkmoon",
+        "Nacreous Shell Necklace"
+      ],
+      "spec": "PRIEST:shadow"
+    },
+    {
+      "reason": "top_rank_disagreement",
+      "slot": "OffHand",
+      "sourceNames": [
+        "Tome of Shadow Force",
+        "Tome of the Lost"
+      ],
+      "spec": "PRIEST:shadow"
+    },
+    {
+      "reason": "not_in_both_sources",
+      "slot": "Ranged",
+      "spec": "PRIEST:shadow"
+    },
+    {
+      "reason": "not_in_both_sources",
+      "slot": "Shoulder",
+      "spec": "PRIEST:shadow"
+    },
+    {
+      "reason": "restricted_or_unconfirmed_source",
+      "slot": "Trinket",
+      "spec": "PRIEST:shadow"
+    },
+    {
+      "reason": "not_in_both_sources",
+      "slot": "TwoHand",
+      "spec": "PRIEST:shadow"
+    },
+    {
+      "reason": "top_rank_disagreement",
+      "slot": "Waist",
+      "sourceNames": [
+        "Belt of the Archmage",
+        "Virtuous Belt"
+      ],
+      "spec": "PRIEST:shadow"
+    },
+    {
+      "reason": "top_rank_disagreement",
+      "slot": "Wrist",
+      "sourceNames": [
+        "Rockfury Bracers",
+        "Sublime Wristguards"
+      ],
+      "spec": "PRIEST:shadow"
+    },
+    {
+      "reason": "top_rank_disagreement",
+      "slot": "Back",
+      "sourceNames": [
+        "Arcanoweave Cloak",
+        "Shroud of the Exile"
+      ],
+      "spec": "MAGE:frost"
+    },
+    {
+      "reason": "top_rank_disagreement",
+      "slot": "Chest",
+      "sourceNames": [
+        "Robe of the Archmage",
+        "Earthpower Vest"
+      ],
+      "spec": "MAGE:frost"
+    },
+    {
+      "reason": "restricted_or_unconfirmed_source",
+      "slot": "Finger",
+      "spec": "MAGE:frost"
+    },
+    {
+      "reason": "restricted_or_unconfirmed_source",
+      "slot": "Head",
+      "spec": "MAGE:frost"
+    },
+    {
+      "reason": "top_rank_disagreement",
+      "slot": "MainHand",
+      "sourceNames": [
+        "The Lobotomizer",
+        "Staff of Balzaphon"
+      ],
+      "spec": "MAGE:frost"
+    },
+    {
+      "reason": "restricted_or_unconfirmed_source",
+      "slot": "Neck",
+      "spec": "MAGE:frost"
+    },
+    {
+      "reason": "top_rank_disagreement",
+      "slot": "OffHand",
+      "sourceNames": [
+        "Therazane's Touch",
+        "Tome of the Lost"
+      ],
+      "spec": "MAGE:frost"
+    },
+    {
+      "reason": "not_in_both_sources",
+      "slot": "Ranged",
+      "spec": "MAGE:frost"
+    },
+    {
+      "reason": "restricted_or_unconfirmed_source",
+      "slot": "Trinket",
+      "spec": "MAGE:frost"
+    },
+    {
+      "reason": "not_in_both_sources",
+      "slot": "TwoHand",
+      "spec": "MAGE:frost"
+    },
+    {
+      "reason": "top_rank_disagreement",
+      "slot": "Waist",
+      "sourceNames": [
+        "Belt of the Archmage",
+        "Waistband of Balzaphon"
+      ],
+      "spec": "MAGE:frost"
+    },
+    {
+      "reason": "top_rank_disagreement",
+      "slot": "Wrist",
+      "sourceNames": [
+        "Rockfury Bracers",
+        "Sublime Wristguards"
+      ],
+      "spec": "MAGE:frost"
+    }
+  ],
+  "pendingChanges": 99,
+  "potentialChanges": 9,
+  "results": [
+    {
+      "agreed": 1,
+      "diagnostics": [
+        {},
+        {}
+      ],
+      "needsReview": 14,
+      "slots": [
+        14,
+        14
+      ],
+      "sourceDigests": [
+        "75f467c8c4f00decccbbc38621cf7d8cedfe77adebc3b595aede8a9d59027d86",
+        "2f69178ba9bfe7e89e948d054891d3e4945de25e96986bb5010dda77cedc170a"
+      ],
+      "spec": "SHAMAN:enhancement",
+      "state": "parsed"
+    },
+    {
+      "agreed": 1,
+      "diagnostics": [
+        {},
+        {}
+      ],
+      "needsReview": 14,
+      "slots": [
+        14,
+        14
+      ],
+      "sourceDigests": [
+        "457683e6b975ce899335970464d522bbf2da89ff71507dc2b0e11b925d81e202",
+        "9639b7f8c271277b5eda0eb375bb276a5ad736594473c0b4a539b08daabe2ac2"
+      ],
+      "spec": "WARRIOR:arms",
+      "state": "parsed"
+    },
+    {
+      "agreed": 0,
+      "diagnostics": [
+        {},
+        {}
+      ],
+      "needsReview": 15,
+      "slots": [
+        11,
+        15
+      ],
+      "sourceDigests": [
+        "2d64a5dca5824242d6b264ee35ce87da9f53212e0d5ba8c305c70dc4f456bd37",
+        "20aa1a9c8db71d9ea9726b3410dda15436b4508a9d3eb23d69723c0499e5b9fe"
+      ],
+      "spec": "WARRIOR:protection",
+      "state": "parsed"
+    },
+    {
+      "agreed": 1,
+      "diagnostics": [
+        {},
+        {}
+      ],
+      "needsReview": 15,
+      "slots": [
+        16,
+        15
+      ],
+      "sourceDigests": [
+        "d692799ae14eda993f396450f2b0fa2032828d4582f33ccd42a0e4d4a8928b35",
+        "2acc28e62b133fc5ede5427346a4f9a8767b9fcb2a3dc6171c5aa6fe48348157"
+      ],
+      "spec": "HUNTER:marksmanship",
+      "state": "parsed"
+    },
+    {
+      "agreed": 2,
+      "diagnostics": [
+        {},
+        {}
+      ],
+      "needsReview": 13,
+      "slots": [
+        14,
+        15
+      ],
+      "sourceDigests": [
+        "a9ae7b57b577a869265bebc8db8a0473834ab993889bcdddcc165b269fd4600a",
+        "5a552a835b8c59bd5edf8699242e708ebd35463aa98367b18cfde4b6718a5417"
+      ],
+      "spec": "ROGUE:combat",
+      "state": "parsed"
+    },
+    {
+      "agreed": 0,
+      "diagnostics": [
+        {},
+        {}
+      ],
+      "needsReview": 16,
+      "slots": [
+        13,
+        14
+      ],
+      "sourceDigests": [
+        "0f5a4e8c0703d4759f3c355ee7fdd320a6ba497d1538aa4da40df5e4ea80a8d4",
+        "42868517231b072a612d71b133163d183e2556c6d8a95ec834d25512c25d4afb"
+      ],
+      "spec": "PRIEST:shadow",
+      "state": "parsed"
+    },
+    {
+      "agreed": 4,
+      "diagnostics": [
+        {},
+        {}
+      ],
+      "needsReview": 12,
+      "slots": [
+        16,
+        14
+      ],
+      "sourceDigests": [
+        "d3cb8f5646fdc9ffe40431c6d7f048e5a0b8756083a3f0b44c85bf7f116c0742",
+        "11d2d57e0b39e175b1cae4161d09dfaf8e0817ef517370a945705dca4ac89363"
+      ],
+      "spec": "MAGE:frost",
+      "state": "parsed"
+    }
+  ],
   "schema": 1,
-  "state": "not-run",
-  "lastCheckedUtc": null,
-  "approvedChanges": 0,
-  "pendingChanges": 0,
-  "results": [],
-  "explanation": "This source monitor has not yet run on GitHub Actions. No automatic BiS revision has been validated."
+  "state": "published"
 }

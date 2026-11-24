@@ -1,7 +1,134 @@
 {
-  "schema": 1,
-  "revision": 0,
-  "packageVersion": "0.2.0",
-  "approved": [],
-  "explanation": "No external ranking has been machine-corroborated yet. Retain curated v0.1.0 rows as provisional, not verified live drops."
+  "approved": [
+    {
+      "checked": "2026-11-24",
+      "class": "HUNTER",
+      "itemId": 21187,
+      "name": "Earthweave Cloak",
+      "slot": "Back",
+      "source": "Quest: Volunteer's Battlegear · lvl 60",
+      "spec": "marksmanship",
+      "status": "unknown",
+      "urls": [
+        "https://foreverwow.gg/hunter/marksmanship/pre-raid/",
+        "https://theforeverera.com/en/bis/hunter/marksmanship/pre-raid/"
+      ]
+    },
+    {
+      "checked": "2026-11-24",
+      "class": "MAGE",
+      "itemId": 22064,
+      "name": "Sorcerer's Boots",
+      "slot": "Feet",
+      "source": "Quest: Anthion's Parting Words · lvl 58",
+      "spec": "frost",
+      "status": "unknown",
+      "urls": [
+        "https://foreverwow.gg/mage/frost/pre-raid/",
+        "https://theforeverera.com/en/bis/mage/frost/pre-raid/"
+      ]
+    },
+    {
+      "checked": "2026-11-24",
+      "class": "MAGE",
+      "itemId": 22066,
+      "name": "Sorcerer's Gloves",
+      "slot": "Hands",
+      "source": "Quest: Just Compensation · lvl 58",
+      "spec": "frost",
+      "status": "unknown",
+      "urls": [
+        "https://foreverwow.gg/mage/frost/pre-raid/",
+        "https://theforeverera.com/en/bis/mage/frost/pre-raid/"
+      ]
+    },
+    {
+      "checked": "2026-11-24",
+      "class": "MAGE",
+      "itemId": 226933,
+      "name": "Sorcerer's Leggings",
+      "slot": "Legs",
+      "source": "Vendor: Deliana",
+      "spec": "frost",
+      "status": "unknown",
+      "urls": [
+        "https://foreverwow.gg/mage/frost/pre-raid/",
+        "https://theforeverera.com/en/bis/mage/frost/pre-raid/"
+      ]
+    },
+    {
+      "checked": "2026-11-24",
+      "class": "MAGE",
+      "itemId": 19050,
+      "name": "Mantle of the Timbermaw",
+      "slot": "Shoulder",
+      "source": "Crafted: Tailoring",
+      "spec": "frost",
+      "status": "unknown",
+      "urls": [
+        "https://foreverwow.gg/mage/frost/pre-raid/",
+        "https://theforeverera.com/en/bis/mage/frost/pre-raid/"
+      ]
+    },
+    {
+      "checked": "2026-11-24",
+      "class": "ROGUE",
+      "itemId": 22005,
+      "name": "Darkmantle Cap",
+      "slot": "Head",
+      "source": "Quest: Saving the Best for Last · lvl 58",
+      "spec": "combat",
+      "status": "unknown",
+      "urls": [
+        "https://foreverwow.gg/rogue/combat/pre-raid/",
+        "https://theforeverera.com/en/bis/rogue/combat/pre-raid/"
+      ]
+    },
+    {
+      "checked": "2026-11-24",
+      "class": "ROGUE",
+      "itemId": 22150,
+      "name": "Beads of Ogre Might",
+      "slot": "Neck",
+      "source": "Quest: Falrin's Vendetta · lvl 58",
+      "spec": "combat",
+      "status": "unknown",
+      "urls": [
+        "https://foreverwow.gg/rogue/combat/pre-raid/",
+        "https://theforeverera.com/en/bis/rogue/combat/pre-raid/"
+      ]
+    },
+    {
+      "checked": "2026-11-24",
+      "class": "SHAMAN",
+      "itemId": 14616,
+      "name": "Bloodmail Boots",
+      "slot": "Feet",
+      "source": "Drop: Doctor Theolen Krastinov · lvl 60",
+      "spec": "enhancement",
+      "status": "unknown",
+      "urls": [
+        "https://foreverwow.gg/shaman/enhancement/pre-raid/",
+        "https://theforeverera.com/en/bis/shaman/enhancement/pre-raid/"
+      ]
+    },
+    {
+      "checked": "2026-11-24",
+      "class": "WARRIOR",
+      "itemId": 21995,
+      "name": "Boots of Heroism",
+      "slot": "Feet",
+      "source": "Quest: Anthion's Parting Words · lvl 58",
+      "spec": "arms",
+      "status": "unknown",
+      "urls": [
+        "https://foreverwow.gg/warrior/arms/pre-raid/",
+        "https://theforeverera.com/en/bis/warrior/arms/pre-raid/"
+      ]
+    }
+  ],
+  "explanation": "No external ranking has been machine-corroborated yet. Retain curated v0.1.0 rows as provisional, not verified live drops.",
+  "packageVersion": "0.2.1",
+  "revision": 1,
+  "schema": 1
 }
