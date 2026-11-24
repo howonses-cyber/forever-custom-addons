@@ -153,7 +153,13 @@ def parse_ranking(html: str, url: str, expected_label: str) -> dict:
         diagnostics = {'headings': [h.get_text(' ', strip=True)[:110] for h in main.find_all(['h2','h3','h4'])[:12]],
                        'itemLikeLinks': sum(bool(id_for_link(a)) for a in main.find_all('a')),
                        'hrefSamples': [a.get('href','')[:90] for a in main.find_all('a')[:12]],
-                       'mainTag': getattr(main, 'name', '?')}
+                       'mainTag': getattr(main, 'name', '?'),
+                       'itemSamples': [{'text': a.get_text(' ', strip=True)[:75],
+                                        'href': a.get('href', '')[:100],
+                                        'parent': (a.parent.get_text(' ', strip=True)[:125] if a.parent else ''),
+                                        'grandparent': (a.parent.parent.get_text(' ', strip=True)[:160] if a.parent and a.parent.parent else ''),
+                                        'class': (a.parent.get('class', []) if a.parent else [])}
+                                       for a in main.find_all('a') if id_for_link(a)][:5]}
     return {'url': url, 'title': title, 'slots': result, 'slotCount': len(result),
             'diagnostics': diagnostics,
             'bodySha256': hashlib.sha256(html.encode('utf-8')).hexdigest()}
