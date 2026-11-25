@@ -161,7 +161,7 @@ class ParserTests(unittest.TestCase):
             report=sync.monitor(root,{urls[0]:fixture,urls[1]:source_html(first='The Unstoppable Force',item_id=19323,status='Vendor: Gaelden',host='theforeverera.com').replace('<h3>Head - best Head', '<h3>Two-Hand - best Two-Hand')},False)
             self.assertTrue(any(x['reason']=='owner_phase_lock' for x in report['pending']))
             self.assertEqual(report['approvedChanges'],0)
-            self.assertTrue(any(x['slot']=='TwoHand' for x in report['pending']))
+            self.assertTrue(any(x.get('reason')=='owner_phase_lock' and x.get('slot')=='TwoHand' for x in report['pending']))
 
 
 
