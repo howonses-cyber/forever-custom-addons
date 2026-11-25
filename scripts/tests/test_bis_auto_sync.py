@@ -77,12 +77,20 @@ class ParserTests(unittest.TestCase):
             root=Path(tmp);(root/'addons').mkdir()
             archive=root/'addons'/candidates[0].name
             archive.write_bytes(candidates[0].read_bytes())
-            state={'packageVersion':'0.2.1','approved':[]}
+            current=sync.archive_version(archive)
+            target=sync.bump_patch(current)
+            before=archive.read_bytes()
+            for stale in ('0.2.1', current):
+                if sync.version_key(stale) <= sync.version_key(current):
+                    with self.assertRaises(ValueError):
+                        sync.update_addon_archive(root,{'packageVersion':stale,'approved':[]})
+                    self.assertEqual(archive.read_bytes(),before)
+            state={'packageVersion':target,'approved':[]}
             name=sync.update_addon_archive(root,state)
-            self.assertEqual(name,'ForeverBiSAudit_Forever_v0.2.1_AutoData.zip')
+            self.assertEqual(name,'ForeverBiSAudit_Forever_v'+target+'_AutoData.zip')
             with zipfile.ZipFile(root/'addons'/name) as z:
-                self.assertIn('## Version: 0.2.1',z.read('ForeverBiSAudit/ForeverBiSAudit.toc').decode())
-                self.assertIn("B.dataVersion = '0.2.1'",z.read('ForeverBiSAudit/Core.lua').decode())
+                self.assertIn('## Version: '+target,z.read('ForeverBiSAudit/ForeverBiSAudit.toc').decode())
+                self.assertIn("B.dataVersion = '"+target+"'",z.read('ForeverBiSAudit/Core.lua').decode())
                 self.assertIn('B.autoMeta',z.read('ForeverBiSAudit/AutoData.lua').decode())
 
     def test_monitor_can_publish_consensus_as_provisional_only(self):
@@ -97,15 +105,31 @@ class ParserTests(unittest.TestCase):
             src['profiles']=src['profiles'][:1]
             (root/'bis-sync/sources.json').write_text(json.dumps(src))
             state=json.loads((repository/'bis-sync/approved.json').read_text('utf-8'))
-            (root/'bis-sync/approved.json').write_text(json.dumps(state))
+            archive=next((root/'addons').glob('ForeverBiSAudit*.zip'))
+            current=sync.archive_version(archive)
+            target=sync.bump_patch(current)
+            state['approved']=[]
+            state['packageVersion']='0.0.1'
+            state_path=root/'bis-sync/approved.json'
+            state_path.write_text(json.dumps(state))
+            original=archive.read_bytes()
+            original_state=state_path.read_bytes()
             urls=src['profiles'][0]['sources']
             fixture=source_html(item_id=60001)
+            stale_report=sync.monitor(root,{urls[0]:fixture,urls[1]:source_html(item_id=60001,host='theforeverera.com')},True)
+            self.assertEqual(stale_report['state'],'baseline-mismatch')
+            self.assertEqual(stale_report['approvedChanges'],0)
+            self.assertEqual(archive.read_bytes(),original)
+            self.assertEqual(state_path.read_bytes(),original_state)
+            self.assertEqual(len(list((root/'addons').glob('ForeverBiSAudit*.zip'))),1)
+            state['packageVersion']=current
+            state_path.write_text(json.dumps(state))
             report=sync.monitor(root,{urls[0]:fixture,urls[1]:source_html(item_id=60001,host='theforeverera.com')},True)
             self.assertEqual(report['state'],'published')
             self.assertEqual(report['approvedChanges'],6)
             self.assertEqual(len(list((root/'addons').glob('ForeverBiSAudit*.zip'))),1)
             stored=json.loads((root/'bis-sync/approved.json').read_text('utf-8'))
-            self.assertEqual(stored['packageVersion'],'0.2.1')
+            self.assertEqual(stored['packageVersion'],target)
             self.assertTrue(all(row['status']=='unknown' for row in stored['approved']))
             archive=next((root/'addons').glob('ForeverBiSAudit*.zip'))
             with zipfile.ZipFile(archive) as z:
@@ -116,7 +140,7 @@ class ParserTests(unittest.TestCase):
             report2=sync.monitor(root,{urls[0]:fixture,urls[1]:source_html(item_id=60001,host='theforeverera.com')},True)
             self.assertEqual(report2['approvedChanges'],0)
             state2=json.loads((root/'bis-sync/approved.json').read_text('utf-8'))
-            self.assertEqual(state2['packageVersion'],'0.2.1')
+            self.assertEqual(state2['packageVersion'],target)
 
     def test_owner_locked_item_never_auto_promotes(self):
         repository=Path(__file__).resolve().parents[2]

@@ -292,12 +292,32 @@ def bump_patch(version: str) -> str:
     return f'{m.group(1)}.{m.group(2)}.{int(m.group(3))+1}'
 
 
+def version_key(version: str) -> tuple:
+    if not isinstance(version, str) or not re.fullmatch(r'\d+\.\d+\.\d+', version):
+        raise ValueError('unsupported package version')
+    return tuple(int(part) for part in version.split('.'))
+
+
+def archive_version(path: Path) -> str:
+    with zipfile.ZipFile(path, 'r') as z:
+        toc = z.read('ForeverBiSAudit/ForeverBiSAudit.toc').decode('utf-8')
+    matches = re.findall(r'(?m)^## Version:[ \t]*([^\r\n]+)', toc)
+    if len(matches) != 1:
+        raise ValueError('expected exactly one BiS TOC version')
+    version = matches[0].strip()
+    version_key(version)
+    return version
+
+
 def update_addon_archive(repo: Path, state: dict) -> str:
     candidates = list((repo/'addons').glob(ARCHIVE_PREFIX+'*.zip'))
     if len(candidates) != 1:
         raise ValueError('expected exactly one current ForeverBiSAudit archive')
     previous = candidates[0]
     version = state['packageVersion']
+    current_version = archive_version(previous)
+    if version_key(version) <= version_key(current_version):
+        raise ValueError('refusing non-increasing BiS package version: '+current_version+' -> '+version)
     output_name = f'{ARCHIVE_PREFIX}{version}_AutoData.zip'
     output = repo/'addons'/output_name
     rows = state['approved']
@@ -372,6 +392,12 @@ def monitor(repo: Path, snapshots: dict | None, allow_publish: bool) -> dict:
     old_archives=list((repo/'addons').glob(ARCHIVE_PREFIX+'*.zip'))
     if len(old_archives)!=1:
         raise ValueError('expected one current BiS archive for protection checks')
+    current_version=archive_version(old_archives[0])
+    state_version=state.get('packageVersion')
+    baseline_matches=version_key(current_version)==version_key(state_version)
+    if not baseline_matches:
+        pending.append({'reason':'package_version_mismatch','archiveVersion':current_version,
+                        'stateVersion':state_version,'action':'review and migrate updater baseline; keep existing ZIP'})
     locked=set()
     with zipfile.ZipFile(old_archives[0]) as z:
         base=z.read('ForeverBiSAudit/Data.lua').decode('utf-8')
@@ -398,7 +424,7 @@ def monitor(repo: Path, snapshots: dict | None, allow_publish: bool) -> dict:
         changes.append({'spec':key[0],'slot':key[1], 'old':old['name'] if old else None,'new':row['name']})
         updated[key]=proposed
     changed=bool(changes)
-    if changed and allow_publish:
+    if changed and allow_publish and baseline_matches:
         state['revision']=int(state['revision'])+1
         state['packageVersion']=bump_patch(state['packageVersion'])
         state['approved']=list(updated.values())
@@ -407,7 +433,8 @@ def monitor(repo: Path, snapshots: dict | None, allow_publish: bool) -> dict:
     else:
         output_name=None
     any_unavailable=any(z['state']=='unavailable' for z in results)
-    report={'schema':1,'state':'published' if output_name else ('review-needed' if pending else ('unavailable' if any_unavailable else 'unchanged')),
+    report={'schema':1,'state':'published' if output_name else ('baseline-mismatch' if not baseline_matches else ('review-needed' if pending else ('unavailable' if any_unavailable else 'unchanged'))),
+            'packageBaseline':{'archiveVersion':current_version,'stateVersion':state_version,'matches':baseline_matches},
             'lastCheckedUtc':t,'approvedChanges':len(changes) if output_name else 0,
             'potentialChanges':len(changes),'pendingChanges':len(pending),
             'results':results,'pending':pending[:120],
