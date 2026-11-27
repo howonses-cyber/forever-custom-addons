@@ -6,6 +6,8 @@ on:
     paths:
       - 'addons/*.zip'
       - 'scripts/build_catalog.py'
+      - 'scripts/build_quest_phase3.py'
+      - 'scripts/phase3_quest_v2.5.0.patch.gz.b64'
       - 'retired_addons.json'
       - '.github/workflows/publish-addons.yml'
   workflow_dispatch:
@@ -35,6 +37,32 @@ jobs:
           set -euo pipefail
           visibility="$(gh repo view "$GH_REPO" --json visibility --jq .visibility)"
           test "$visibility" = PUBLIC || { echo 'Public GitHub repository is required.' >&2; exit 1; }
+      - name: Reconstruct the reviewed Quest Guide V2.5.0 artifact
+        run: |
+          set -euo pipefail
+          if test -f addons/ForeverQuestGuide_Forever_v2.4.0_RouteSafety_Preflight.zip; then
+            python3 scripts/build_quest_phase3.py
+          else
+            test -f addons/ForeverQuestGuide_Forever_v2.5.0_Recommendations_ForeverEvidence_Korean.zip
+          fi
+          sha256sum addons/ForeverQuestGuide_Forever_v2.5.0_Recommendations_ForeverEvidence_Korean.zip
+
+      - name: Verify Quest Guide with native Lua 5.1 and LuaJIT mock suites
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Run native language and quest guide regressions
+        run: |
+          set -euo pipefail
+          python -m pip install 'lupa==2.8'
+          mkdir -p verify_build
+          unzip -q addons/ForeverQuestGuide_Forever_v2.5.0_Recommendations_ForeverEvidence_Korean.zip -d verify_build
+          python verify_build/ForeverDungeonQuestGuide/tests/fetch_native_chat_fixture.py --destination verify_build/native_chat
+          python verify_build/ForeverDungeonQuestGuide/tests/run_compatibility.py \
+            --addon-root verify_build/ForeverDungeonQuestGuide \
+            --chat-fixtures verify_build/native_chat \
+            --report verify_build/regression.json
+
       - name: Validate every ZIP and generate a release
         env:
           REPO: ${{ github.repository }}
@@ -70,6 +98,6 @@ jobs:
           cp dist/catalog.json catalog.json
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add catalog.json
+          git add catalog.json addons/
           git commit -m 'chore: record published custom addon catalog [skip ci]'
           git push origin HEAD:main
