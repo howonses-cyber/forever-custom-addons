@@ -15,8 +15,8 @@ NEW='ForeverQuestGuide_Forever_v2.8.2_CompactList_ItemSources.zip'
 PATCH='quest_v2.8.2.patch.gz.b64'
 FOLDER='ForeverDungeonQuestGuide'
 BASE_SHA='83a6fd847e9d85a7aec358e511868c260bf284a99cfdff26a752574b1c977583'
-PATCH_SHA='554faeb7528fdf4e98c8d47a3f7939b1dc94bbb0e75849dcfa2103e0415c0303'
-NEW_SHA='b6bfbf53cd22364158c89b22df3b6295f33e040084bc0afda390b27b5603a6d3'
+PATCH_SHA='996c66fd8f6608a2b4a1a84965c108c0c70569251603796369c3e93b15c82be7'
+NEW_SHA='3e4103d9ef3272aa839c0b06c745a19380e9f8f4b00c7299102eefb6c554c669'
 DATE=(2026,11,27,22,20,0)
 
 def digest(b:bytes)->str:return hashlib.sha256(b).hexdigest()
