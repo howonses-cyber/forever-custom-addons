@@ -20,8 +20,8 @@ NEW='ForeverQuestGuide_Forever_v2.8.1_EUI_Detail_Button_PositionFix.zip'
 PATCH='eui_position_fix_v2.8.1.patch.gz.b64'
 FOLDER='ForeverDungeonQuestGuide'
 BASE_SHA='a365f1a38ab9f4992fa9145c8ca48649499463a077bc3b2db661454ad378b824'
-PATCH_SHA='2118ae3734799d0a1ff8ad307b64471ba7c87355b0bc5935b4fa2d305af82a55'
-NEW_SHA='d90e623af3aa3884b48bbb8aa0229b9a07b239e483e2e888add1d5e2c72b13fc'
+PATCH_SHA='d3f07de7fd9258f2e051724b8be91493d83f8a938587831b0bad0240b1c8934c'
+NEW_SHA='83a6fd847e9d85a7aec358e511868c260bf284a99cfdff26a752574b1c977583'
 ZIP_DATE=(2026,11,27,20,0,0)
 
 def sha(raw:bytes)->str:
