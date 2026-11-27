@@ -1,0 +1,51 @@
+name: Validate Quest Guide V2.4.0 before release
+on:
+  push:
+    branches: ['staging/questguide-v2.4.0-test-20261127']
+    paths:
+      - 'addons/ForeverQuestGuide_Forever_v2.4.0_RouteSafety_Preflight.zip'
+      - '.github/workflows/quest-guide-v240-validation.yml'
+permissions:
+  contents: read
+jobs:
+  lua51-luajit-regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Extract exact release candidate and verify checksum
+        shell: bash
+        run: |
+          set -euo pipefail
+          ZIP=addons/ForeverQuestGuide_Forever_v2.4.0_RouteSafety_Preflight.zip
+          echo 'bcf4ea2e5de4d022db7b9bcf1dc0f93b89f9f6579db75af52e91b3bc0a1d1c22  '"$ZIP" | sha256sum -c -
+          unzip -t "$ZIP" | tail -1
+          mkdir -p qa_unpack
+          unzip -q "$ZIP" -d qa_unpack
+          grep -q '^## Version: 2.4.0$' qa_unpack/ForeverDungeonQuestGuide/ForeverDungeonQuestGuide.toc
+      - name: Set up isolated Lua 5.1 and LuaJIT engines
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m pip install --disable-pip-version-check --target "$RUNNER_TEMP/fqg_lupa" 'lupa==2.8'
+      - name: Fetch and verify pinned native chat source
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 qa_unpack/ForeverDungeonQuestGuide/tests/fetch_native_chat_fixture.py --destination "$RUNNER_TEMP/fqg_native_chat"
+      - name: Run all 29 modules and 11 suites under both Lua engines
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 qa_unpack/ForeverDungeonQuestGuide/tests/run_compatibility.py \
+            --addon-root qa_unpack/ForeverDungeonQuestGuide \
+            --lupa-path "$RUNNER_TEMP/fqg_lupa" \
+            --chat-fixtures "$RUNNER_TEMP/fqg_native_chat" \
+            --report qa_report.json
+      - name: Retain test result for review
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: quest-v240-compatibility
+          path: qa_report.json
+          if-no-files-found: ignore
