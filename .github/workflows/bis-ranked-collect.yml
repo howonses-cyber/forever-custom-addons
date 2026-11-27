@@ -4,6 +4,7 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/bis-ranked-collect.yml'
+      - 'scripts/bis_ranked_snapshot.py'
   workflow_dispatch:
 permissions:
   contents: write
@@ -29,7 +30,7 @@ jobs:
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add bis-sync/ranked_report.json
           if test -f bis-sync/ranked_snapshot.json; then
-            git add bis-sync/ranked_snapshot.json
+            git add bis-sync/ranked_snapshot.json bis-sync/ranked/
           fi
           git diff --cached --quiet || git commit -m 'chore: record BiS source evidence [skip ci]'
           git push origin HEAD:main
