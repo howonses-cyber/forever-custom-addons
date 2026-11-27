@@ -98,7 +98,7 @@ def main():
     for name,engine in [('lua51',lua51),('luajit21',luajit21)]:
         lua=engine.LuaRuntime(unpack_returned_tuples=True)
         lua.execute((HERE/'mock_wow.lua').read_text(encoding='utf8'))
-        lua.execute(source)
+        lua.execute('return function(...)\n' + source + '\nend')('ForeverPartyInRaid')
         assert lua.execute(TEST) == 1
         print(f'PASS {name}: native EUI party header, raid co-display, own subgroup, event mirror, combat gating, disable/restore')
     print('PASS static and Lua mock regressions; LIVE Forever client remains untested')
