@@ -18,6 +18,8 @@ on:
       - 'scripts/phase8_quest_v2.8.0.patch.gz.b64'
       - 'scripts/build_quest_eui_position_fix.py'
       - 'scripts/eui_position_fix_v2.8.1.patch.gz.b64'
+      - 'scripts/build_quest_v282.py'
+      - 'scripts/quest_v2.8.2.patch.gz.b64'
       - 'retired_addons.json'
       - '.github/workflows/publish-addons.yml'
   workflow_dispatch:
@@ -47,15 +49,15 @@ jobs:
           set -euo pipefail
           visibility="$(gh repo view "$GH_REPO" --json visibility --jq .visibility)"
           test "$visibility" = PUBLIC || { echo 'Public GitHub repository is required.' >&2; exit 1; }
-      - name: Reconstruct reviewed Quest Guide V2.8.1 EUI detail-button fix
+      - name: Reconstruct Quest Guide V2.8.2 compact lists and item acquisition
         run: |
           set -euo pipefail
-          if test -f addons/ForeverQuestGuide_Forever_v2.8.0_FullChain_FriendCatchup.zip; then
-            python3 scripts/build_quest_eui_position_fix.py
+          if test -f addons/ForeverQuestGuide_Forever_v2.8.1_EUI_Detail_Button_PositionFix.zip; then
+            python3 scripts/build_quest_v282.py
           else
-            test -f addons/ForeverQuestGuide_Forever_v2.8.1_EUI_Detail_Button_PositionFix.zip
+            test -f addons/ForeverQuestGuide_Forever_v2.8.2_CompactList_ItemSources.zip
           fi
-          echo '83a6fd847e9d85a7aec358e511868c260bf284a99cfdff26a752574b1c977583  addons/ForeverQuestGuide_Forever_v2.8.1_EUI_Detail_Button_PositionFix.zip' | sha256sum -c -
+          echo 'b6bfbf53cd22364158c89b22df3b6295f33e040084bc0afda390b27b5603a6d3  addons/ForeverQuestGuide_Forever_v2.8.2_CompactList_ItemSources.zip' | sha256sum -c -
 
       - name: Verify Quest Guide with native Lua 5.1 and LuaJIT mock suites
         uses: actions/setup-python@v5
@@ -66,7 +68,7 @@ jobs:
           set -euo pipefail
           python -m pip install 'lupa==2.8'
           mkdir -p verify_build
-          unzip -q addons/ForeverQuestGuide_Forever_v2.8.1_EUI_Detail_Button_PositionFix.zip -d verify_build
+          unzip -q addons/ForeverQuestGuide_Forever_v2.8.2_CompactList_ItemSources.zip -d verify_build
           python verify_build/ForeverDungeonQuestGuide/tests/fetch_native_chat_fixture.py --destination verify_build/native_chat
           python verify_build/ForeverDungeonQuestGuide/tests/run_compatibility.py \
             --addon-root verify_build/ForeverDungeonQuestGuide \
