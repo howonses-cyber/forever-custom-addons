@@ -1,0 +1,47 @@
+name: Validate Quest Guide V2.3.0 before release
+on:
+  push:
+    branches: ['staging/questguide-v2.3.0-test-20261127']
+    paths:
+      - 'addons/ForeverQuestGuide_Forever_v2.3.0_ReadableJourneyUI.zip'
+      - '.github/workflows/quest-guide-v230-validation.yml'
+permissions:
+  contents: read
+jobs:
+  lua51-luajit-regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Extract exact release candidate and verify checksum
+        shell: bash
+        run: |
+          set -euo pipefail
+          ZIP=addons/ForeverQuestGuide_Forever_v2.3.0_ReadableJourneyUI.zip
+          echo '0b43ae02858ca305cbea22c88e8774d17068b0b3a5ac3a81f2eecc32735fa1bd  '"$ZIP" | sha256sum -c -
+          unzip -t "$ZIP" | tail -1
+          mkdir -p qa_unpack
+          unzip -q "$ZIP" -d qa_unpack
+          grep -q '^## Version: 2.3.0$' qa_unpack/ForeverDungeonQuestGuide/ForeverDungeonQuestGuide.toc
+      - name: Set up isolated Lua 5.1 and LuaJIT engines
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m pip install --disable-pip-version-check --target "$RUNNER_TEMP/fqg_lupa" 'lupa==2.8'
+      - name: Fetch and verify pinned native chat source
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 qa_unpack/ForeverDungeonQuestGuide/tests/fetch_native_chat_fixture.py --destination "$RUNNER_TEMP/fqg_native_chat"
+      - name: Run all 28 modules and 10 suites under both Lua engines
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 qa_unpack/ForeverDungeonQuestGuide/tests/run_compatibility.py             --addon-root qa_unpack/ForeverDungeonQuestGuide             --lupa-path "$RUNNER_TEMP/fqg_lupa"             --chat-fixtures "$RUNNER_TEMP/fqg_native_chat"             --report qa_report.json
+      - name: Retain test result for review
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: quest-v230-compatibility
+          path: qa_report.json
+          if-no-files-found: ignore
