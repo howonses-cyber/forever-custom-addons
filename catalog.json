@@ -1,8 +1,8 @@
 {
   "schema": 1,
-  "revision": 100057,
+  "revision": 100060,
   "channel": "stable-custom-online",
-  "publishedAt": "2026-11-27T16:58:12Z",
+  "publishedAt": "2026-11-27T17:16:44Z",
   "publisher": "ForeverAddonManager",
   "apps": [
     {
@@ -16,7 +16,7 @@
       "archive": "EllesmereNPCTitles_Forever_v1.1.0_Gold.zip",
       "sha256": "399bd76d29f79c7513e0487f9f8c5589a2b7ddc8fd37d6b94c2bfb246e4e462c",
       "size": 5952,
-      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100057-run46037977734-try1/EllesmereNPCTitles_Forever_v1.1.0_Gold.zip",
+      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100060-run46040526297-try1/EllesmereNPCTitles_Forever_v1.1.0_Gold.zip",
       "dependencies": [
         "EllesmereUINameplates"
       ],
@@ -39,7 +39,7 @@
       "archive": "EUI_InstanceFriendlyAuto_ClassColors_v1.2_REBUILT.zip",
       "sha256": "2859f6d0192f8384a841490e3a54d0d8cb5999a997cdd77830ae3d4b1a793b06",
       "size": 4143,
-      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100057-run46037977734-try1/EUI_InstanceFriendlyAuto_ClassColors_v1.2_REBUILT.zip",
+      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100060-run46040526297-try1/EUI_InstanceFriendlyAuto_ClassColors_v1.2_REBUILT.zip",
       "dependencies": [],
       "optionalDependencies": [],
       "installPolicy": "managed",
@@ -60,7 +60,7 @@
       "archive": "ForeverBiSAudit_Forever_v0.7.0_HitAudit_EquippedScaleSafety.zip",
       "sha256": "3a8d4c81d1e5462282ec3bf7b8002c853d6300cf8df01bb7a6a1e5dd7d00c712",
       "size": 44543,
-      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100057-run46037977734-try1/ForeverBiSAudit_Forever_v0.7.0_HitAudit_EquippedScaleSafety.zip",
+      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100060-run46040526297-try1/ForeverBiSAudit_Forever_v0.7.0_HitAudit_EquippedScaleSafety.zip",
       "dependencies": [],
       "optionalDependencies": [
         "EllesmereUI",
@@ -87,7 +87,7 @@
       "archive": "ForeverDungeonNavigator_Forever_v1.1.0_BossClick_RouteFocus.zip",
       "sha256": "41fffa767b376e3487c1ace6031b4119206cebaa78fb7867c4fbb69bfeb730f6",
       "size": 29850,
-      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100057-run46037977734-try1/ForeverDungeonNavigator_Forever_v1.1.0_BossClick_RouteFocus.zip",
+      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100060-run46040526297-try1/ForeverDungeonNavigator_Forever_v1.1.0_BossClick_RouteFocus.zip",
       "dependencies": [],
       "optionalDependencies": [
         "ForeverDungeonRoutes"
@@ -110,7 +110,7 @@
       "archive": "ForeverQuestGuide_Forever_v2.8.2_CompactList_ItemSources.zip",
       "sha256": "685b0972af03f4bd5f0b3ab8fd55283cccecd8a467bfb4c513ac0fbbe3ee8317",
       "size": 6328416,
-      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100057-run46037977734-try1/ForeverQuestGuide_Forever_v2.8.2_CompactList_ItemSources.zip",
+      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100060-run46040526297-try1/ForeverQuestGuide_Forever_v2.8.2_CompactList_ItemSources.zip",
       "dependencies": [],
       "optionalDependencies": [
         "QuestieDB",
@@ -138,7 +138,7 @@
       "archive": "ForeverNameplateDistance_Forever_v1.0.0.zip",
       "sha256": "f284d73fae030723a7c3fc553f7cf9e1588784f883fd05ade0cc38281f3b92f8",
       "size": 5076,
-      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100057-run46037977734-try1/ForeverNameplateDistance_Forever_v1.0.0.zip",
+      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100060-run46040526297-try1/ForeverNameplateDistance_Forever_v1.0.0.zip",
       "dependencies": [],
       "optionalDependencies": [
         "EllesmereUINameplates"
@@ -154,21 +154,21 @@
       "id": "forever-party-in-raid",
       "title": "Forever Party in Raid",
       "kind": "custom",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "folders": [
         "ForeverPartyInRaid"
       ],
-      "archive": "ForeverPartyInRaid_v1.0.0_RaidSubgroupOverlay.zip",
-      "sha256": "c42de115cbacb03ecd264a99ad1173002baf980db3ae3110f4cc6e816a4890ef",
-      "size": 19150,
-      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100057-run46037977734-try1/ForeverPartyInRaid_v1.0.0_RaidSubgroupOverlay.zip",
+      "archive": "ForeverPartyInRaid_v1.1.0_EUI_NativePartyFrames.zip",
+      "sha256": "3046e8dc20264604b594b06ba1cb90b9ce771122204baddc95be5ad20d41451a",
+      "size": 14536,
+      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100060-run46040526297-try1/ForeverPartyInRaid_v1.1.0_EUI_NativePartyFrames.zip",
       "dependencies": [],
       "optionalDependencies": [
         "EllesmereUI",
         "EllesmereUIRaidFrames"
       ],
       "installPolicy": "managed",
-      "treeSha256": "5f96e1e0def8fdb3489e7c1c189d83a36d3b559f6e53eb4a35a63846ebcf70ac",
+      "treeSha256": "d98c07015b510d80c07b1b976a52133fb0d4a13fb2c94bb3116de965c11becdd",
       "fileCount": 4,
       "versionFolders": [
         "ForeverPartyInRaid"
@@ -185,7 +185,7 @@
       "archive": "ForeverRegionFinder_v2.5.2.zip",
       "sha256": "1cb8441a6e18d09ec9637d1a71b94b2d7efa78f94485dd2c6093c2627e4c3432",
       "size": 26418,
-      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100057-run46037977734-try1/ForeverRegionFinder_v2.5.2.zip",
+      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100060-run46040526297-try1/ForeverRegionFinder_v2.5.2.zip",
       "dependencies": [],
       "optionalDependencies": [
         "QuestieDB",
@@ -212,7 +212,7 @@
       "archive": "ForeverWatchRadar_Forever_v1.6.2_QuietFriendAlerts.zip",
       "sha256": "7936fcfac3ce61eba5b382178866f2a145a8ddce72255323b30293be658e1569",
       "size": 31858,
-      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100057-run46037977734-try1/ForeverWatchRadar_Forever_v1.6.2_QuietFriendAlerts.zip",
+      "url": "https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100060-run46040526297-try1/ForeverWatchRadar_Forever_v1.6.2_QuietFriendAlerts.zip",
       "dependencies": [],
       "optionalDependencies": [],
       "installPolicy": "managed",
