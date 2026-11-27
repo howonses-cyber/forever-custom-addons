@@ -1,0 +1,199 @@
+{
+  "checked": "2026-11-27T21:03:37.996014+00:00",
+  "coverage": {
+    "profiles": 21,
+    "expected": 28,
+    "rows": 3262,
+    "details": 2481
+  },
+  "profiles": [
+    {
+      "spec": "WARRIOR:arms",
+      "error": "The read operation timed out",
+      "url": "https://foreverwow.gg/warrior/arms/pre-raid/"
+    },
+    {
+      "spec": "WARRIOR:fury",
+      "error": "HTTP Error 500: Internal Server Error",
+      "url": "https://foreverwow.gg/warrior/fury/pre-raid/"
+    },
+    {
+      "spec": "WARRIOR:protection",
+      "error": "The read operation timed out",
+      "url": "https://foreverwow.gg/warrior/protection/pre-raid/"
+    },
+    {
+      "spec": "PALADIN:holy",
+      "error": "HTTP Error 500: Internal Server Error",
+      "url": "https://foreverwow.gg/paladin/holy/pre-raid/"
+    },
+    {
+      "spec": "PALADIN:protection",
+      "error": "HTTP Error 500: Internal Server Error",
+      "url": "https://foreverwow.gg/paladin/protection/pre-raid/"
+    },
+    {
+      "spec": "PALADIN:retribution",
+      "error": "HTTP Error 500: Internal Server Error",
+      "url": "https://foreverwow.gg/paladin/retribution/pre-raid/"
+    },
+    {
+      "spec": "HUNTER:beast-mastery",
+      "error": "HTTP Error 500: Internal Server Error",
+      "url": "https://foreverwow.gg/hunter/beastmastery/pre-raid/"
+    },
+    {
+      "spec": "HUNTER:marksmanship",
+      "slots": 16,
+      "rows": 160,
+      "title": "Marksmanship Hunter Pre-Raid BiS Gear – World of Warcraft: Forever ForeverWoW.gg",
+      "htmlSha256": "4232fb2fa6e8526c177d0d97cf0cbe3328b277a1c52cc0d4d4dcbfa420a6dc8e"
+    },
+    {
+      "spec": "HUNTER:survival",
+      "slots": 16,
+      "rows": 160,
+      "title": "Survival Hunter Pre-Raid BiS Gear – World of Warcraft: Forever ForeverWoW.gg",
+      "htmlSha256": "f18df277bf2ef4e59c0e6cbe8abbcd63f1919363187800ed05319ca14fb92adf"
+    },
+    {
+      "spec": "ROGUE:assassination",
+      "slots": 15,
+      "rows": 150,
+      "title": "Assassination Rogue Pre-Raid BiS Gear – World of Warcraft: Forever ForeverWoW.gg",
+      "htmlSha256": "a7aa342afd23725f74a0b5ddf1a58806e62b4b1bc84c6fcd2ee8694f3bcde79b"
+    },
+    {
+      "spec": "ROGUE:combat",
+      "slots": 15,
+      "rows": 150,
+      "title": "Combat Rogue Pre-Raid BiS Gear – World of Warcraft: Forever ForeverWoW.gg",
+      "htmlSha256": "bd48143095ebcbb266af4547e981f02ff9de412f508e574c90fe65b468fdda9c"
+    },
+    {
+      "spec": "ROGUE:subtlety",
+      "slots": 15,
+      "rows": 150,
+      "title": "Subtlety Rogue Pre-Raid BiS Gear – World of Warcraft: Forever ForeverWoW.gg",
+      "htmlSha256": "e5de758857f45f345a1d3258c642341865b5ea022e48e5a25b65ad3873d5064e"
+    },
+    {
+      "spec": "PRIEST:discipline",
+      "slots": 16,
+      "rows": 160,
+      "title": "Discipline Priest Pre-Raid BiS Gear – World of Warcraft: Forever ForeverWoW.gg",
+      "htmlSha256": "a1a2d668831ff87cdab48c40e2c9f5c36e4bd4915059120fc41f5ef099a21a11"
+    },
+    {
+      "spec": "PRIEST:holy",
+      "slots": 16,
+      "rows": 160,
+      "title": "Holy Priest Pre-Raid BiS Gear – World of Warcraft: Forever ForeverWoW.gg",
+      "htmlSha256": "067c399aaca5b0bb84d1896df5ad2494173265ccc1e1e52e62cb6b0982938f31"
+    },
+    {
+      "spec": "PRIEST:shadow",
+      "slots": 16,
+      "rows": 160,
+      "title": "Shadow Priest Pre-Raid BiS Gear – World of Warcraft: Forever ForeverWoW.gg",
+      "htmlSha256": "3e4b127270056318edd19bf07e7935d9239abe3a79dfb07c64e4a504b5cbc80d"
+    },
+    {
+      "spec": "SHAMAN:elemental",
+      "slots": 15,
+      "rows": 150,
+      "title": "Elemental Shaman Pre-Raid BiS Gear – World of Warcraft: Forever ForeverWoW.gg",
+      "htmlSha256": "f1b0d550abd4a5dccd3e20a1aa9ff430ae90cf28b370b960b818d15dcd560502"
+    },
+    {
+      "spec": "SHAMAN:enhancement",
+      "slots": 15,
+      "rows": 150,
+      "title": "Enhancement Shaman Pre-Raid BiS Gear – World of Warcraft: Forever ForeverWoW.gg",
+      "htmlSha256": "083b2e9bea39f0332c8bef0819d041ffe5c994765d937a83992ed016c67a3b34"
+    },
+    {
+      "spec": "SHAMAN:restoration",
+      "slots": 15,
+      "rows": 150,
+      "title": "Restoration Shaman Pre-Raid BiS Gear – World of Warcraft: Forever ForeverWoW.gg",
+      "htmlSha256": "a67142ed90887f3dc2bf813df6091ec9c89892108234ca8b6bcf238a4fb79082"
+    },
+    {
+      "spec": "MAGE:arcane",
+      "slots": 16,
+      "rows": 160,
+      "title": "Arcane Mage Pre-Raid BiS Gear – World of Warcraft: Forever ForeverWoW.gg",
+      "htmlSha256": "9b874873373529680b245c5abecff39438952b4288725e25478980ee2fd069bb"
+    },
+    {
+      "spec": "MAGE:fire",
+      "slots": 16,
+      "rows": 160,
+      "title": "Fire Mage Pre-Raid BiS Gear – World of Warcraft: Forever ForeverWoW.gg",
+      "htmlSha256": "db29c4dbf4630a9ac3690510452234ee0e7f34aa2abd5d670b023ee394dc2268"
+    },
+    {
+      "spec": "MAGE:frost",
+      "slots": 16,
+      "rows": 160,
+      "title": "Frost Mage Pre-Raid BiS Gear – World of Warcraft: Forever ForeverWoW.gg",
+      "htmlSha256": "95477047025709d25aeb67d3cc975ce411e5b7aa88f8071cddd491520986c108"
+    },
+    {
+      "spec": "WARLOCK:affliction",
+      "slots": 16,
+      "rows": 160,
+      "title": "Affliction Warlock Pre-Raid BiS Gear – World of Warcraft: Forever ForeverWoW.gg",
+      "htmlSha256": "3cf3efbe6c916c10ee3d6c7f877506e19bd8aa1c6a658fd8dbf5b6c1a52d246f"
+    },
+    {
+      "spec": "WARLOCK:demonology",
+      "slots": 16,
+      "rows": 160,
+      "title": "Demonology Warlock Pre-Raid BiS Gear – World of Warcraft: Forever ForeverWoW.gg",
+      "htmlSha256": "e1adaf699f29e4eada94786e1ebd0982ac0a388226f544c13a9869908a8a1535"
+    },
+    {
+      "spec": "WARLOCK:destruction",
+      "slots": 16,
+      "rows": 160,
+      "title": "Destruction Warlock Pre-Raid BiS Gear – World of Warcraft: Forever ForeverWoW.gg",
+      "htmlSha256": "1273748abdce3f4eb1d864f305e890629658ec2b861f4042a7b57864d66b5fcd"
+    },
+    {
+      "spec": "DRUID:balance",
+      "slots": 16,
+      "rows": 151,
+      "title": "Balance Druid Pre-Raid BiS Gear – World of Warcraft: Forever ForeverWoW.gg",
+      "htmlSha256": "8406befffd46f1d3b626e69df3c6408644048b247b26aaef99780571f46cb8bd"
+    },
+    {
+      "spec": "DRUID:feral-cat",
+      "slots": 15,
+      "rows": 150,
+      "title": "Feral (Cat) Druid Pre-Raid BiS Gear – World of Warcraft: Forever ForeverWoW.gg",
+      "htmlSha256": "0f99cb396417122ac98ba8fc68dd3bd93f1a40ad1264814510af6c55d898f92c"
+    },
+    {
+      "spec": "DRUID:feral-bear",
+      "slots": 15,
+      "rows": 150,
+      "title": "Feral (Bear) Druid Pre-Raid BiS Gear – World of Warcraft: Forever ForeverWoW.gg",
+      "htmlSha256": "f08f0165b7803ec103579155f60e7fd08ae7cce37b0c518e24eb0b013a10d926"
+    },
+    {
+      "spec": "DRUID:restoration",
+      "slots": 16,
+      "rows": 151,
+      "title": "Restoration Druid Pre-Raid BiS Gear – World of Warcraft: Forever ForeverWoW.gg",
+      "htmlSha256": "036df820af0c84d6f96df784216255261b9fdbf7bf55ff51f2c3b714854de51f"
+    }
+  ],
+  "database": {
+    "url": "https://raw.githubusercontent.com/wowsims/forever/master/assets/database/db.json",
+    "sha256": "cb96c71f127b9df3fe9f3119f6a623b99017c7129ec210aec626fe9f57c21838",
+    "matched": 3090,
+    "license": "MIT"
+  }
+}
