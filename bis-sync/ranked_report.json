@@ -1,46 +1,60 @@
 {
-  "checked": "2026-11-27T21:03:37.996014+00:00",
+  "checked": "2026-11-27T21:10:20.352399+00:00",
   "coverage": {
-    "profiles": 21,
+    "profiles": 28,
     "expected": 28,
-    "rows": 3262,
-    "details": 2481
+    "rows": 4283,
+    "details": 3305
   },
   "profiles": [
     {
       "spec": "WARRIOR:arms",
-      "error": "The read operation timed out",
-      "url": "https://foreverwow.gg/warrior/arms/pre-raid/"
+      "slots": 14,
+      "rows": 140,
+      "title": "Arms Warrior Pre-Raid BiS Gear – World of Warcraft: Forever ForeverWoW.gg",
+      "htmlSha256": "4f03ed44860806b53be8c768874e3d9a73cdfa77eb2284bca35cc773c2037c57"
     },
     {
       "spec": "WARRIOR:fury",
-      "error": "HTTP Error 500: Internal Server Error",
-      "url": "https://foreverwow.gg/warrior/fury/pre-raid/"
+      "slots": 16,
+      "rows": 160,
+      "title": "Fury Warrior Pre-Raid BiS Gear – World of Warcraft: Forever ForeverWoW.gg",
+      "htmlSha256": "e7c977ad2bd3381e77e8c3ea5ead252a923cf283931c2493f6d55da52c6e4f59"
     },
     {
       "spec": "WARRIOR:protection",
-      "error": "The read operation timed out",
-      "url": "https://foreverwow.gg/warrior/protection/pre-raid/"
+      "slots": 15,
+      "rows": 150,
+      "title": "Protection (Survival) Warrior Pre-Raid BiS Gear – World of Warcraft: Forever ForeverWoW.gg",
+      "htmlSha256": "7ff6ba57f5d259987d961ac6acc498f6b5cd2f18e809b25deb7082919e5c6092"
     },
     {
       "spec": "PALADIN:holy",
-      "error": "HTTP Error 500: Internal Server Error",
-      "url": "https://foreverwow.gg/paladin/holy/pre-raid/"
+      "slots": 14,
+      "rows": 140,
+      "title": "Holy Paladin Pre-Raid BiS Gear – World of Warcraft: Forever ForeverWoW.gg",
+      "htmlSha256": "d4ba3cc21ad12eb12045a45b7377e12c6fdf47a3f62e24bb7eec62d96415c646"
     },
     {
       "spec": "PALADIN:protection",
-      "error": "HTTP Error 500: Internal Server Error",
-      "url": "https://foreverwow.gg/paladin/protection/pre-raid/"
+      "slots": 15,
+      "rows": 141,
+      "title": "Protection (Survival) Paladin Pre-Raid BiS Gear – World of Warcraft: Forever ForeverWoW.gg",
+      "htmlSha256": "e05ba7bd612b7ae2afcd265323d7056352ddbc14afb946750f940a50c159c0a6"
     },
     {
       "spec": "PALADIN:retribution",
-      "error": "HTTP Error 500: Internal Server Error",
-      "url": "https://foreverwow.gg/paladin/retribution/pre-raid/"
+      "slots": 13,
+      "rows": 130,
+      "title": "Retribution Paladin Pre-Raid BiS Gear – World of Warcraft: Forever ForeverWoW.gg",
+      "htmlSha256": "b994bd064d54ef49ef124a7477f35fff3e1013689320791c3fcf0577579e6564"
     },
     {
       "spec": "HUNTER:beast-mastery",
-      "error": "HTTP Error 500: Internal Server Error",
-      "url": "https://foreverwow.gg/hunter/beastmastery/pre-raid/"
+      "slots": 16,
+      "rows": 160,
+      "title": "Beast Mastery Hunter Pre-Raid BiS Gear – World of Warcraft: Forever ForeverWoW.gg",
+      "htmlSha256": "acd11d547b30e17d3adebf02c4d5513027ecfc0902e50645e746a764b9463f6f"
     },
     {
       "spec": "HUNTER:marksmanship",
@@ -193,7 +207,7 @@
   "database": {
     "url": "https://raw.githubusercontent.com/wowsims/forever/master/assets/database/db.json",
     "sha256": "cb96c71f127b9df3fe9f3119f6a623b99017c7129ec210aec626fe9f57c21838",
-    "matched": 3090,
+    "matched": 4048,
     "license": "MIT"
   }
 }
