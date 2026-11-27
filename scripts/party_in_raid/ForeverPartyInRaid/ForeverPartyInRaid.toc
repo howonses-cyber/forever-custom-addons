@@ -1,11 +1,11 @@
 ## Interface: 16001, 120000, 120005, 120100, 120105
 ## Title: Forever Party in Raid
-## Notes: Keeps an independent party-style panel for your own 5-player subgroup in raids and battlegrounds; does not modify Blizzard or EllesmereUI frames.
-## Notes-koKR: 알터랙 계곡 및 공격대에서 기존 공대창을 유지하면서 내 5인 소그룹을 파티형 창으로 표시합니다.
+## Notes: Keeps your existing EllesmereUI party frames visible alongside raid frames in raids and battlegrounds; no extra bars.
+## Notes-koKR: 알터랙 계곡과 공격대에서 기존 엘스미어 파티 프레임을 공대창과 함께 유지합니다. 새 체력바를 만들지 않습니다.
 ## Author: Forever Custom Addons
-## Version: 1.0.0
+## Version: 1.1.0
+## Dependencies: EllesmereUI, EllesmereUIRaidFrames
 ## SavedVariables: ForeverPartyInRaidDB
-## OptionalDeps: EllesmereUI, EllesmereUIRaidFrames
 ## X-Forever-ID: forever-party-in-raid
 ## X-Category: Unit Frames
 ForeverPartyInRaid.lua
