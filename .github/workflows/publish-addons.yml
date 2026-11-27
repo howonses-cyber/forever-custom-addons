@@ -57,10 +57,16 @@ jobs:
       - name: Reconstruct reviewed Quest Guide V2.9.0 visual hierarchy and list focus
         run: |
           set -euo pipefail
-          if test -f addons/ForeverQuestGuide_Forever_v2.8.2_CompactList_ItemSources.zip; then
-            python3 scripts/build_quest_v290.py --expected-sha 3c134073372fccfc3aa2b2a3ec3a16d82de50b3b67534fd7ce09fb8d7332e81d
+          if test -f addons/ForeverQuestGuide_Forever_v2.9.0_ChainSections_FocusLayout.zip; then
+            echo 'Already recorded reviewed V2.9.0 ZIP'
           else
-            test -f addons/ForeverQuestGuide_Forever_v2.9.0_ChainSections_FocusLayout.zip
+            if ! test -f addons/ForeverQuestGuide_Forever_v2.8.2_CompactList_ItemSources.zip; then
+              curl --fail --location --retry 3 --max-time 120 \
+                'https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100060-run46040526297-try1/ForeverQuestGuide_Forever_v2.8.2_CompactList_ItemSources.zip' \
+                -o addons/ForeverQuestGuide_Forever_v2.8.2_CompactList_ItemSources.zip
+            fi
+            python3 scripts/build_quest_v290.py --expected-sha 3c134073372fccfc3aa2b2a3ec3a16d82de50b3b67534fd7ce09fb8d7332e81d
+            rm addons/ForeverQuestGuide_Forever_v2.8.2_CompactList_ItemSources.zip
           fi
           echo '3c134073372fccfc3aa2b2a3ec3a16d82de50b3b67534fd7ce09fb8d7332e81d  addons/ForeverQuestGuide_Forever_v2.9.0_ChainSections_FocusLayout.zip' | sha256sum -c -
 
