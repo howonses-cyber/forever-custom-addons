@@ -77,10 +77,10 @@ jobs:
             --chat-fixtures verify_build/native_chat \
             --report verify_build/regression.json
 
-      - name: Rebuild and verify new Forever Party in Raid V1.0.0
+      - name: Rebuild and verify Forever Party in Raid V1.1.0 native EUI frames
         run: |
           set -euo pipefail
-          python3 scripts/build_party_in_raid.py --expected-sha c42de115cbacb03ecd264a99ad1173002baf980db3ae3110f4cc6e816a4890ef
+          python3 scripts/build_party_in_raid.py --expected-sha 3046e8dc20264604b594b06ba1cb90b9ce771122204baddc95be5ad20d41451a
           python3 scripts/party_in_raid/tests/test_party.py \
             --addon-root scripts/party_in_raid/ForeverPartyInRaid
 
