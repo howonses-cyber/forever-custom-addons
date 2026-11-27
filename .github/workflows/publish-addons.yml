@@ -22,6 +22,7 @@ on:
       - 'scripts/quest_v2.8.2.patch.gz.b64'
       - 'scripts/build_party_in_raid.py'
       - 'scripts/party_in_raid/**'
+      - 'scripts/party_in_raid/tests/test_party.py'
       - 'retired_addons.json'
       - '.github/workflows/publish-addons.yml'
   workflow_dispatch:
