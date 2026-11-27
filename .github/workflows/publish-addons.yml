@@ -20,6 +20,8 @@ on:
       - 'scripts/eui_position_fix_v2.8.1.patch.gz.b64'
       - 'scripts/build_quest_v282.py'
       - 'scripts/quest_v2.8.2.patch.gz.b64'
+      - 'scripts/build_quest_v290.py'
+      - 'scripts/quest_v2.9.0_delta.gz.b64'
       - 'scripts/build_party_in_raid.py'
       - 'scripts/party_in_raid/**'
       - 'scripts/party_in_raid/tests/test_party.py'
@@ -52,15 +54,15 @@ jobs:
           set -euo pipefail
           visibility="$(gh repo view "$GH_REPO" --json visibility --jq .visibility)"
           test "$visibility" = PUBLIC || { echo 'Public GitHub repository is required.' >&2; exit 1; }
-      - name: Reconstruct Quest Guide V2.8.2 compact lists and item acquisition
+      - name: Reconstruct reviewed Quest Guide V2.9.0 visual hierarchy and list focus
         run: |
           set -euo pipefail
-          if test -f addons/ForeverQuestGuide_Forever_v2.8.1_EUI_Detail_Button_PositionFix.zip; then
-            python3 scripts/build_quest_v282.py
+          if test -f addons/ForeverQuestGuide_Forever_v2.8.2_CompactList_ItemSources.zip; then
+            python3 scripts/build_quest_v290.py --expected-sha 83fb83a0dc2961b160cb68379f3e46fa7cedba9f2ba1ad0c1b886fefa81c22df
           else
-            test -f addons/ForeverQuestGuide_Forever_v2.8.2_CompactList_ItemSources.zip
+            test -f addons/ForeverQuestGuide_Forever_v2.9.0_ChainSections_FocusLayout.zip
           fi
-          echo '685b0972af03f4bd5f0b3ab8fd55283cccecd8a467bfb4c513ac0fbbe3ee8317  addons/ForeverQuestGuide_Forever_v2.8.2_CompactList_ItemSources.zip' | sha256sum -c -
+          echo '83fb83a0dc2961b160cb68379f3e46fa7cedba9f2ba1ad0c1b886fefa81c22df  addons/ForeverQuestGuide_Forever_v2.9.0_ChainSections_FocusLayout.zip' | sha256sum -c -
 
       - name: Verify Quest Guide with native Lua 5.1 and LuaJIT mock suites
         uses: actions/setup-python@v5
@@ -71,7 +73,7 @@ jobs:
           set -euo pipefail
           python -m pip install 'lupa==2.8'
           mkdir -p verify_build
-          unzip -q addons/ForeverQuestGuide_Forever_v2.8.2_CompactList_ItemSources.zip -d verify_build
+          unzip -q addons/ForeverQuestGuide_Forever_v2.9.0_ChainSections_FocusLayout.zip -d verify_build
           python verify_build/ForeverDungeonQuestGuide/tests/fetch_native_chat_fixture.py --destination verify_build/native_chat
           python verify_build/ForeverDungeonQuestGuide/tests/run_compatibility.py \
             --addon-root verify_build/ForeverDungeonQuestGuide \
