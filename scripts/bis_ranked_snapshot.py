@@ -12,7 +12,7 @@ PROFILES = {
  "MAGE":["arcane","fire","frost"], "WARLOCK":["affliction","demonology","destruction"],
  "DRUID":["balance","feral-cat","feral-bear","restoration"],
 }
-SLUG={"beast-mastery":"beastmastery","feral-cat":"feralcat","feral-bear":"feralbear"}
+SLUG={"feral-cat":"feralcat","feral-bear":"feralbear"}
 SLOTS={"head":"Head","neck":"Neck","shoulder":"Shoulder","shoulders":"Shoulder","back":"Back","cloak":"Back","chest":"Chest","wrist":"Wrist","wrists":"Wrist","hand":"Hands","hands":"Hands","waist":"Waist","legs":"Legs","feet":"Feet","finger":"Finger","fingers":"Finger","ring":"Finger","rings":"Finger","trinket":"Trinket","trinkets":"Trinket","main hand":"MainHand","mainhand":"MainHand","off hand":"OffHand","offhand":"OffHand","two hand":"TwoHand","two handed":"TwoHand","twohand":"TwoHand","ranged":"Ranged","relic":"Relic"}
 ITEM_ID=re.compile(r"(?:[?&]item=|/items?[/=](?:#item-)?|\bitem:)([1-9]\d{2,8})(?!\d)",re.I)
 SOURCE=re.compile(r"\b(Crafted|Crafting|Drop|Quest|Vendor|Reputation|Container|World Drop|PvP|Source)\s*(?::\s*|(?=·|$))",re.I)
@@ -151,8 +151,18 @@ def main():
     jobs=[(c,s) for c,ss in PROFILES.items() for s in ss]
     def run(x):
         c,s=x;u=url_for(c,s)
-        try:return parse(get(u).decode("utf-8","replace"),c,s)
-        except Exception as e:return [],{"spec":c+":"+s,"error":str(e)[:500],"url":u}
+        last=None
+        urls=[u]
+        if s=="beast-mastery":urls.append(u.replace("beast-mastery","beastmastery"))
+        for attempt in range(2):
+            for link in urls:
+                try:
+                    rr,diag=parse(get(link).decode("utf-8","replace"),c,s)
+                    for row in rr:row["url"]=link
+                    return rr,diag
+                except Exception as e:last=e
+            time.sleep(1+attempt)
+        return [],{"spec":c+":"+s,"error":str(last)[:500],"url":u}
     with concurrent.futures.ThreadPoolExecutor(max_workers=3) as ex:results=list(ex.map(run,jobs))
     rows=[r for rr,_ in results for r in rr];report=[d for _,d in results]
     # Use open MIT source data for zone/name enrichment; preserve website attribution.
@@ -166,8 +176,24 @@ def main():
     Path(args.report).parent.mkdir(parents=True,exist_ok=True)
     Path(args.report).write_text(json.dumps({"checked":now,"coverage":coverage,"profiles":report,"database":db_info},ensure_ascii=False,indent=2)+"\n","utf-8")
     print(json.dumps({"coverage":coverage,"errors":[x for x in report if "error" in x],"database":db_info},ensure_ascii=False))
-    # Missing profiles never erase a previous good snapshot; partial acquisition is not a release.
-    if coverage["profiles"]!=len(jobs):raise SystemExit("incomplete profile coverage; retain prior data")
-    if not all(any(r["slot"]==slot and r["class"]==c and r["spec"]==s for r in rows) for c,s in jobs for slot in ("Head","Neck","Chest","Feet","Finger","Trinket")):raise SystemExit("missing mandatory gear sections")
-    Path(args.out).write_text(json.dumps(doc,ensure_ascii=False,separators=(",",":"))+"\n","utf-8")
+    # Successful profiles survive temporary failures in other profiles.
+    target=Path(args.out)
+    old=json.loads(target.read_text("utf-8")) if target.exists() else {"rows":[]}
+    good={(r["class"],r["spec"]) for r in rows}
+    for r in rows:r["checked"]=now[:10]
+    rows=[r for r in old.get("rows",[]) if (r["class"],r["spec"]) not in good]+rows
+    rows.sort(key=lambda r:(r["class"],r["spec"],r["slot"],r["rank"],r["itemId"]))
+    doc["rows"]=rows
+    doc["coverage"]["profiles"]=len({(r["class"],r["spec"]) for r in rows})
+    doc["coverage"]["rows"]=len(rows)
+    doc["coverage"]["details"]=sum("details" in r for r in rows)
+    doc["coverage"]["freshProfiles"]=len(good)
+    if not rows:raise SystemExit("no usable source; preserve previous data")
+    profiles=Path("bis-sync/ranked")
+    profiles.mkdir(parents=True,exist_ok=True)
+    for c,s in jobs:
+        rs=[r for r in rows if r["class"]==c and r["spec"]==s]
+        if rs:(profiles/(c.lower()+"_"+s+".json")).write_text(json.dumps(rs,ensure_ascii=False,separators=(",",":"))+"\n","utf-8")
+    target.write_text(json.dumps(doc,ensure_ascii=False,separators=(",",":"))+"\n","utf-8")
+
 if __name__=="__main__":main()
