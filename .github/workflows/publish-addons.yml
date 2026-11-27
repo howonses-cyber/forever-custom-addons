@@ -12,6 +12,8 @@ on:
       - 'scripts/phase4_quest_v2.6.0.patch.gz.b64'
       - 'scripts/build_quest_phase5.py'
       - 'scripts/phase5_quest_v2.7.0.patch.gz.b64'
+      - 'scripts/build_quest_eui_hotfix.py'
+      - 'scripts/hotfix_quest_v2.7.1.patch.gz.b64'
       - 'retired_addons.json'
       - '.github/workflows/publish-addons.yml'
   workflow_dispatch:
@@ -41,15 +43,15 @@ jobs:
           set -euo pipefail
           visibility="$(gh repo view "$GH_REPO" --json visibility --jq .visibility)"
           test "$visibility" = PUBLIC || { echo 'Public GitHub repository is required.' >&2; exit 1; }
-      - name: Reconstruct the reviewed Quest Guide V2.7.0 artifact
+      - name: Reconstruct the reviewed Quest Guide V2.7.1 EUI hotfix
         run: |
           set -euo pipefail
-          if test -f addons/ForeverQuestGuide_Forever_v2.6.0_DataDiagnostics_PagedSearch_Eligibility.zip; then
-            python3 scripts/build_quest_phase5.py
+          if test -f addons/ForeverQuestGuide_Forever_v2.7.0_MapEUI_Performance_PartyConsent.zip; then
+            python3 scripts/build_quest_eui_hotfix.py
           else
-            test -f addons/ForeverQuestGuide_Forever_v2.7.0_MapEUI_Performance_PartyConsent.zip
+            test -f addons/ForeverQuestGuide_Forever_v2.7.1_EUI_Tracker_Bridge_Recovery.zip
           fi
-          echo 'c2b70f5b2e8d852703a518371bf8a7f7fd723c971f60f7fb0f35e43081f54276  addons/ForeverQuestGuide_Forever_v2.7.0_MapEUI_Performance_PartyConsent.zip' | sha256sum -c -
+          echo '1836fe34effec56e6deee6cff7691836c95723374386a886cfcd4e059c0e7151  addons/ForeverQuestGuide_Forever_v2.7.1_EUI_Tracker_Bridge_Recovery.zip' | sha256sum -c -
 
       - name: Verify Quest Guide with native Lua 5.1 and LuaJIT mock suites
         uses: actions/setup-python@v5
@@ -60,7 +62,7 @@ jobs:
           set -euo pipefail
           python -m pip install 'lupa==2.8'
           mkdir -p verify_build
-          unzip -q addons/ForeverQuestGuide_Forever_v2.7.0_MapEUI_Performance_PartyConsent.zip -d verify_build
+          unzip -q addons/ForeverQuestGuide_Forever_v2.7.1_EUI_Tracker_Bridge_Recovery.zip -d verify_build
           python verify_build/ForeverDungeonQuestGuide/tests/fetch_native_chat_fixture.py --destination verify_build/native_chat
           python verify_build/ForeverDungeonQuestGuide/tests/run_compatibility.py \
             --addon-root verify_build/ForeverDungeonQuestGuide \
