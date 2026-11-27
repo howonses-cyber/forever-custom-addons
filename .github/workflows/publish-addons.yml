@@ -24,6 +24,8 @@ on:
       - 'scripts/quest_v2.9.0_delta.gz.b64'
       - 'scripts/build_quest_v291.py'
       - 'scripts/quest_v2.9.1_delta.gz.b64'
+      - 'scripts/build_quest_v292.py'
+      - 'scripts/build_quest_v293.py'
       - 'scripts/build_party_in_raid.py'
       - 'scripts/party_in_raid/**'
       - 'scripts/party_in_raid/tests/test_party.py'
@@ -56,19 +58,20 @@ jobs:
           set -euo pipefail
           visibility="$(gh repo view "$GH_REPO" --json visibility --jq .visibility)"
           test "$visibility" = PUBLIC || { echo 'Public GitHub repository is required.' >&2; exit 1; }
-      - name: Reconstruct reviewed Quest Guide V2.9.1 nested chapters and rewards
+      - name: Reconstruct reviewed Quest Guide V2.9.3 unified cards and reward window
         run: |
           set -euo pipefail
-          if ! test -f addons/ForeverQuestGuide_Forever_v2.9.1_NestedFlame_Rewards.zip; then
-            if ! test -f addons/ForeverQuestGuide_Forever_v2.9.0_ChainSections_FocusLayout.zip; then
+          if ! test -f addons/ForeverQuestGuide_Forever_v2.9.3_UnifiedCards_RewardWindow.zip; then
+            if ! test -f addons/ForeverQuestGuide_Forever_v2.9.1_NestedFlame_Rewards.zip; then
               curl --fail --location --retry 3 --max-time 120 \
-                'https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100064-run46044994469-try1/ForeverQuestGuide_Forever_v2.9.0_ChainSections_FocusLayout.zip' \
-                -o addons/ForeverQuestGuide_Forever_v2.9.0_ChainSections_FocusLayout.zip
+                'https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100065-run46050068106-try1/ForeverQuestGuide_Forever_v2.9.1_NestedFlame_Rewards.zip' \
+                -o addons/ForeverQuestGuide_Forever_v2.9.1_NestedFlame_Rewards.zip
             fi
-            python3 scripts/build_quest_v291.py --expected-sha 31d2cd5ddeefc7262260b7738a0c2cd393f07199c2ed6ecfba5dabba0d42f6b4
+            python3 scripts/build_quest_v292.py --expected-sha 2383f814a1e55ccbda28350209576ceb9e9859c2c3e6395a61b686bac396f8df
+            python3 scripts/build_quest_v293.py --expected-sha 556cb0c362a3ed0c89b3d48998cc198b26eeb6f4d3a9e79bb76cff25f6927385
           fi
-          echo '31d2cd5ddeefc7262260b7738a0c2cd393f07199c2ed6ecfba5dabba0d42f6b4  addons/ForeverQuestGuide_Forever_v2.9.1_NestedFlame_Rewards.zip' | sha256sum -c -
-          rm -f addons/ForeverQuestGuide_Forever_v2.9.0_ChainSections_FocusLayout.zip
+          echo '556cb0c362a3ed0c89b3d48998cc198b26eeb6f4d3a9e79bb76cff25f6927385  addons/ForeverQuestGuide_Forever_v2.9.3_UnifiedCards_RewardWindow.zip' | sha256sum -c -
+          rm -f addons/ForeverQuestGuide_Forever_v2.9.1_NestedFlame_Rewards.zip addons/ForeverQuestGuide_Forever_v2.9.2_UnifiedQuestCards_RewardFix.zip
 
       - name: Verify Quest Guide with native Lua 5.1 and LuaJIT mock suites
         uses: actions/setup-python@v5
@@ -79,7 +82,7 @@ jobs:
           set -euo pipefail
           python -m pip install 'lupa==2.8'
           mkdir -p verify_build
-          unzip -q addons/ForeverQuestGuide_Forever_v2.9.1_NestedFlame_Rewards.zip -d verify_build
+          unzip -q addons/ForeverQuestGuide_Forever_v2.9.3_UnifiedCards_RewardWindow.zip -d verify_build
           python verify_build/ForeverDungeonQuestGuide/tests/fetch_native_chat_fixture.py --destination verify_build/native_chat
           python verify_build/ForeverDungeonQuestGuide/tests/run_compatibility.py \
             --addon-root verify_build/ForeverDungeonQuestGuide \
