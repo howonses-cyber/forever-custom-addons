@@ -20,6 +20,8 @@ on:
       - 'scripts/eui_position_fix_v2.8.1.patch.gz.b64'
       - 'scripts/build_quest_v282.py'
       - 'scripts/quest_v2.8.2.patch.gz.b64'
+      - 'scripts/build_party_in_raid.py'
+      - 'scripts/party_in_raid/**'
       - 'retired_addons.json'
       - '.github/workflows/publish-addons.yml'
   workflow_dispatch:
@@ -74,6 +76,13 @@ jobs:
             --addon-root verify_build/ForeverDungeonQuestGuide \
             --chat-fixtures verify_build/native_chat \
             --report verify_build/regression.json
+
+      - name: Rebuild and verify new Forever Party in Raid V1.0.0
+        run: |
+          set -euo pipefail
+          python3 scripts/build_party_in_raid.py --expected-sha c42de115cbacb03ecd264a99ad1173002baf980db3ae3110f4cc6e816a4890ef
+          python3 scripts/party_in_raid/tests/test_party.py \
+            --addon-root scripts/party_in_raid/ForeverPartyInRaid
 
       - name: Validate every ZIP and generate a release
         env:
