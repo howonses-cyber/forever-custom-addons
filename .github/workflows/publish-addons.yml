@@ -58,11 +58,11 @@ jobs:
         run: |
           set -euo pipefail
           if test -f addons/ForeverQuestGuide_Forever_v2.8.2_CompactList_ItemSources.zip; then
-            python3 scripts/build_quest_v290.py --expected-sha 83fb83a0dc2961b160cb68379f3e46fa7cedba9f2ba1ad0c1b886fefa81c22df
+            python3 scripts/build_quest_v290.py --expected-sha 3c134073372fccfc3aa2b2a3ec3a16d82de50b3b67534fd7ce09fb8d7332e81d
           else
             test -f addons/ForeverQuestGuide_Forever_v2.9.0_ChainSections_FocusLayout.zip
           fi
-          echo '83fb83a0dc2961b160cb68379f3e46fa7cedba9f2ba1ad0c1b886fefa81c22df  addons/ForeverQuestGuide_Forever_v2.9.0_ChainSections_FocusLayout.zip' | sha256sum -c -
+          echo '3c134073372fccfc3aa2b2a3ec3a16d82de50b3b67534fd7ce09fb8d7332e81d  addons/ForeverQuestGuide_Forever_v2.9.0_ChainSections_FocusLayout.zip' | sha256sum -c -
 
       - name: Verify Quest Guide with native Lua 5.1 and LuaJIT mock suites
         uses: actions/setup-python@v5
