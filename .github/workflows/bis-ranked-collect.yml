@@ -1,0 +1,35 @@
+name: Collect BiS ranked facts
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/bis-ranked-collect.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: bis-ranked-collect
+  cancel-in-progress: false
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install beautifulsoup4==4.12.3
+      - name: Collect rank and acquisition evidence
+        run: python scripts/bis_ranked_snapshot.py
+        continue-on-error: true
+      - name: Record evidence without publishing an addon
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add bis-sync/ranked_report.json
+          if test -f bis-sync/ranked_snapshot.json; then
+            git add bis-sync/ranked_snapshot.json
+          fi
+          git diff --cached --quiet || git commit -m 'chore: record BiS source evidence [skip ci]'
+          git push origin HEAD:main
