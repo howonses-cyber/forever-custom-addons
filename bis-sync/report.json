@@ -1,6 +1,6 @@
 {
   "approvedChanges": 0,
-  "lastCheckedUtc": "2026-11-26T22:23:48Z",
+  "lastCheckedUtc": "2026-11-27T22:25:16Z",
   "note": "Automated cross-source ranking consensus is provisional, not confirmed server availability; client installs remain button-only.",
   "package": null,
   "packageBaseline": {
@@ -9,6 +9,104 @@
     "stateVersion": "0.2.1"
   },
   "pending": [
+    {
+      "reason": "top_rank_disagreement",
+      "slot": "Back",
+      "sourceNames": [
+        "Arcanoweave Cloak",
+        "Earthweave Cloak"
+      ],
+      "spec": "SHAMAN:enhancement"
+    },
+    {
+      "reason": "top_rank_disagreement",
+      "slot": "Chest",
+      "sourceNames": [
+        "Timbermaw Tunic",
+        "Chain of The Five Thunders"
+      ],
+      "spec": "SHAMAN:enhancement"
+    },
+    {
+      "reason": "restricted_or_unconfirmed_source",
+      "slot": "Finger",
+      "spec": "SHAMAN:enhancement"
+    },
+    {
+      "reason": "top_rank_disagreement",
+      "slot": "Hands",
+      "sourceNames": [
+        "Devilsaur Gauntlets",
+        "Trueaim Gauntlets"
+      ],
+      "spec": "SHAMAN:enhancement"
+    },
+    {
+      "reason": "top_rank_disagreement",
+      "slot": "Head",
+      "sourceNames": [
+        "Black Dragonscale Helm",
+        "Face of The Five Thunders"
+      ],
+      "spec": "SHAMAN:enhancement"
+    },
+    {
+      "reason": "top_rank_disagreement",
+      "slot": "Legs",
+      "sourceNames": [
+        "Sentinel's Chain Leggings",
+        "Leggings of the Plague Hunter"
+      ],
+      "spec": "SHAMAN:enhancement"
+    },
+    {
+      "reason": "restricted_or_unconfirmed_source",
+      "slot": "MainHand",
+      "spec": "SHAMAN:enhancement"
+    },
+    {
+      "reason": "restricted_or_unconfirmed_source",
+      "slot": "Neck",
+      "spec": "SHAMAN:enhancement"
+    },
+    {
+      "reason": "restricted_or_unconfirmed_source",
+      "slot": "OffHand",
+      "spec": "SHAMAN:enhancement"
+    },
+    {
+      "reason": "not_in_both_sources",
+      "slot": "Shoulder",
+      "spec": "SHAMAN:enhancement"
+    },
+    {
+      "reason": "restricted_or_unconfirmed_source",
+      "slot": "Trinket",
+      "spec": "SHAMAN:enhancement"
+    },
+    {
+      "reason": "not_in_both_sources",
+      "slot": "TwoHand",
+      "spec": "SHAMAN:enhancement"
+    },
+    {
+      "reason": "top_rank_disagreement",
+      "slot": "Waist",
+      "sourceNames": [
+        "Belt of the Archmage",
+        "Girdle of The Five Thunders"
+      ],
+      "spec": "SHAMAN:enhancement"
+    },
+    {
+      "reason": "top_rank_disagreement",
+      "slot": "Wrist",
+      "sourceNames": [
+        "Windtalker's Wristguards",
+        "Marksman Bands"
+      ],
+      "spec": "SHAMAN:enhancement"
+    },
     {
       "reason": "top_rank_disagreement",
       "slot": "Back",
@@ -96,12 +194,8 @@
       "spec": "WARRIOR:arms"
     },
     {
-      "reason": "top_rank_disagreement",
+      "reason": "restricted_or_unconfirmed_source",
       "slot": "Trinket",
-      "sourceNames": [
-        "Earthstrike",
-        "Counterattack Lodestone"
-      ],
       "spec": "WARRIOR:arms"
     },
     {
@@ -122,7 +216,7 @@
       "reason": "top_rank_disagreement",
       "slot": "Wrist",
       "sourceNames": [
-        "Deeprock Bracers",
+        "Forest Stalker's Bracers",
         "Battleborn Armbraces"
       ],
       "spec": "WARRIOR:arms"
@@ -185,12 +279,8 @@
       "spec": "WARRIOR:protection"
     },
     {
-      "reason": "top_rank_disagreement",
+      "reason": "restricted_or_unconfirmed_source",
       "slot": "OffHand",
-      "sourceNames": [
-        "The Immovable Object",
-        "Lord Blackwood's Buckler"
-      ],
       "spec": "WARRIOR:protection"
     },
     {
@@ -229,6 +319,15 @@
         "Wristguards of Heroism"
       ],
       "spec": "WARRIOR:protection"
+    },
+    {
+      "reason": "top_rank_disagreement",
+      "slot": "Back",
+      "sourceNames": [
+        "Howler's Furs",
+        "Earthweave Cloak"
+      ],
+      "spec": "HUNTER:marksmanship"
     },
     {
       "reason": "top_rank_disagreement",
@@ -281,7 +380,7 @@
       "reason": "top_rank_disagreement",
       "slot": "Neck",
       "sourceNames": [
-        "Amulet of the Darkmoon",
+        "Medallion of the Dawn",
         "Beads of Ogre Might"
       ],
       "spec": "HUNTER:marksmanship"
@@ -295,7 +394,7 @@
       "reason": "top_rank_disagreement",
       "slot": "Ranged",
       "sourceNames": [
-        "Rhok'delar, Longbow of the Ancient Keepers",
+        "The Purifier",
         "Stoneshatter"
       ],
       "spec": "HUNTER:marksmanship"
@@ -310,12 +409,8 @@
       "spec": "HUNTER:marksmanship"
     },
     {
-      "reason": "top_rank_disagreement",
+      "reason": "restricted_or_unconfirmed_source",
       "slot": "Trinket",
-      "sourceNames": [
-        "Blackhand's Breadth",
-        "Counterattack Lodestone"
-      ],
       "spec": "HUNTER:marksmanship"
     },
     {
@@ -416,12 +511,8 @@
       "spec": "ROGUE:combat"
     },
     {
-      "reason": "top_rank_disagreement",
+      "reason": "restricted_or_unconfirmed_source",
       "slot": "Trinket",
-      "sourceNames": [
-        "Earthstrike",
-        "Smolderweb's Eye"
-      ],
       "spec": "ROGUE:combat"
     },
     {
@@ -549,7 +640,7 @@
       "reason": "top_rank_disagreement",
       "slot": "Wrist",
       "sourceNames": [
-        "Rockfury Bracers",
+        "Dryad's Wrist Bindings",
         "Sublime Wristguards"
       ],
       "spec": "PRIEST:shadow"
@@ -646,7 +737,7 @@
       "reason": "top_rank_disagreement",
       "slot": "Wrist",
       "sourceNames": [
-        "Rockfury Bracers",
+        "Dryad's Wrist Bindings",
         "Sublime Wristguards"
       ],
       "spec": "MAGE:frost"
@@ -658,13 +749,26 @@
       "stateVersion": "0.2.1"
     }
   ],
-  "pendingChanges": 87,
+  "pendingChanges": 102,
   "potentialChanges": 0,
   "results": [
     {
-      "reason": "HTTP Error 500: Internal Server Error",
+      "agreed": 1,
+      "diagnostics": [
+        {},
+        {}
+      ],
+      "needsReview": 14,
+      "slots": [
+        14,
+        14
+      ],
+      "sourceDigests": [
+        "083b2e9bea39f0332c8bef0819d041ffe5c994765d937a83992ed016c67a3b34",
+        "f363b074c560459f1875683528c4f16f04609d6692e5bddcf8346b50c3b5a897"
+      ],
       "spec": "SHAMAN:enhancement",
-      "state": "unavailable"
+      "state": "parsed"
     },
     {
       "agreed": 1,
@@ -678,7 +782,7 @@
         14
       ],
       "sourceDigests": [
-        "e496ef715b22595b4b01612daa72f86bc2ffb8cb8c9280bdcaac31d49e3b7770",
+        "4f03ed44860806b53be8c768874e3d9a73cdfa77eb2284bca35cc773c2037c57",
         "bed01482d86302821eb5ec08b3969c51fb26fc0882a9141c51e45eee64e3c6b1"
       ],
       "spec": "WARRIOR:arms",
@@ -696,25 +800,25 @@
         15
       ],
       "sourceDigests": [
-        "aecfc3ace73ebdb88fe5947dd274bf0b19313971baee2fc27b38a9413ede8582",
+        "7ff6ba57f5d259987d961ac6acc498f6b5cd2f18e809b25deb7082919e5c6092",
         "5d52414c98365bcb813904a830603bb038b580f1d1c9ada869174dddc344b45a"
       ],
       "spec": "WARRIOR:protection",
       "state": "parsed"
     },
     {
-      "agreed": 1,
+      "agreed": 0,
       "diagnostics": [
         {},
         {}
       ],
-      "needsReview": 15,
+      "needsReview": 16,
       "slots": [
         16,
         15
       ],
       "sourceDigests": [
-        "ddaec2a1957621cf40cf1396cc59853b1a769c1a963f2f4450ee84e604c04790",
+        "feb9f8f4290c4c19d2af365a06871a38346e2f28de06ee7515aa49d8db9f26c8",
         "85fdb3457b88a98f86b3e5943716f9492a9e44741e2ad2b8065cc52d188bc297"
       ],
       "spec": "HUNTER:marksmanship",
@@ -732,7 +836,7 @@
         15
       ],
       "sourceDigests": [
-        "54a4bbcfd1ddd03c4d9ab4904bee7e1349e15563f786ef2eb40688167b242fb0",
+        "bd48143095ebcbb266af4547e981f02ff9de412f508e574c90fe65b468fdda9c",
         "e2dc8cd0fdf4e58784c1a1b4df4cfaef4b249b8978bcf72dd01abb5218871de2"
       ],
       "spec": "ROGUE:combat",
@@ -750,7 +854,7 @@
         14
       ],
       "sourceDigests": [
-        "934177d4900960b267840cc8a1630b18d6169823967ba9eda09fa9dbae06a0f5",
+        "3e4b127270056318edd19bf07e7935d9239abe3a79dfb07c64e4a504b5cbc80d",
         "76ffbc5f32d1d9207fa9d7b8ab50f2020d525f1a67284bd5d64fceb3a57e1841"
       ],
       "spec": "PRIEST:shadow",
@@ -768,7 +872,7 @@
         14
       ],
       "sourceDigests": [
-        "c204c5a7742a7770cc12c76c40dc1782fabdf2684cc0b14b0ddc32dbe9731b32",
+        "95477047025709d25aeb67d3cc975ce411e5b7aa88f8071cddd491520986c108",
         "bcdb025c9932aaf70032647f49af90e0c249ea646eec2b85159303b07158617b"
       ],
       "spec": "MAGE:frost",
