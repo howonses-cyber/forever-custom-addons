@@ -1,124 +1,99 @@
 __state = {
-  inCombat=false, inRaid=true, raidIndex=7,
-  groups={1,1,1,1,1,2,3,3,3,3,3,4,4,4,4},
-  frames={}, protectedWrites=0, createdSecure=0, driverRegistrations=0,
-  updatedHealth={}
+    inRaid = true, instanceKind = "pvp", inCombat = false, group = 3, memberIndex = 7,
+    protectedWrites = 0, registered = {}, buttonsCreated = 0,
+    frames = {}, messages = {}, nativeDrivers = 0, healthMirror = 0, powerMirror = 0,
 }
-
-local frameMethods = {}
-local frameMeta = {__index=frameMethods}
-
-function frameMethods:SetSize(w,h) self.width=w;self.height=h end
-function frameMethods:SetWidth(w) self.width=w end
-function frameMethods:SetHeight(h) self.height=h end
-function frameMethods:SetPoint(...) self.point={...} end
-function frameMethods:ClearAllPoints() self.point=nil end
-function frameMethods:SetMovable(v) self.movable=v end
-function frameMethods:SetClampedToScreen(v) self.clamped=v end
-function frameMethods:SetScript(evt,fn) self.scripts[evt]=fn end
-function frameMethods:RegisterEvent(evt) self.events[evt]=true end
-function frameMethods:UnregisterEvent(evt) self.events[evt]=nil end
-function frameMethods:EnableMouse(v) self.mouse=v end
-function frameMethods:SetFrameLevel(v) self.frameLevel=v end
-function frameMethods:RegisterForClicks(v) self.clicks=v end
-function frameMethods:GetAttribute(k) return self.attributes[k] end
-function frameMethods:CreateTexture()
-  local t=setmetatable({scripts={},attributes={},parent=self},frameMeta)
-  return t
+DEFAULT_CHAT_FRAME = { AddMessage = function(_, s) table.insert(__state.messages, s) end }
+local frameMeta = {}
+frameMeta.__index = frameMeta
+function frameMeta:RegisterEvent(event) __state.registered[event] = true end
+function frameMeta:SetScript(event, fn) self.events = self.events or {}; self.events[event] = fn end
+function frameMeta:SetShown(flag) self.shown = flag end
+function frameMeta:IsShown() return self.shown end
+function CreateFrame(kind)
+    assert(kind == 'Frame', 'No extra native party frames or status bars may be created')
+    local f=setmetatable({shown=false}, frameMeta)
+    table.insert(__state.frames, f)
+    return f
 end
-function frameMethods:CreateFontString()
-  local t=setmetatable({scripts={},attributes={},parent=self},frameMeta)
-  return t
-end
-function frameMethods:SetColorTexture(...) self.color={...} end
-function frameMethods:SetAllPoints(x) self.allPoints=true end
-function frameMethods:SetStatusBarTexture(v) self.barTexture=v end
-function frameMethods:SetMinMaxValues(a,b) self.min=a;self.max=b end
-function frameMethods:SetValue(v) self.value=v end
-function frameMethods:SetStatusBarColor(...) self.barColor={...} end
-function frameMethods:SetJustifyH(v) self.justify=v end
-function frameMethods:SetTextColor(...) self.textColor={...} end
-function frameMethods:SetText(v) self.text=v end
-function frameMethods:SetScale(v) self.scale=v end
-function frameMethods:GetLeft() return self.left or 32 end
-function frameMethods:GetTop() return self.top or 550 end
-function frameMethods:StartMoving() self.moving=true end
-function frameMethods:StopMovingOrSizing() self.moving=false end
-function frameMethods:IsShown() return self.shown==true end
-function frameMethods:Hide()
-  if self.protected and __state.inCombat then error('protected Hide during combat') end
-  self.shown=false
-end
-function frameMethods:Show()
-  if self.protected and __state.inCombat then error('protected Show during combat') end
-  self.shown=true
-  if self.template=='SecureGroupHeaderTemplate' and self.attributes.startingIndex==-4 then
-    for i=1,5 do
-      if not self[i] then self[i]=CreateFrame('Button',nil,self,'SecureUnitButtonTemplate') end
-      self[i].attributes.unit='raid'..(6+i)
-    end
-  end
-end
-function frameMethods:SetAttribute(k,v)
-  if self.protected and __state.inCombat then
-    __state.protectedWrites=__state.protectedWrites+1
-    error('protected SetAttribute in combat: '..k)
-  end
-  self.attributes[k]=v
-  if self.template=='SecureGroupHeaderTemplate' and k=='groupFilter' then
-    self.filter=v
-  end
-end
-
-function CreateFrame(kind,name,parent,template)
-  local protected=(template=='SecureGroupHeaderTemplate' or template=='SecureUnitButtonTemplate'
-    or (parent and parent.protected))
-  local f=setmetatable({kind=kind,name=name,parent=parent,template=template,
-    scripts={},attributes={},events={},shown=true,protected=protected},frameMeta)
-  __state.frames[#__state.frames+1]=f
-  if name then _G[name]=f end
-  if not __mainEventFrame then __mainEventFrame=f end
-  if template=='SecureGroupHeaderTemplate' then __state.createdSecure=__state.createdSecure+1 end
-  return f
-end
-
-UIParent=CreateFrame('Frame','UIParent',nil,nil)
-UIParent.left=0;UIParent.top=800
-__mainEventFrame=nil
-DEFAULT_CHAT_FRAME={ messages={},AddMessage=function(self,s) self.messages[#self.messages+1]=s end }
-SlashCmdList={}
-RAID_CLASS_COLORS={SHAMAN={r=0.0,g=0.44,b=0.87}}
-CurveConstants={ScaleTo100={}}
-function RegisterStateDriver(frame,what,macro)
-  if __state.inCombat then error('RegisterStateDriver in combat') end
-  frame.stateDriver=macro
-  __state.driverRegistrations=__state.driverRegistrations+1
-end
-function UnregisterStateDriver(frame)
-  if __state.inCombat then error('UnregisterStateDriver in combat') end
-  frame.stateDriver=nil
-end
-function InCombatLockdown() return __state.inCombat end
 function IsInRaid() return __state.inRaid end
-function UnitInRaid(unit) return __state.raidIndex end
-function GetNumGroupMembers() return #__state.groups end
-function UnitIsUnit(unit,target) return unit=='raid'..__state.raidIndex and target=='player' end
-function GetRaidRosterInfo(i) return 'Name'..i,0,__state.groups[i] end
-function UnitExists(unit) return true end
-function UnitName(unit) return 'Name'..tostring(unit) end
-function UnitClass(unit) return 'Shaman','SHAMAN' end
-function UnitHealthPercent(unit, actual, curve) return 72 end
-function UnitPowerPercent(unit, actual, curve) return 61 end
-function UnitHealth(unit) return 72 end
-function UnitHealthMax(unit) return 100 end
-function UnitPower(unit) return 61 end
-function UnitPowerMax(unit) return 100 end
-function issecretvalue(v) return false end
-
-function __fire(event)
-  assert(__mainEventFrame and __mainEventFrame.scripts.OnEvent,'missing OnEvent')
-  __mainEventFrame.scripts.OnEvent(__mainEventFrame,event)
+function IsInInstance() return true, __state.instanceKind end
+function InCombatLockdown() return __state.inCombat end
+function UnitInRaid(unit) if unit=='player' and __state.memberIndex and __state.memberIndex>0 then return __state.memberIndex end end
+function UnitIsUnit(u, other) return u=='raid'..(__state.memberIndex or 0) and other=='player' end
+function GetNumGroupMembers() if __state.inRaid then return 40 else return 3 end end
+function GetRaidRosterInfo(index)
+    if not __state.inRaid then return nil end
+    if index == __state.memberIndex and __state.memberIndex and __state.memberIndex > 0 then
+        return 'Player',0,__state.group
+    end
+    return 'Other'..index,0, (index % 8)+1
 end
-function __slash(text)
-  SlashCmdList.FOREVERPARTYINRAID(text)
+function issecretvalue() return false end
+function RegisterStateDriver(f,key,macro)
+    if __state.inCombat then __state.protectedWrites=__state.protectedWrites+1;error('protected modification in combat') end
+    assert(key == 'visibility')
+    f.driver=macro
+    table.insert(__state.frames, f) -- not a new native frame, just a registration trace
+    __state.lastMacro=macro
 end
+local partyContainer=setmetatable({shown=false}, frameMeta)
+local partyHeader={ attributes={} }
+function partyHeader:GetAttribute(key) return self.attributes[key] end
+function partyHeader:SetAttribute(key, val)
+    if __state.inCombat then __state.protectedWrites=__state.protectedWrites+1;error('secure write') end
+    self.attributes[key]=val
+end
+local btn={shown=true}
+function btn:IsVisible() return self.shown end
+local ns={
+    _partyContainerFrame=partyContainer,
+    _partyHeader=partyHeader,
+    _kitPortraitUnits={'player','party1','party2','party3','party4','raid1','raid2','raid3','raid4','raid5','raid6','raid7','raid8','raid9'},
+    _partyUnitToButton={raid7=btn},
+    _internals={},
+}
+function ns._RFVisWanted()
+    if __state.inRaid and __state.instanceKind == "arena" then return false,true end
+    if __state.inRaid then return true,false else return false,true end
+end
+function ns._PartyInRaid() return __state.inRaid and __state.instanceKind == "arena" end
+function ns._SmallRaidGroup() return nil end
+function ns._RFSyncVisDrivers()
+    local p='[@raid1,exists] hide; [@party1,exists] show; hide'
+    if ns._rfPartyVisMacro ~= p then
+        RegisterStateDriver(partyContainer,'visibility',p)
+        ns._rfPartyVisMacro=p
+    end
+    __state.nativeDrivers=__state.nativeDrivers+1
+end
+function ns.UpdateVisibility()
+    __state.raidShown = ns._RFVisWanted()
+    ns._RFSyncVisDrivers()
+end
+function ns._UpdatePartyVisibility()
+    local _, visible=ns._RFVisWanted()
+    __state.partyShown=visible
+    ns._RFSyncVisDrivers()
+    partyContainer:SetShown(visible)
+    if visible and __state.inRaid then
+        local group=ns._SmallRaidGroup()
+        partyHeader:SetAttribute('groupFilter',group and tostring(group) or '1,2,3,4,5,6,7,8')
+    end
+end
+function ns._UpdateButtonHealth(b,u) assert(u=='raid7' or u=='raid8'); __state.healthMirror=__state.healthMirror+1 end
+function ns._ResettleButtonHealth(b) __state.maxHealth= (__state.maxHealth or 0)+1 end
+function ns._internals.UpdateButton(b) assert(b==btn); __state.powerMirror=__state.powerMirror+1 end
+EllesmereUI={_ModuleNS={EllesmereUIRaidFrames=ns}}
+C_Timer={After=function(_,fn) fn() end}
+SlashCmdList={}
+function __fire(event,arg)
+    for i=1,#__state.frames do
+        local frame=__state.frames[i]
+        if frame.events and frame.events.OnEvent then
+            frame.events.OnEvent(frame,event,arg)
+        end
+    end
+end
+function __slash(command) SlashCmdList.FOREVERPARTYINRAID(command) end
+__ns=ns
