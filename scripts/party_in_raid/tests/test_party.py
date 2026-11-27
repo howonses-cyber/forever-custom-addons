@@ -1,100 +1,107 @@
 #!/usr/bin/env python3
-"""Native WoW Lua mock regression: no game client and no visual rendering."""
+"""Mock EUI native party frame bridge on Lua 5.1 and LuaJIT; no live client."""
 import argparse
 from pathlib import Path
 
-P = Path(__file__).resolve().parent
-
-ASSERTIONS = r'''
-assert(SLASH_FOREVERPARTYINRAID1=='/fpr')
-assert(SLASH_FOREVERPARTYINRAID2=='/공대파티')
+HERE=Path(__file__).parent
+TEST=r'''
+assert(SLASH_FOREVERPARTYINRAID1 == '/fpr')
+assert(SLASH_FOREVERPARTYINRAID2 == '/공대파티')
+__fire('ADDON_LOADED','ForeverPartyInRaid')
 __fire('PLAYER_LOGIN')
-local h=ForeverPartyInRaidSecureHeader
-local p=ForeverPartyInRaidPanel
-assert(h and p)
-assert(__state.createdSecure==1)
-assert(h:GetAttribute('showRaid')==true)
-assert(h:GetAttribute('showParty')==false)
-assert(h:GetAttribute('showSolo')==false)
-assert(h:GetAttribute('template')=='SecureUnitButtonTemplate')
-assert(h:GetAttribute('groupFilter')=='3')
-assert(p.stateDriver=='[group:raid]show;hide')
-for i=1,5 do
-  assert(h[i] and h[i].health and h[i].power and h[i].nameText)
-  assert(h[i]:GetAttribute('type1')=='target')
-  assert(h[i].clicks=='AnyUp')
-end
-__fire('UNIT_HEALTH')
-assert(h[1].health.value==72)
-assert(h[1].power.value==61)
-assert(h[1].health.barColor[3]==0.87)
-assert(h[1].nameText.text=='Nameraid7')
-local before=#__state.frames
-__state.groups[7]=4
+assert(ForeverPartyInRaidDB.enabled == true)
+assert(#__state.frames == 3, 'No custom visible frame or status bars')
+local raid,party=__ns._RFVisWanted()
+assert(raid and party, 'Both original EUI raid and party frame sets should display')
+assert(__state.raidShown and __state.partyShown)
+assert(__ns._partyHeader:GetAttribute('groupFilter')=='3')
+assert(__state.lastMacro:find('[@raid1,exists] show;',1,true)==1)
+assert(__ns._partyContainerFrame:IsShown())
+assert(__ns._PartyInRaid() == true)
+assert(__ns._SmallRaidGroup() == 3)
+assert(#__ns._kitPortraitUnits == 45, 'extend native portraits to raid40')
+__fire('UNIT_HEALTH','raid7')
+assert(__state.healthMirror==1)
+__fire('UNIT_MAXHEALTH','raid7')
+assert(__state.healthMirror==2 and __state.maxHealth==1)
+__fire('UNIT_POWER_UPDATE','raid7')
+assert(__state.powerMirror==1)
+__fire('UNIT_HEALTH','raid25')
+assert(__state.healthMirror==2, 'Only own 5 native frames get mirrored events')
+__state.group=4
 __fire('GROUP_ROSTER_UPDATE')
-assert(h:GetAttribute('groupFilter')=='4')
-assert(#__state.frames==before,'roster events must not create secure frames')
+assert(__ns._partyHeader:GetAttribute('groupFilter')=='4')
+assert(__ns._SmallRaidGroup()==4)
+__state.instanceKind='arena'
+__fire('GROUP_ROSTER_UPDATE')
+local rr,pp=__ns._RFVisWanted()
+assert(not rr and pp,'arena must preserve original EUI party-only display')
+__state.instanceKind='pvp'
+__fire('GROUP_ROSTER_UPDATE')
+assert(__state.raidShown and __state.partyShown)
 __state.inCombat=true
-__state.groups[7]=6
+__state.group=6
 __fire('GROUP_ROSTER_UPDATE')
-assert(h:GetAttribute('groupFilter')=='4','no protected changes during combat')
-assert(__state.protectedWrites==0)
+assert(__ns._SmallRaidGroup()==4,'Never apply subgroup changes while combat locked')
 __slash('off')
-assert(p.stateDriver=='[group:raid]show;hide','combat toggle must defer')
+assert(ForeverPartyInRaidDB.enabled==true,'defer protected changes in combat')
 assert(__state.protectedWrites==0)
 __state.inCombat=false
 __fire('PLAYER_REGEN_ENABLED')
-assert(h:GetAttribute('groupFilter')=='6')
-assert(p.stateDriver==nil and p:IsShown()==false)
+assert(ForeverPartyInRaidDB.enabled==false)
+local r,p=__ns._RFVisWanted()
+assert(r and not p, 'Disabling restores native raid-only policy')
+assert(__state.raidShown and not __state.partyShown)
+assert(__state.lastMacro:find('[@raid1,exists] hide;',1,true)==1)
 __slash('on')
-assert(p.stateDriver=='[group:raid]show;hide')
-__slash('unlock')
-assert(ForeverPartyInRaidDB.locked==false)
-__slash('scale 1.25')
-assert(ForeverPartyInRaidDB.scale==1.25 and p.scale==1.25)
-__slash('scale 999')
-assert(ForeverPartyInRaidDB.scale==1.25)
-__slash('lock')
-assert(ForeverPartyInRaidDB.locked==true)
-__slash('reset')
-assert(ForeverPartyInRaidDB.scale==1 and ForeverPartyInRaidDB.x==32)
+assert(__ns._SmallRaidGroup()==6)
+assert(__ns._partyHeader:GetAttribute('groupFilter')=='6')
+assert(__state.raidShown and __state.partyShown)
 __state.inRaid=false
 __fire('GROUP_ROSTER_UPDATE')
-assert(not h:IsShown(),'must hide on leaving raid')
+assert(not __state.raidShown and __state.partyShown)
+assert(__ns._PartyInRaid()==false)
+assert(__state.lastMacro:find('[@raid1,exists] hide;',1,true)==1)
 __state.inRaid=true
-__state.raidIndex=0
+__state.memberIndex=0
 __fire('GROUP_ROSTER_UPDATE')
-assert(not h:IsShown(),'unknown roster: must not show arbitrary raid group')
-__state.raidIndex=7
+assert(__state.raidShown and not __state.partyShown, 'Unknown group must not bind group 1 by default')
+__state.memberIndex=7
+__state.group=2
 __fire('GROUP_ROSTER_UPDATE')
-assert(h:IsShown())
+assert(__state.partyShown and __ns._SmallRaidGroup()==2)
 assert(__state.protectedWrites==0)
-assert(EUIFakeFrame.original==true,'must not modify EUI')
+__slash('status')
+assert(#__state.messages>=3)
 return 1
 '''
 
-
 def main():
-    p=argparse.ArgumentParser()
-    p.add_argument('--addon-root',required=True)
-    args=p.parse_args()
+    parser=argparse.ArgumentParser()
+    parser.add_argument('--addon-root',required=True)
+    args=parser.parse_args()
+    toc=Path(args.addon_root,'ForeverPartyInRaid.toc').read_text(encoding='utf8')
     source=Path(args.addon_root,'ForeverPartyInRaid.lua').read_text(encoding='utf8')
-    mock=(P/'mock_wow.lua').read_text(encoding='utf8')
-    if 'EllesmereUIRaidFrames' in source or 'ERFPartyHeader' in source:
-        raise SystemExit('Forbidden direct coupling to EUI protected frames')
-    if 'PartyMemberFrame' in source and 'PartyMemberFrames or' not in source:
-        raise SystemExit('Forbidden Blizzard party-frame modification')
-    if 'header:SetAttribute("showParty", false)' not in source:
-        raise SystemExit('Missing raid-only overlay contract')
+    assert 'Version: 1.1.0' in toc
+    assert 'Dependencies: EllesmereUI, EllesmereUIRaidFrames' in toc
+    assert 'StatusBar' not in source
+    assert 'SecureGroupHeaderTemplate' not in source
+    assert 'SecureUnitButtonTemplate' not in source
+    assert 'SetStatusBar' not in source
+    assert 'EllesmereUI._ModuleNS' in source
+    assert 'ns._RFVisWanted = function' in source
+    assert 'ns._UpdatePartyVisibility()' in source
+    assert 'RegisterStateDriver(ns._partyContainerFrame' in source
+    assert 'ns._partyUnitToButton' in source
+    assert 'ns._UpdateButtonHealth' in source
     from lupa import lua51, luajit21
-    for name,backend in [('lua51',lua51),('luajit21',luajit21)]:
-        lua=backend.LuaRuntime(unpack_returned_tuples=True)
-        lua.execute(mock)
-        lua.execute('EUIFakeFrame={original=true}')
+    for name,engine in [('lua51',lua51),('luajit21',luajit21)]:
+        lua=engine.LuaRuntime(unpack_returned_tuples=True)
+        lua.execute((HERE/'mock_wow.lua').read_text(encoding='utf8'))
         lua.execute(source)
-        count=lua.execute(ASSERTIONS)
-        assert count==1
-        print(f'PASS {name}: 36 mocked party/raid visibility, secure buttons, subgroup, protected combat and saved settings assertions')
-    print('PASS all native Lua tests; real Forever raid client remains untested')
+        assert lua.execute(TEST) == 1
+        print(f'PASS {name}: native EUI party header, raid co-display, own subgroup, event mirror, combat gating, disable/restore')
+    print('PASS static and Lua mock regressions; LIVE Forever client remains untested')
 
-if __name__=='__main__':main()
+if __name__=='__main__':
+    main()
