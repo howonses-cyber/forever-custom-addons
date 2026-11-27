@@ -55,7 +55,7 @@ jobs:
           else
             test -f addons/ForeverQuestGuide_Forever_v2.8.1_EUI_Detail_Button_PositionFix.zip
           fi
-          echo 'd90e623af3aa3884b48bbb8aa0229b9a07b239e483e2e888add1d5e2c72b13fc  addons/ForeverQuestGuide_Forever_v2.8.1_EUI_Detail_Button_PositionFix.zip' | sha256sum -c -
+          echo '83a6fd847e9d85a7aec358e511868c260bf284a99cfdff26a752574b1c977583  addons/ForeverQuestGuide_Forever_v2.8.1_EUI_Detail_Button_PositionFix.zip' | sha256sum -c -
 
       - name: Verify Quest Guide with native Lua 5.1 and LuaJIT mock suites
         uses: actions/setup-python@v5
