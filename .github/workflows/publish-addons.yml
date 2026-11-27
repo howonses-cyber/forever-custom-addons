@@ -26,6 +26,7 @@ on:
       - 'scripts/quest_v2.9.1_delta.gz.b64'
       - 'scripts/build_quest_v292.py'
       - 'scripts/build_quest_v293.py'
+      - 'scripts/build_quest_v294.py'
       - 'scripts/build_party_in_raid.py'
       - 'scripts/party_in_raid/**'
       - 'scripts/party_in_raid/tests/test_party.py'
@@ -58,20 +59,19 @@ jobs:
           set -euo pipefail
           visibility="$(gh repo view "$GH_REPO" --json visibility --jq .visibility)"
           test "$visibility" = PUBLIC || { echo 'Public GitHub repository is required.' >&2; exit 1; }
-      - name: Reconstruct reviewed Quest Guide V2.9.3 unified cards and reward window
+      - name: Reconstruct reviewed Quest Guide V2.9.4 guide recovery and reward isolation
         run: |
           set -euo pipefail
-          if ! test -f addons/ForeverQuestGuide_Forever_v2.9.3_UnifiedCards_RewardWindow.zip; then
-            if ! test -f addons/ForeverQuestGuide_Forever_v2.9.1_NestedFlame_Rewards.zip; then
+          if ! test -f addons/ForeverQuestGuide_Forever_v2.9.4_GuideRecovery_RewardIsolation.zip; then
+            if ! test -f addons/ForeverQuestGuide_Forever_v2.9.3_UnifiedCards_RewardWindow.zip; then
               curl --fail --location --retry 3 --max-time 120 \
-                'https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100065-run46050068106-try1/ForeverQuestGuide_Forever_v2.9.1_NestedFlame_Rewards.zip' \
-                -o addons/ForeverQuestGuide_Forever_v2.9.1_NestedFlame_Rewards.zip
+                'https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100066-run46052859128-try1/ForeverQuestGuide_Forever_v2.9.3_UnifiedCards_RewardWindow.zip' \
+                -o addons/ForeverQuestGuide_Forever_v2.9.3_UnifiedCards_RewardWindow.zip
             fi
-            python3 scripts/build_quest_v292.py --expected-sha 2383f814a1e55ccbda28350209576ceb9e9859c2c3e6395a61b686bac396f8df
-            python3 scripts/build_quest_v293.py --expected-sha 556cb0c362a3ed0c89b3d48998cc198b26eeb6f4d3a9e79bb76cff25f6927385
+            python3 scripts/build_quest_v294.py --expected-sha 985ac31f6710ba384ddb536062efa54107d95c7ae2a04d0874318fdfa863152e
           fi
-          echo '556cb0c362a3ed0c89b3d48998cc198b26eeb6f4d3a9e79bb76cff25f6927385  addons/ForeverQuestGuide_Forever_v2.9.3_UnifiedCards_RewardWindow.zip' | sha256sum -c -
-          rm -f addons/ForeverQuestGuide_Forever_v2.9.1_NestedFlame_Rewards.zip addons/ForeverQuestGuide_Forever_v2.9.2_UnifiedQuestCards_RewardFix.zip
+          echo '985ac31f6710ba384ddb536062efa54107d95c7ae2a04d0874318fdfa863152e  addons/ForeverQuestGuide_Forever_v2.9.4_GuideRecovery_RewardIsolation.zip' | sha256sum -c -
+          rm -f addons/ForeverQuestGuide_Forever_v2.9.3_UnifiedCards_RewardWindow.zip
 
       - name: Verify Quest Guide with native Lua 5.1 and LuaJIT mock suites
         uses: actions/setup-python@v5
@@ -82,7 +82,7 @@ jobs:
           set -euo pipefail
           python -m pip install 'lupa==2.8'
           mkdir -p verify_build
-          unzip -q addons/ForeverQuestGuide_Forever_v2.9.3_UnifiedCards_RewardWindow.zip -d verify_build
+          unzip -q addons/ForeverQuestGuide_Forever_v2.9.4_GuideRecovery_RewardIsolation.zip -d verify_build
           python verify_build/ForeverDungeonQuestGuide/tests/fetch_native_chat_fixture.py --destination verify_build/native_chat
           python verify_build/ForeverDungeonQuestGuide/tests/run_compatibility.py \
             --addon-root verify_build/ForeverDungeonQuestGuide \
