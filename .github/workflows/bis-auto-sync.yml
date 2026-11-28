@@ -1,68 +1,15 @@
-name: BiS evidence monitor and safe automatic data update
-
+name: BiS legacy evidence monitor (read-only)
 on:
-  schedule:
-    # UTC 21:30 = Korea 06:30; web sources can lag, so run daily.
-    - cron: '30 21 * * *'
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - 'scripts/bis_auto_sync.py'
-      - 'scripts/tests/test_bis_auto_sync.py'
-      - 'bis-sync/sources.json'
-      - '.github/workflows/bis-auto-sync.yml'
-
 permissions:
-  contents: write
-
-concurrency:
-  group: forever-bis-monitor-${{ github.ref }}
-  cancel-in-progress: false
-
+  contents: read
 jobs:
   monitor:
-    name: Cross-check public pre-raid data and publish only verified agreement
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
-        with:
-          persist-credentials: true
-      - name: Install deterministic HTML parser
-        run: python3 -m pip install --disable-pip-version-check 'beautifulsoup4==4.12.3'
-      - name: Verify fail-closed parser and ZIP builder
-        run: python3 -m unittest discover -s scripts/tests -p 'test_bis_auto_sync.py' -v
-      - name: Inspect source ranking changes on bootstrap push (no publication race)
-        if: github.event_name == 'push'
+      - run: python3 -m pip install --disable-pip-version-check beautifulsoup4==4.12.3
+      - run: python3 -m unittest discover -s scripts/tests -p 'test_bis_auto_sync.py' -v
+      - name: Read-only legacy comparison (never publishes an addon)
         run: python3 scripts/bis_auto_sync.py --root .
-      - name: Scheduled refresh (safe auto-repackaging on corroborated changes)
-        if: github.event_name != 'push'
-        run: python3 scripts/bis_auto_sync.py --root . --apply
-      - name: Validate changed ZIP against the existing release requirements
-        run: |
-          python3 - <<'PY'
-          import importlib.util
-          import pathlib
-          spec=importlib.util.spec_from_file_location('builder','scripts/build_catalog.py')
-          module=importlib.util.module_from_spec(spec)
-          spec.loader.exec_module(module)
-          paths=sorted(pathlib.Path('addons').glob('ForeverBiSAudit*.zip'))
-          assert len(paths)==1, 'BiS ZIP must remain one latest archive'
-          item=module.inspect_addon(paths[0])
-          assert item['folders']==['ForeverBiSAudit']
-          print('Verified ZIP:',item['archive'],item['version'],item['sha256'])
-          PY
-      - name: Commit evidence status and approved ZIP if changed
-        if: github.event_name != 'push'
-        run: |
-          set -euo pipefail
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -A bis-sync/report.json bis-sync/approved.json addons/
-          if git diff --cached --quiet; then
-            echo 'No metadata or ZIP changes.'
-            exit 0
-          fi
-          git commit -m 'chore(bis): audit public rankings and publish corroborated changes'
-          git push origin HEAD:main

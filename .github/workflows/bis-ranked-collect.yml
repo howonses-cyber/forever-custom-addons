@@ -1,10 +1,7 @@
 name: Collect BiS ranked facts
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/bis-ranked-collect.yml'
-      - 'scripts/bis_ranked_snapshot.py'
+  schedule:
+    - cron: '30 21 * * *'
   workflow_dispatch:
 permissions:
   contents: write
