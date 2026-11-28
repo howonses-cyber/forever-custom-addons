@@ -29,6 +29,8 @@ on:
       - 'scripts/build_quest_v294.py'
       - 'scripts/build_quest_v295.py'
       - 'scripts/build_quest_v296.py'
+      - 'scripts/build_quest_v297.py'
+      - 'scripts/quest_v2.9.7_delta.gz.b64'
       - 'scripts/quest_v2.9.6_delta.gz.b64'
       - 'scripts/quest_v2.9.5_delta.gz.b64'
       - 'scripts/build_bis_v090.py'
@@ -65,19 +67,19 @@ jobs:
           set -euo pipefail
           visibility="$(gh repo view "$GH_REPO" --json visibility --jq .visibility)"
           test "$visibility" = PUBLIC || { echo 'Public GitHub repository is required.' >&2; exit 1; }
-      - name: Reconstruct reviewed Quest Guide V2.9.6 viewport scrolling
+      - name: Reconstruct reviewed Quest Guide V2.9.7 compact HUD
         run: |
           set -euo pipefail
-          if ! test -f addons/ForeverQuestGuide_Forever_v2.9.6_SmoothScroll_CompactConditions.zip; then
-            if ! test -f addons/ForeverQuestGuide_Forever_v2.9.5_ActionModes_Preparation_CompactUI.zip; then
+          if ! test -f addons/ForeverQuestGuide_Forever_v2.9.7_CompactHUD_OriginalDetails.zip; then
+            if ! test -f addons/ForeverQuestGuide_Forever_v2.9.6_SmoothScroll_CompactConditions.zip; then
               curl --fail --location --retry 3 --max-time 120 \
-                'https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100070-run46141129064-try1/ForeverQuestGuide_Forever_v2.9.5_ActionModes_Preparation_CompactUI.zip' \
-                -o addons/ForeverQuestGuide_Forever_v2.9.5_ActionModes_Preparation_CompactUI.zip
+                'https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100071-run46142648636-try1/ForeverQuestGuide_Forever_v2.9.6_SmoothScroll_CompactConditions.zip' \
+                -o addons/ForeverQuestGuide_Forever_v2.9.6_SmoothScroll_CompactConditions.zip
             fi
-            python3 scripts/build_quest_v296.py --expected-sha 27113ab22b40ec03d34928784c9ef21067326b29dbc38e3d24434ae77f100455
+            python3 scripts/build_quest_v297.py --expected-sha 2bdac90ced1ba9755f5ba16f72e9a992327d7c57cf11dcb27ce9b901cd5fe81d
           fi
-          echo '27113ab22b40ec03d34928784c9ef21067326b29dbc38e3d24434ae77f100455  addons/ForeverQuestGuide_Forever_v2.9.6_SmoothScroll_CompactConditions.zip' | sha256sum -c -
-          rm -f addons/ForeverQuestGuide_Forever_v2.9.5_ActionModes_Preparation_CompactUI.zip
+          echo '2bdac90ced1ba9755f5ba16f72e9a992327d7c57cf11dcb27ce9b901cd5fe81d  addons/ForeverQuestGuide_Forever_v2.9.7_CompactHUD_OriginalDetails.zip' | sha256sum -c -
+          rm -f addons/ForeverQuestGuide_Forever_v2.9.6_SmoothScroll_CompactConditions.zip
 
       - name: Verify Quest Guide with native Lua 5.1 and LuaJIT mock suites
         uses: actions/setup-python@v5
@@ -88,7 +90,7 @@ jobs:
           set -euo pipefail
           python -m pip install 'lupa==2.8'
           mkdir -p verify_build
-          unzip -q addons/ForeverQuestGuide_Forever_v2.9.6_SmoothScroll_CompactConditions.zip -d verify_build
+          unzip -q addons/ForeverQuestGuide_Forever_v2.9.7_CompactHUD_OriginalDetails.zip -d verify_build
           python verify_build/ForeverDungeonQuestGuide/tests/fetch_native_chat_fixture.py --destination verify_build/native_chat
           python verify_build/ForeverDungeonQuestGuide/tests/run_compatibility.py \
             --addon-root verify_build/ForeverDungeonQuestGuide \
@@ -138,8 +140,8 @@ jobs:
           mkdir -p verify
           gh release download "$tag" --repo "$GH_REPO" --pattern 'catalog.json' --dir verify
           cmp dist/catalog.json verify/catalog.json
-          gh release download "$tag" --repo "$GH_REPO" --pattern 'ForeverQuestGuide_Forever_v2.9.6_SmoothScroll_CompactConditions.zip' --dir verify
-          cmp dist/ForeverQuestGuide_Forever_v2.9.6_SmoothScroll_CompactConditions.zip verify/ForeverQuestGuide_Forever_v2.9.6_SmoothScroll_CompactConditions.zip
+          gh release download "$tag" --repo "$GH_REPO" --pattern 'ForeverQuestGuide_Forever_v2.9.7_CompactHUD_OriginalDetails.zip' --dir verify
+          cmp dist/ForeverQuestGuide_Forever_v2.9.7_CompactHUD_OriginalDetails.zip verify/ForeverQuestGuide_Forever_v2.9.7_CompactHUD_OriginalDetails.zip
           gh release download "$tag" --repo "$GH_REPO" --pattern 'ForeverBiSAudit_Forever_v0.9.0_GuideRanks_KoreanAcquisition.zip' --dir verify
           cmp dist/ForeverBiSAudit_Forever_v0.9.0_GuideRanks_KoreanAcquisition.zip verify/ForeverBiSAudit_Forever_v0.9.0_GuideRanks_KoreanAcquisition.zip
           gh release edit "$tag" --repo "$GH_REPO" --draft=false --latest
