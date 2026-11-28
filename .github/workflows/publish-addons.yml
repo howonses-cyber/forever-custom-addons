@@ -27,6 +27,8 @@ on:
       - 'scripts/build_quest_v292.py'
       - 'scripts/build_quest_v293.py'
       - 'scripts/build_quest_v294.py'
+      - 'scripts/build_quest_v295.py'
+      - 'scripts/quest_v2.9.5_delta.gz.b64'
       - 'scripts/build_bis_v090.py'
       - 'scripts/bis090/**'
       - 'scripts/build_party_in_raid.py'
@@ -61,19 +63,19 @@ jobs:
           set -euo pipefail
           visibility="$(gh repo view "$GH_REPO" --json visibility --jq .visibility)"
           test "$visibility" = PUBLIC || { echo 'Public GitHub repository is required.' >&2; exit 1; }
-      - name: Reconstruct reviewed Quest Guide V2.9.4 guide recovery and reward isolation
+      - name: Reconstruct reviewed Quest Guide V2.9.5 action modes and compact UI
         run: |
           set -euo pipefail
-          if ! test -f addons/ForeverQuestGuide_Forever_v2.9.4_GuideRecovery_RewardIsolation.zip; then
-            if ! test -f addons/ForeverQuestGuide_Forever_v2.9.3_UnifiedCards_RewardWindow.zip; then
+          if ! test -f addons/ForeverQuestGuide_Forever_v2.9.5_ActionModes_Preparation_CompactUI.zip; then
+            if ! test -f addons/ForeverQuestGuide_Forever_v2.9.4_GuideRecovery_RewardIsolation.zip; then
               curl --fail --location --retry 3 --max-time 120 \
-                'https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100066-run46052859128-try1/ForeverQuestGuide_Forever_v2.9.3_UnifiedCards_RewardWindow.zip' \
-                -o addons/ForeverQuestGuide_Forever_v2.9.3_UnifiedCards_RewardWindow.zip
+                'https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100069-run46135903243-try1/ForeverQuestGuide_Forever_v2.9.4_GuideRecovery_RewardIsolation.zip' \
+                -o addons/ForeverQuestGuide_Forever_v2.9.4_GuideRecovery_RewardIsolation.zip
             fi
-            python3 scripts/build_quest_v294.py --expected-sha 985ac31f6710ba384ddb536062efa54107d95c7ae2a04d0874318fdfa863152e
+            python3 scripts/build_quest_v295.py --expected-sha 779c4fd1b2df5cb72ae378420b7fdd37e8663aa4ec951805d0d1f416bee1aeeb
           fi
-          echo '985ac31f6710ba384ddb536062efa54107d95c7ae2a04d0874318fdfa863152e  addons/ForeverQuestGuide_Forever_v2.9.4_GuideRecovery_RewardIsolation.zip' | sha256sum -c -
-          rm -f addons/ForeverQuestGuide_Forever_v2.9.3_UnifiedCards_RewardWindow.zip
+          echo '779c4fd1b2df5cb72ae378420b7fdd37e8663aa4ec951805d0d1f416bee1aeeb  addons/ForeverQuestGuide_Forever_v2.9.5_ActionModes_Preparation_CompactUI.zip' | sha256sum -c -
+          rm -f addons/ForeverQuestGuide_Forever_v2.9.4_GuideRecovery_RewardIsolation.zip
 
       - name: Verify Quest Guide with native Lua 5.1 and LuaJIT mock suites
         uses: actions/setup-python@v5
@@ -84,7 +86,7 @@ jobs:
           set -euo pipefail
           python -m pip install 'lupa==2.8'
           mkdir -p verify_build
-          unzip -q addons/ForeverQuestGuide_Forever_v2.9.4_GuideRecovery_RewardIsolation.zip -d verify_build
+          unzip -q addons/ForeverQuestGuide_Forever_v2.9.5_ActionModes_Preparation_CompactUI.zip -d verify_build
           python verify_build/ForeverDungeonQuestGuide/tests/fetch_native_chat_fixture.py --destination verify_build/native_chat
           python verify_build/ForeverDungeonQuestGuide/tests/run_compatibility.py \
             --addon-root verify_build/ForeverDungeonQuestGuide \
@@ -134,6 +136,8 @@ jobs:
           mkdir -p verify
           gh release download "$tag" --repo "$GH_REPO" --pattern 'catalog.json' --dir verify
           cmp dist/catalog.json verify/catalog.json
+          gh release download "$tag" --repo "$GH_REPO" --pattern 'ForeverQuestGuide_Forever_v2.9.5_ActionModes_Preparation_CompactUI.zip' --dir verify
+          cmp dist/ForeverQuestGuide_Forever_v2.9.5_ActionModes_Preparation_CompactUI.zip verify/ForeverQuestGuide_Forever_v2.9.5_ActionModes_Preparation_CompactUI.zip
           gh release download "$tag" --repo "$GH_REPO" --pattern 'ForeverBiSAudit_Forever_v0.9.0_GuideRanks_KoreanAcquisition.zip' --dir verify
           cmp dist/ForeverBiSAudit_Forever_v0.9.0_GuideRanks_KoreanAcquisition.zip verify/ForeverBiSAudit_Forever_v0.9.0_GuideRanks_KoreanAcquisition.zip
           gh release edit "$tag" --repo "$GH_REPO" --draft=false --latest
