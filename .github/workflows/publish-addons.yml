@@ -31,6 +31,8 @@ on:
       - 'scripts/build_quest_v296.py'
       - 'scripts/build_quest_v297.py'
       - 'scripts/build_quest_v298.py'
+      - 'scripts/build_quest_v299.py'
+      - 'scripts/quest_v2.9.9_delta.gz.b64'
       - 'scripts/quest_v2.9.8_delta.gz.b64'
       - 'scripts/quest_v2.9.7_delta.gz.b64'
       - 'scripts/quest_v2.9.6_delta.gz.b64'
@@ -69,19 +71,19 @@ jobs:
           set -euo pipefail
           visibility="$(gh repo view "$GH_REPO" --json visibility --jq .visibility)"
           test "$visibility" = PUBLIC || { echo 'Public GitHub repository is required.' >&2; exit 1; }
-      - name: Reconstruct reviewed Quest Guide V2.9.8 start-item source routes
+      - name: Reconstruct reviewed Quest Guide V2.9.9 compact starter tags
         run: |
           set -euo pipefail
-          if ! test -f addons/ForeverQuestGuide_Forever_v2.9.8_StartItem_SourceRoutes.zip; then
-            if ! test -f addons/ForeverQuestGuide_Forever_v2.9.7_CompactHUD_OriginalDetails.zip; then
+          if ! test -f addons/ForeverQuestGuide_Forever_v2.9.9_CompactStartTypes.zip; then
+            if ! test -f addons/ForeverQuestGuide_Forever_v2.9.8_StartItem_SourceRoutes.zip; then
               curl --fail --location --retry 3 --max-time 120 \
-                'https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100072-run46143754559-try1/ForeverQuestGuide_Forever_v2.9.7_CompactHUD_OriginalDetails.zip' \
-                -o addons/ForeverQuestGuide_Forever_v2.9.7_CompactHUD_OriginalDetails.zip
+                'https://github.com/howonses-cyber/forever-custom-addons/releases/download/addons-r100073-run46148826358-try1/ForeverQuestGuide_Forever_v2.9.8_StartItem_SourceRoutes.zip' \
+                -o addons/ForeverQuestGuide_Forever_v2.9.8_StartItem_SourceRoutes.zip
             fi
-            python3 scripts/build_quest_v298.py --expected-sha f35da8ed70c223a0461d46a562dafb283a9251f858300f7dc4133c777f77840f
+            python3 scripts/build_quest_v299.py --expected-sha 89a6e98ae6ea1c8814b0ef61d969311989f58732ece421429f260085029a75e4
           fi
-          echo 'f35da8ed70c223a0461d46a562dafb283a9251f858300f7dc4133c777f77840f  addons/ForeverQuestGuide_Forever_v2.9.8_StartItem_SourceRoutes.zip' | sha256sum -c -
-          rm -f addons/ForeverQuestGuide_Forever_v2.9.7_CompactHUD_OriginalDetails.zip
+          echo '89a6e98ae6ea1c8814b0ef61d969311989f58732ece421429f260085029a75e4  addons/ForeverQuestGuide_Forever_v2.9.9_CompactStartTypes.zip' | sha256sum -c -
+          rm -f addons/ForeverQuestGuide_Forever_v2.9.8_StartItem_SourceRoutes.zip
 
       - name: Verify Quest Guide with native Lua 5.1 and LuaJIT mock suites
         uses: actions/setup-python@v5
@@ -92,7 +94,7 @@ jobs:
           set -euo pipefail
           python -m pip install 'lupa==2.8'
           mkdir -p verify_build
-          unzip -q addons/ForeverQuestGuide_Forever_v2.9.8_StartItem_SourceRoutes.zip -d verify_build
+          unzip -q addons/ForeverQuestGuide_Forever_v2.9.9_CompactStartTypes.zip -d verify_build
           python verify_build/ForeverDungeonQuestGuide/tests/fetch_native_chat_fixture.py --destination verify_build/native_chat
           python verify_build/ForeverDungeonQuestGuide/tests/run_compatibility.py \
             --addon-root verify_build/ForeverDungeonQuestGuide \
@@ -142,8 +144,8 @@ jobs:
           mkdir -p verify
           gh release download "$tag" --repo "$GH_REPO" --pattern 'catalog.json' --dir verify
           cmp dist/catalog.json verify/catalog.json
-          gh release download "$tag" --repo "$GH_REPO" --pattern 'ForeverQuestGuide_Forever_v2.9.8_StartItem_SourceRoutes.zip' --dir verify
-          cmp dist/ForeverQuestGuide_Forever_v2.9.8_StartItem_SourceRoutes.zip verify/ForeverQuestGuide_Forever_v2.9.8_StartItem_SourceRoutes.zip
+          gh release download "$tag" --repo "$GH_REPO" --pattern 'ForeverQuestGuide_Forever_v2.9.9_CompactStartTypes.zip' --dir verify
+          cmp dist/ForeverQuestGuide_Forever_v2.9.9_CompactStartTypes.zip verify/ForeverQuestGuide_Forever_v2.9.9_CompactStartTypes.zip
           gh release download "$tag" --repo "$GH_REPO" --pattern 'ForeverBiSAudit_Forever_v0.9.0_GuideRanks_KoreanAcquisition.zip' --dir verify
           cmp dist/ForeverBiSAudit_Forever_v0.9.0_GuideRanks_KoreanAcquisition.zip verify/ForeverBiSAudit_Forever_v0.9.0_GuideRanks_KoreanAcquisition.zip
           gh release edit "$tag" --repo "$GH_REPO" --draft=false --latest
